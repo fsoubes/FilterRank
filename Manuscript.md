@@ -1,5 +1,10 @@
 # 1.Introduction
 
+From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases to treat them. Furthermore, it's not that simple to obtain perfect images due to the noise that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods coming from algorithms helping to reduce noises.
+
+
+
+
 # 2.Material & Methods
 
 In this section will be presented the algorithms used for median, min, max et variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
