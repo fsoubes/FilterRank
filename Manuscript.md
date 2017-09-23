@@ -11,52 +11,29 @@ The naive algorithm for median filtering works as follows. Begin by defining a w
 It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it move, by making use of the fact that only a portion of pixel is removed from the window when it move to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
 
 To compute the new median when moving the window to the right, remove each pixels of the leftmost column of the previous window from the array:   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]-1,
-
 and update :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-1 if g<mdn.  
-
-Add in the array the pixels values of the rightmost column of the current window :   
- 
+Add in the array the pixels values of the rightmost column of the current window :    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]+1,  
-
 and update   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn+1 if g<mdn.  
-
 If  
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn > (p²-1)/2,  
-
 the current median is lower than mdn, and do :   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn-1   
-
 and   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-hist[mdn]  
-
 until :  
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.   
-
 If   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
-
 the current median is greater than or equal to mdn, and test :   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn + hist[mdn] <= (p²-1)/2.   
-
 If true, do :   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn + hist[mdn]   
-
 and   
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn+1   
-
 and re-test. If false mdn is the median of the current window.
 
 A max filter operate like a median filter but will search the maximum value among the neighboring pixels instead of computing the median of the neighborhood to create the output image. Likewise, a min filter will search the minimum value of the neighborhood.
