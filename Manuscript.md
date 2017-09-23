@@ -4,35 +4,35 @@
 
 In this section will be presented the algorithms used for median, min, max et variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
-A median filter is a filter that, for each pixels from an input image, will compute the median value of all the neighboring pixels and produce an output image where each pixel will take the median value calculated for the corresponding pixel in the input image.
+A median filter is a filter that, for each pixel from an input image, will compute the median value of all  neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
 
 The naive algorithm for median filtering works as follows. Begin by defining a window of p X p pixels, p being an odd integer, so that a single pixel form the center of the window. Place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid thew window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-p+1) X (m-p+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last.
 
-It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it move, by making use of the fact that only a portion of pixel is removed from the window when it move to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
+It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
 
-To compute the new median when moving the window to the right, remove each pixels of the leftmost column of the previous window from the array:   
+To compute the new median when moving the window to the right, remove each pixels from the leftmost column of the previous window from the array:   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]-1,  
 and update :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-1 if g<mdn.  
 Add in the array the pixels values of the rightmost column of the current window :    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]+1,  
-and update :   
+and update   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn+1 if g<mdn.  
 If  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn > (p²-1)/2,  
 the current median is lower than mdn, and do :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn-1   
-and :   
+and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-hist[mdn]  
 until :  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.  
-If  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.   
+If   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
 the current median is greater than or equal to mdn, and test :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn + hist[mdn] <= (p²-1)/2.   
 If true, do :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn + hist[mdn]   
-and :   
+and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn+1   
 and re-test. If false mdn is the median of the current window.
 
