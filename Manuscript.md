@@ -4,7 +4,7 @@
 
 In this section will be presented the algorithms used for median, min, max et variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
-A median filter is a filter that, for each pixels from an input image, will compute the median value of all the neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
+A median filter is a filter that, for each pixels from an input image, will compute the median value of all the neighboring pixels and produce an output image where each pixel will take the median value calculated for the corresponding pixel in the input image.
 
 The naive algorithm for median filtering works as follows. Begin by defining a window of p X p pixels, p being an odd integer, so that a single pixel form the center of the window. Place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid thew window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-p+1) X (m-p+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last.
 
