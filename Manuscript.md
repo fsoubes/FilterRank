@@ -18,22 +18,22 @@ To compute the new median when moving the window to the right, remove each pixel
 	hist[g] = hist[g]+1,  
  and update   
 	ltmdn = ltmdn+1 if g<mdn.  
-If 
-	ltmdn > (p²-1)/2, 
-the current median is lower than mdn, and do : 
-	mdn = mdn-1 
-and 
-	ltmdn = ltmdn-hist[mdn]
-until :
-	ltmdn <= (p²-1)/2. 
-If 
-	ltmdn <= (p²-1)/2,
- the current median is greater than or equal to mdn, and test : 
-	ltmdn + hist[mdn] <= (p²-1)/2. 
-If true, do : 
-	ltmdn = ltmdn + hist[mdn] 
-and 
-	mdn = mdn+1 
+If  
+	ltmdn > (p²-1)/2,  
+the current median is lower than mdn, and do :   
+	mdn = mdn-1   
+and   
+	ltmdn = ltmdn-hist[mdn]  
+until :  
+	ltmdn <= (p²-1)/2.   
+If   
+	ltmdn <= (p²-1)/2,  
+ the current median is greater than or equal to mdn, and test :   
+	ltmdn + hist[mdn] <= (p²-1)/2.   
+If true, do :   
+	ltmdn = ltmdn + hist[mdn]   
+and   
+	mdn = mdn+1   
 and re-test. If false mdn is the median of the current window.
 
 A max filter operate like a median filter but will search the maximum value among the neighboring pixels instead of computing the median of the neighborhood to create the output image. Likewise, a min filter will search the minimum value of the neighborhood.
