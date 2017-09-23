@@ -11,7 +11,7 @@ From a cosmic point of view the earth might not seem of any particular interest.
 
 In this section will be presented the algorithms used for median, min, max et variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
-## Median filter
+### Median filter
 
 A median filter is a filter that, for each pixel from an input image, will compute the median value of all  neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
 
