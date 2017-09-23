@@ -18,14 +18,16 @@ Add in the array the pixels values of the rightmost column of the current window
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]+1,  
 and update :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn+1 if g<mdn.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If ltmdn > (p²-1)/2,  
+If
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn > (p²-1)/2,  
 the current median is lower than mdn, and do :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn-1   
 and :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-hist[mdn]  
 until :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If ltmdn <= (p²-1)/2,  
+If
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
 the current median is greater than or equal to mdn, and test :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn + hist[mdn] <= (p²-1)/2.   
 If true, do :   
