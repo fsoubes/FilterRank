@@ -12,50 +12,50 @@ It is possible to improve this basic algorithm, which reorder all the pixels val
 
 To compute the new median when moving the window to the right, remove each pixels of the leftmost column of the previous window from the array:   
 
-*	hist[g] = hist[g]-1,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]-1,
 
 and update :   
-*	ltmdn = ltmdn-1 if g<mdn.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-1 if g<mdn.  
 
 Add in the array the pixels values of the rightmost column of the current window :   
  
-*	hist[g] = hist[g]+1,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist[g] = hist[g]+1,  
 
 and update   
 
-*	ltmdn = ltmdn+1 if g<mdn.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn+1 if g<mdn.  
 
 If  
 
-*	ltmdn > (p²-1)/2,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn > (p²-1)/2,  
 
 the current median is lower than mdn, and do :   
 
-*	mdn = mdn-1   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn-1   
 
 and   
 
-*	ltmdn = ltmdn-hist[mdn]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-hist[mdn]  
 
 until :  
 
-*	ltmdn <= (p²-1)/2.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.   
 
 If   
 
-*	ltmdn <= (p²-1)/2,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
 
 the current median is greater than or equal to mdn, and test :   
 
-*	ltmdn + hist[mdn] <= (p²-1)/2.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn + hist[mdn] <= (p²-1)/2.   
 
 If true, do :   
 
-*	ltmdn = ltmdn + hist[mdn]   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn + hist[mdn]   
 
 and   
 
-*	mdn = mdn+1   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn+1   
 
 and re-test. If false mdn is the median of the current window.
 
