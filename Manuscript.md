@@ -11,7 +11,7 @@ The naive algorithm for median filtering works as follows. Begin by defining a w
 It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it move, by making use of the fact that only a portion of pixel is removed from the window when it move to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
 
 To compute the new median when moving the window to the right, remove each pixels of the leftmost column of the previous window from the array:   
-	--- hist[g] = hist[g]-1,  
+    hist[g] = hist[g]-1,  
  and update :   
 	ltmdn = ltmdn-1 if g<mdn.  
  Add in the array the pixels values of the rightmost column of the current window :   
