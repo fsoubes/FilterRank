@@ -9,7 +9,7 @@ From a cosmic point of view the earth might not seem of any particular interest.
 
 # 2.Material & Methods
 
-In this section will be presented the algorithms used for median, min, max et variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
+In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
 ## Median filter
 
