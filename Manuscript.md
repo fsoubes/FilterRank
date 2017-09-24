@@ -10,6 +10,7 @@ In algorithmic, there's multiple ways to answer to a problem. In this report, we
 * Median filter
 * Min/Max filter
 * Variance filter
+
 Next step will be to perform a benchmark on ImageJ with the aim of comparing their performances(memory, execution).
 
 
