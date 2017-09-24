@@ -1,6 +1,11 @@
 # 1.Introduction
 
-From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of treating them. Furthermore, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components. For this project, we will examine four types of 2D filters: median, min, max and variance.
+From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of treating them. Furthermore, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
+
+By definition a rank filter is a filter that ranked, all the pixels within the window. The output of the filter is the pixel value selected from a specified position in this ranked list coming from the window. For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the window is also influencing the output pixel.
+
+
+
 
 
 
