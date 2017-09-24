@@ -2,8 +2,12 @@
 
 From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of treating them. Furthermore, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
 
-By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[1] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) and are sorted, generally from the smallest to the biggest value.
+By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[1] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the kernel is also influencing the output pixel. 
+The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively. The median filter is so called because it's an operation which selects the median value. This filter is the most commonly model cited and used in scientific reports.
+At last the variance filter ...
+
+
 
 
 
