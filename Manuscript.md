@@ -75,6 +75,6 @@ A variance filter will compute the variance between the pixels of the neighborho
 
 ## References
 
-[1]	(1, 2) Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
-[2] J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
-[3] T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
+. [1]	(1, 2) Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
+. [2] J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
+. [3] T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
