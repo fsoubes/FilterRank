@@ -5,8 +5,12 @@ From a cosmic point of view the earth might not seem of any particular interest.
 By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[1] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the kernel is also influencing the output pixel. 
 The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively. The median filter is so called because it's an operation which selects the median value. This filter is the most commonly model cited and used in scientific reports.At last the variance filter ...
-The median filter has been suggested by Tukey[2]. This filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[3]. Firstly naiv the algorithm was then improved based on the moving histogram technique[4]. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[1][5]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[6].
-
+The median filter has been suggested by Tukey[2]. This filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[3]. Firstly naive the algorithm was then improved based on the moving histogram technique[4]. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[1][5]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[6].
+In algorithmic, there's multiple ways to answer to a problem. In this report, we shall beging by describing the naive and improved algorithms of our 3 different filters. 
+* Median filter
+* Min/Max filter
+* Variance filter
+Next step will be to perform a benchmark on ImageJ with the aim of comparing their performances(memory, execution).
 
 
 
