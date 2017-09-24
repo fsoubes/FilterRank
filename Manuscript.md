@@ -5,7 +5,8 @@ From a cosmic point of view the earth might not seem of any particular interest.
 By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[1] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the kernel is also influencing the output pixel. 
 The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively. The median filter is so called because it's an operation which selects the median value. This filter is the most commonly model cited and used in scientific reports.At last the variance filter ...
-The median filter has been suggested by Tukey[2]. Firstly naiv the algorithm was then improved based on the moving histogram technique[3]. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[1]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[4].
+The median filter has been suggested by Tukey[2]. Firstly naiv the algorithm was then improved based on the moving histogram technique[3]. Moreover this filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[4] 
+In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[1]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[5].
 
 
 
@@ -71,4 +72,5 @@ A variance filter will compute the variance between the pixels of the neighborho
 * [1]	(1, 2) Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
 * [2] J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
 * [3] T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
-* [4] B.Weiss Fast Median and Bilateral Filtering,Journal ACM Transactions on Graphics (TOG) - Proceedings of ACM SIGGRAPH 2006  Volume 25 Issue 3, July 2006 Pages 519-526 
+* [4] T.S Huang Two-Dimensional Digital Signal Processing II: Transform and Median Filters, 1981
+* [5] B.Weiss Fast Median and Bilateral Filtering,Journal ACM Transactions on Graphics (TOG) - Proceedings of ACM SIGGRAPH 2006  Volume 25 Issue 3, July 2006 Pages 519-526 
