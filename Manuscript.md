@@ -17,6 +17,7 @@ At last the variance filter ...
 
 
 
+
 # 2.Material & Methods
 
 In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
