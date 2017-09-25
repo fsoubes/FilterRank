@@ -2,10 +2,10 @@
 
 From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of analysing them. Furthermore, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
 
-By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[1] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
+By definition Rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[^Soi2002] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the kernel is also influencing the output pixel. 
 The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively. The median filter is so called because it's an operation which selects the median value. This filter is the most commonly model mentioned and used in scientific reports.At last the variance filter ...
-The median filter has been suggested by Tukey[2]. This filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[3]. Firstly naive the algorithm was then improved based on the moving histogram technique[4]. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[1][5]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[6].
+The median filter has been suggested by Tukey[^Tuk1974]. This filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[^Hua1981]. Firstly naive the algorithm was then improved based on the moving histogram technique[^Hua1979]. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small kernels and/or low resolution images is required[^Wei2006].
 In algorithmic, there's multiple ways to answer to a problem. In this report, we shall beging by describing the naive and improved algorithms of our 3 different filters. 
 * Median filter
 * Min/Max filter
@@ -73,10 +73,10 @@ A variance filter will compute the variance between the pixels of the neighborho
 
 ## References
 
-* [1]	(1, 2) Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
-* [2] J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
-* [3] T.S Huang Two-Dimensional Digital Signal Processing II: Transform and Median Filters, 1981
-* [4] T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
-* [5] M. Werman,S. Peleg PMin-Max Operators in Texture Analysis, VOL. PAMI-7, NO. 6, NOVEMBER 1985
-* [6] B.Weiss Fast Median and Bilateral Filtering,Journal ACM Transactions on Graphics (TOG) - Proceedings of ACM SIGGRAPH 2006  Volume 25 Issue 3, July 2006 Pages 519-526 
+* [^Soi2002]:	Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
+* [^Tuk1974]: J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
+* [^Hua1981]: T.S Huang Two-Dimensional Digital Signal Processing II: Transform and Median Filters, 1981
+* [^Hua1979]: T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
+* [^Wer1985]: M. Werman,S. Peleg PMin-Max Operators in Texture Analysis, VOL. PAMI-7, NO. 6, NOVEMBER 1985
+* [^Wei2006]: B.Weiss Fast Median and Bilateral Filtering,Journal ACM Transactions on Graphics (TOG) - Proceedings of ACM SIGGRAPH 2006  Volume 25 Issue 3, July 2006 Pages 519-526 
 
