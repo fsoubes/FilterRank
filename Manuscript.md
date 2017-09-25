@@ -77,7 +77,7 @@ A variance filter will compute the variance between the pixels of the neighborho
 
 ## References
 
-* [^Soi2002]:	Pierre Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
+* [^Soi2002]:	P. Soille, On morphological operators based on rank filters, Pattern Recognition 35 (2002) 527-535, DOI:10.1016/S0031-3203(01)00047-4
 * [^Tuk1974]: J. Tukey,Nonlinear (nonsuperposable) methods for smoothing data,In Cong. Rec., EASCON, 1974,p. 673.
 * [^Hua1981]: T.S Huang Two-Dimensional Digital Signal Processing II: Transform and Median Filters, 1981
 * [^Hua1979]: T. Huang,G. Yang, G. Tang,A fast two-dimensionalmedian "ltering algorithm,IEEE Trans. Acoust. Speech Signal Process. 27 (1) (1979) 13}18.
@@ -86,4 +86,4 @@ A variance filter will compute the variance between the pixels of the neighborho
 * [^Can1986]: J. Canny: "A computational approach to edge detection", IEEE Trans. Pattern Analysis and Machine Intelligence, 8, pp. 679-714, 1986.
 * [^Kit1983]: J. Kittler: "On the accuracy of the Sobel edge detector", Image and Vision Computing, 1(1), pp. 37-42, doi:10.1016/0262-8856(83)90006-9, 1983.
 * [^Mar1980]: D. Marr, E. Hildreth: "Theory of Edge Detection", Proceedings of the Royal Society of London, Series B, Biological Sciences, 207(1167), pp. 187-217, http://www.jstor.org/pss/35407, 1980.
-* [^Fab2011]: A. Fabijańska Variance Filter for Edge Detection and Edge-Based Image Segmentatio,Computer Engineering Department, Technical University of Lodz, POLAND, Lodz, B. Stefanowskiego Street 18/22,2011.
+* [^Fab2011]: A. Fabijańska Variance Filter for Edge Detection and Edge-Based Image Segmentation,Computer Engineering Department, Technical University of Lodz, POLAND, Lodz, B. Stefanowskiego Street 18/22,2011.
