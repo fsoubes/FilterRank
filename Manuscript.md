@@ -15,7 +15,7 @@ The filter choosing the maximum or minimum values are designated as the maximum 
 * Min/Max filter
 * Variance filter
 
-Next step will be to perform a benchmark on ImageJ with the aim of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM).
+Next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM).
 
 
 
