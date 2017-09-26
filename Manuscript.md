@@ -2,7 +2,7 @@
 # Filters 2D (rank filters)
 # 1.Introduction
 
-&nbsp;&nbsp; From a cosmic point of view the earth might not seem of any particular interest. However from a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of analysing them. Furthermore, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components and more. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
+&nbsp;&nbsp; From a cosmic point of view the earth might not seem of any particular interest. From a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of analysing them. However, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components and more methods. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
 
 &nbsp;&nbsp;  By definition rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[^Soi2002] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the kernel (window) which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the kernel is also influencing the output pixel. 
@@ -15,9 +15,7 @@ The filter choosing the maximum or minimum values are designated as the maximum 
 * Min/Max filter
 * Variance filter
 
-Next step will be to perform a benchmark on ImageJ with the aim of comparing their performances(memory, execution).
-
-
+Next step will be to perform a benchmark on ImageJ with the aim of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM).
 
 
 
