@@ -83,5 +83,5 @@ A variance filter will compute the variance between the pixels of the neighborho
 * [^Wei2006]: B.Weiss Fast Median and Bilateral Filtering,Journal ACM Transactions on Graphics (TOG) - Proceedings of ACM SIGGRAPH 2006  Volume 25 Issue 3, July 2006 Pages 519-526 
 * [^Can1986]: J. Canny: "A computational approach to edge detection", IEEE Trans. Pattern Analysis and Machine Intelligence, 8, pp. 679-714, 1986.
 * [^Kit1983]: J. Kittler: "On the accuracy of the Sobel edge detector", Image and Vision Computing, 1(1), pp. 37-42, doi:10.1016/0262-8856(83)90006-9, 1983.
-* [^Mar1980]: D. Marr, E. Hildreth: "Theory of Edge Detection", Proceedings of the Royal Society of London, Series B, Biological Sciences, 207(1167), pp. 187-217, http://www.jstor.org/pss/35407, 1980.
+* [^Mar1980]: D. Marr, E. Hildreth: "Theory of Edge Detection", Proceedings of the Royal Society of London, Series B, Biological Sciences, 207(1167), pp. 187-217, 1980.
 * [^Fab2011]: A. Fabijańska Variance Filter for Edge Detection and Edge-Based Image Segmentation,Computer Engineering Department, Technical University of Lodz, POLAND, Lodz, B. Stefanowskiego Street 18/22,2011.
