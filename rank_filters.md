@@ -78,23 +78,14 @@ In image processing, variance filter is often used for Highlighting edges in the
 ### Equation_1: Variance filter is the square of the standard deviation, where u(x) is image intensity at the location x(x1, x2), σ represent the standard deviation, W is size of a filtering window, u(x-q) is the set of all pixels within the filtering window and q is an element of the set W.
 ![GitHub Logo2](https://github.com/fsoubes/FilterRank/blob/master/images/var3.png)
 
-### Equation_2: Equation used for compute the standard deviation. Where n is the total of pixels within the window (W), and ū is the mean of all the pixels within the window (W).
+### Equation_2&3: Equation used for compute the standard deviation. Where n is the total of pixels within the window (W), and ū is the mean of all the pixels within the window (W).
 
 This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
 
 
 
-
-
-
-
-
-
-A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
-![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/var1.png)
-#### fig_1: Equation 
-<img src="http://www.monsite.com/image.png" alt="[GitHub Logo]" />
+<img src="http://www.monsite.com/image.png" alt="Comment mettre un lien menant à une autre page" /> 
 
 # 3.Results
 
