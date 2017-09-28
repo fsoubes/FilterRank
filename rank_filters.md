@@ -107,6 +107,8 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 
 ## Benchmarking analysis
 
+In order to evaluate
+
 # Results
 
 # Discussion
