@@ -72,17 +72,17 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 The separability comes from the property of the maximum operator. If S and T are two sets of numbers, then
 
 ![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
-### Equation 2-1: Property of the maximun operator.
+#### Equation 2-1: Property of the maximun operator.
 
 The same applies to the minimum operator: 
 
 ![Property of the min operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule2.png)
-### Equation 2-2: Property of the min operator.
+#### Equation 2-2: Property of the min operator.
 
 For the minimun filters. An easy way to obtain the result is to use and adapt the maiximun filter. In fact we can pre- and post-process the image to get the desired result, using the formula:
 
 ![Formula of the conversion between max I and min I](https://github.com/fsoubes/FilterRank/blob/master/images/minmax.png)
-### Equation 3-3 Formula of the conversion between max I and min I.
+#### Equation 3-3 Formula of the conversion between max I and min I.
 
 
 ## Variance filter
