@@ -74,6 +74,7 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 
 A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
 ![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/var1.png)
+<img src="http://www.monsite.com/image.png" alt="[GitHub Logo]" />
 
 # 3.Results
 
