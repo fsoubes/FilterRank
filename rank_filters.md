@@ -43,16 +43,12 @@ and update :
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_5.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif).  
 If  
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_6.gif)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn > (p²-1)/2,  
 the current median is lower than mdn, and do :   
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_7.gif)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn-1   
 and   
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_8.gif)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn-hist[mdn]  
 until :  
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2.   
 Else if   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
 the current median is greater than or equal to mdn, and test :   
