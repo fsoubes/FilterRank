@@ -51,14 +51,13 @@ and
 until :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
 
-Else if   
-![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
+Else if &nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
 the current median is greater than or equal to mdn, and test :   
-![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_10.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_10.gif)  
 If true, do :   
-![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif)  
 and   
-![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
 and re-test. If false mdn is the median of the current window.
 
 ## Max/Min filters
