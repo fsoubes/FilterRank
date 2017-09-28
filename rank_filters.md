@@ -83,15 +83,15 @@ In image processing, variance filter is often used for highlighting edges in the
 This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
 
-
+## Boundary issues
 
 <img src="http://www.monsite.com/image.png" alt="Comment mettre un lien menant à une autre page" /> 
 
-# 3.Results
+# Results
 
-# 4.Discussion
+# Discussion
 
-# 5.Conclusion
+# Conclusion
 
 ## References
 
