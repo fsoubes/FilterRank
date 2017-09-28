@@ -72,7 +72,7 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 
 ## Variance filter
 
-In image processing, variance filter is often used for Highlighting edges in the image by replacing each pixel with the neighbourhood variance. 
+In image processing, variance filter is often used for highlighting edges in the image by replacing each pixel with the neighbourhood variance. 
 
 ![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/var2.png)
 ### Equation_1: Variance filter is the square of the standard deviation, where u(x) is image intensity at the location x(x1, x2), σ represent the standard deviation, W is size of a filtering window, u(x-q) is the set of all pixels within the filtering window and q is an element of the set W.
