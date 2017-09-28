@@ -1,6 +1,6 @@
 # AUTHORS : Adrien Rohan, Franck Soubès, Guillamaury Debras
 # Filters 2D (rank filters)
-# 1.Introduction
+# Introduction
 
 &nbsp;&nbsp; From a cosmic point of view the earth might not seem of any particular interest. From a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of analysing them. However, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components and more. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
 
@@ -19,7 +19,7 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 
 
-# 2.Material & Methods
+# Material & Methods
 
 In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
@@ -72,11 +72,11 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 
 A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
 
-# 3.Results
+# Results
 
-# 4.Discussion
+# Discussion
 
-# 5.Conclusion
+# Conclusion
 
 ## References
 
