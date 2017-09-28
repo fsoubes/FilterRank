@@ -29,7 +29,7 @@ A median filter is a filter that, for each pixel from an input image, will compu
 
 The naive algorithm for median filtering works as follows. Begin by defining a window of p X p pixels, p being an odd integer, in order to have a single pixel at the center of the window. Place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid thew window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-p+1) X (m-p+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last. The process of the median filter is represented down below.
 
-![median filter](https://github.com/fsoubes/FilterRank/tree/master/images/medianfilter.png)
+![median filter](https://github.com/fsoubes/FilterRank/blob/master/images/medianfilter.png)
 #### Figure 1 :  Representation of the median filter.
 
 It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
@@ -74,7 +74,7 @@ The naive algorithm for the max filter is the same as the one from the median fi
 A faster algorithm will, instead of computing the output image pixel of (n-p+1) X (m-p+1) pixels directly using a 2-D window, will compute a first output image of (n-p+1) X m pixels using a 1-D window of p pixels on all the rows, then compute the second and final output image of (n-p+1) X (m-p+1) from this first output image using a 1-D window of p pixels on all the columns.
 The separability comes from the property of the maximum operator. If S and T are two sets of numbers, then
 
-![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/medianfilter.png)
+![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
 #### Equation 2-1: Property of the maximun operator.
 
 The same applies to the minimum operator: 
