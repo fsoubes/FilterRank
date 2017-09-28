@@ -1,13 +1,13 @@
 # AUTHORS : Adrien Rohan, Franck Soubès, Guillamaury Debras
 # Filters 2D (rank filters)
-# Introduction
+# 1.Introduction
 
 &nbsp;&nbsp; From a cosmic point of view the earth might not seem of any particular interest. From a terrestrial point of view, the pale blue dot is represented by all kinds of forms, shapes, colors and textures. With the development of devices it became possible to immortalize those traits and store them in multiples databases with the aim of analysing them. However, it's not that simple to obtain perfect images due to the noise or frequency that comes from it. Image noise is random variation of brightness or color information in images. Image processing is a method to perform some operations on an image, in order to extract useful information from it. This field incorporates multitudes of methods described by algorithms helping to reduce noises, remove or amplify frequency components and more. For this project, we will examine four types of 2D rank filters: median, min, max and variance.
 
 &nbsp;&nbsp;  By definition rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[^Soi2002] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lie within the window which are sorted, generally from the smallest to the biggest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the window is also influencing the output pixel. 
 The median filter is so called because it's an operation which selects the median value.The median filter has been suggested by Tukey[^Tuk1974]. This filter is widely used for reducing certains type of noise and periodic interference patterns in signal and images without severly degrading the signal[^Hua1981].Firstly naive the algorithm was then improved based on the moving histogram technique[^Hua1979].
-The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively.In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. At last the variance filter is a new approach to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011].  As demonstrated here our three main filters have their own field of expertise. They can be used for removing noise (median filter), detecting edge (variance filter) and mathematical morphology(min/max filters).
+The filter choosing the maximum or minimum values are designated as the maximum filter or the minimum filter, respectively.In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. At last the variance filter is a new approach to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011]. ( ces trois filtres ont une utilisation variable dans de nombreux domaines, leur domaine d'expertise). ils peuvent être utiliser pour smoothing median, dection of edge and  mathematical morphology.
 
 
 &nbsp;&nbsp;  In this report, we shall beging by describing the naive and improved algorithms of our 3 different filters. 
@@ -19,9 +19,9 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 
 
-# Material & Methods
+# 2.Material & Methods
 
-In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g. The matrix 
+In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
 
 ## Median filter
 
@@ -61,8 +61,10 @@ and re-test. If false mdn is the median of the current window.
 
 ### Naive Algorithm
 
-A max and min filter are non-linear digital filtering techniques often used to find respectively the brightest ordarkest points in an image.
+A max and min filter are non-linear digital filtering techniques often used to find respectively the brightest or darkest points in an image.
 A max filter operate like a median filter but will search the maximum value among the neighboring pixels instead of computing the median of the neighborhood to create the output image. Likewise, a min filter will search the minimum value of the neighborhood.
+
+
 The naive algorithm for the max filter is the same as the one from the median filter, but rather than computing the median from the neighboring pixels values, instead compute the maximum value. To improve it, after computing the max value for the first pixel in the row, when moving the window to the right, compute the maximum value from the new pixels (the ones from the rightmost column). If this maximum is greater than the previous one use this new value. Else, check the pixels from the leftmost column of the previous window. If they do not contain the previous maximum value, use this value as the new maximum. Else, compute the maximum value of the new window using the naive algorithm.
 ### Improved algorithm
 
@@ -72,11 +74,11 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 
 A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
 
-# Results
+# 3.Results
 
-# Discussion
+# 4.Discussion
 
-# Conclusion
+# 5.Conclusion
 
 ## References
 
