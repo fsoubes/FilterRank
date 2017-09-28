@@ -73,7 +73,7 @@ The separability comes from the property of the maximum operator. If S and T are
 ![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
 
 The same applies to the minimum operator: 
-![Property of the min operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule2.png)
+![Property of the min operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule2png.png)
 
 For the minimun filters. An easy way to obtain the result is to use and adapt the maiximun filter. In fact we can pre- and post-process the image to get the desired result, using the formula:
 ![Formula of the conversion between max I and min I](https://github.com/fsoubes/FilterRank/blob/master/images/Sans titremin1.png)
