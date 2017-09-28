@@ -74,7 +74,7 @@ The naive algorithm for the max filter is the same as the one from the median fi
 A faster algorithm will, instead of computing the output image pixel of (n-p+1) X (m-p+1) pixels directly using a 2-D window, will compute a first output image of (n-p+1) X m pixels using a 1-D window of p pixels on all the rows, then compute the second and final output image of (n-p+1) X (m-p+1) from this first output image using a 1-D window of p pixels on all the columns.
 The separability comes from the property of the maximum operator. If S and T are two sets of numbers, then
 
-![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
+![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/medianfilter.png)
 #### Equation 2-1: Property of the maximun operator.
 
 The same applies to the minimum operator: 
