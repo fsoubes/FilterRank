@@ -103,6 +103,8 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 
 ## Boundary issues
 
+The kernels used in the different filters are partialy out of bound of the image when centered on pixels near the boundary of an image, and in these case there are less pixels available to compute a value from. There are multiple ways to handle these cases. The simplest way is to ignore each case where the kernel is out of bound, resulting in an output image that is cropped compared to the input image. Another method consist to attribute values to out of bound pixels, by giving them the value of the nearest in bound pixels, thus creating enough values to realise the convolution.
+
 <img src="http://www.monsite.com/image.png" alt="Comment mettre un lien menant à une autre page" /> 
 
 ## Benchmarking analysis
