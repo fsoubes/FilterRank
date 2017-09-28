@@ -111,6 +111,8 @@ In order to evaluate
 
 # Results
 
+The results are obtained by using two different types of plugins, FastFilter and Rankfilters
+
 # Discussion
 
 # Conclusion
