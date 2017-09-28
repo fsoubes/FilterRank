@@ -50,13 +50,18 @@ and
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_8.gif)  
 until :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
+
 Else if   
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn <= (p²-1)/2,  
 the current median is greater than or equal to mdn, and test :   
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_10.gif)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn + hist[mdn] <= (p²-1)/2.   
 If true, do :   
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltmdn = ltmdn + hist[mdn]   
 and   
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mdn = mdn+1   
 and re-test. If false mdn is the median of the current window.
 
