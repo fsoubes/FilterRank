@@ -21,7 +21,7 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 # 2.Material & Methods
 
-In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g.
+In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g. All the algorithm will be explained for gray level images, but it is possible to process RGB images by separating the 3 channels and using the algorithms for gray level image on each of the 3 channels and then combine the 3 resulting image. 
 
 ## Median filter 
 
