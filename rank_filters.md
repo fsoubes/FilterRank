@@ -92,7 +92,8 @@ This filter is implemented in imageJ through the class rankfilters in <img src="
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
 ![alg_3](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_3.png)  
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
-![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)  
+![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
+![alg 6](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_6.png) 
 
 This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
