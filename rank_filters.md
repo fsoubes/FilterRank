@@ -97,16 +97,16 @@ Here are shown the results of the selected picture before and after rank filters
 
 The output of ImageJ median filter function is an 8-bit image in [Fig.XXXXXXX].
 
-[yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian.png)
+![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian.png)
 #### Figure XX. Result of median filter function, 1: input image, 2: output image
 
-[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
 #### Figure XX. Result of maximun filter function, 1: input image, 2: output image
 
-[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin.png)
 #### Figure XX. Result of minimun filter function, 1: input image, 2: output image
 
-[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance.png)
 #### Figure XX. Result of Variance filter function, 1: input image, 2: output image
 
 
