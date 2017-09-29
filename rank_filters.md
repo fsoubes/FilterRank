@@ -89,7 +89,7 @@ For the minimun filters. An easy way to obtain the result is to use and adapt th
 
 ![Formula of the conversion between max I and min I](https://github.com/fsoubes/FilterRank/blob/master/images/minmax.png)
 
-** Equation 3-3 Formula of the conversion between max I and min I.**
+** Equation 2-3 Formula of the conversion between max I and min I.**
 
 
 ## Variance filter
@@ -107,12 +107,12 @@ The followed image shows the output of the Median filter function in 8-bit image
 The followed image shows the output of the Maximun filter function in 8-bit image[Fig.X]. Here we can clearly see the brightest points due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
 
-**Figure XX. Result of Maximun filter function with radius=2, 1: input image, 2: output image**
+** Figure XX. Result of Maximun filter function with radius=2, 1: input image, 2: output image**
 
 The followed image shows the output of the Minimun filter function in 8-bit image[Fig.X]. Here we can clearly see the darkest points in the image due to the Minimun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin.png)
 
-**Figure XX. Result of Minimun filter function with radius=2, 1: input image, 2: output image**
+** Figure XX. Result of Minimun filter function with radius=2, 1: input image, 2: output image**
 
 
 The followed image shows the output of the Variance filter function in 8-bit image[Fig.X]. On the output image we can clearly see the edges on the image represented by the pixels in white.
