@@ -106,7 +106,7 @@ The followed image shows the output of the Median filter function in 8-bit image
 
 The next image show the output of the Median filter function on the same last image but this time with noise.[Fig.X]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and adversarlly 
 
-![yolo]((https://github.com/fsoubes/FilterRank/blob/master/images/noisemedian.png)
+![yolo]((https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian.png)
 
 ** Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
