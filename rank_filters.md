@@ -128,7 +128,7 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 ## Benchmark Results
 
 The results under the form of a boxplot are presented on the figure XXXX. Four filter functions have been studied base on the execution's speed.
-![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot1.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
 **Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation
 
