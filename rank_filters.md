@@ -133,3 +133,4 @@ The results obtained with Rank filters functions were obtained with the same ima
 * [^Kit1983]: J. Kittler: "On the accuracy of the Sobel edge detector", Image and Vision Computing, 1(1), pp. 37-42, doi:10.1016/0262-8856(83)90006-9, 1983.
 * [^Mar1980]: D. Marr, E. Hildreth: "Theory of Edge Detection", Proceedings of the Royal Society of London, Series B, Biological Sciences, 207(1167), pp. 187-217, 1980.
 * [^Fab2011]: A. Fabijańska Variance Filter for Edge Detection and Edge-Based Image Segmentation,Computer Engineering Department, Technical University of Lodz, POLAND, Lodz, B. Stefanowskiego Street 18/22,2011.
+.
