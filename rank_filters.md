@@ -95,19 +95,22 @@ A variance filter will compute the variance between the pixels of the neighborho
 # 3.Results
 Here are shown the results of the selected picture before and after rank filters functions in imageJ.
 
-The output of ImageJ median filter function is an 8-bit image in [Fig.XXXXXXX].
-
+The followed image shows the output of the Median filter function in 8-bit image[Fig.X]. 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian.png)
-#### Figure XX. Result of median filter function, 1: input image, 2: output image
+#### Figure XX. Result of Median filter function with radius=2, 1: input image, 2: output image
 
+The followed image shows the output of the Maximun filter function in 8-bit image[Fig.X]. Here we can clearly see the brightest points due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
-#### Figure XX. Result of maximun filter function, 1: input image, 2: output image
+#### Figure XX. Result of Maximun filter function with radius=2, 1: input image, 2: output image
 
+The followed image shows the output of the Minimun filter function in 8-bit image[Fig.X]. Here we can clearly see the darkest points in the image due to the Minimun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin.png)
-#### Figure XX. Result of minimun filter function, 1: input image, 2: output image
+#### Figure XX. Result of Minimun filter function with radius=2, 1: input image, 2: output image
 
+
+The followed image shows the output of the Variance filter function in 8-bit image[Fig.X]. On the output image we can clearly see the edges on the image represented by the pixels in white.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance.png)
-#### Figure XX. Result of Variance filter function, 1: input image, 2: output image
+#### Figure XX. Result of Variance filter function with radius=2 , 1: input image, 2: output image
 
 
 
