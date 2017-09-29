@@ -131,7 +131,7 @@ The results of the benchmark are presented on the figure XXXX with boxplots. Fou
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
-**Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation
+**Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation.
 
 # 4.Discussion
 
