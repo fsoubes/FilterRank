@@ -113,7 +113,9 @@ In order to evaluate
 
 # Results
 
-The results are obtained by using two different types of plugins, FastFilter and Rankfilters
+The results obtained with Rank filters functions were obtained with the same image : Boat 360x288 pixels, for personal concerns we choose to use the 8-bit version of this image.
+
+
 
 # Discussion
 
