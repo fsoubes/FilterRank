@@ -106,7 +106,7 @@ The followed image shows the output of the Median filter function in 8-bit image
 
 The next image show the output of the Median filter function on the same last image but this time with noise.[Fig.X]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and adversarlly 
 
-![yolo]((https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian.png)
+![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian.png)
 
 ** Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
@@ -120,7 +120,6 @@ The followed image shows the output of the Minimun filter function in 8-bit imag
 
 ** Figure XX. Result of Minimun filter function with radius=2, A: input image, B: output image**
 
-
 The followed image shows the output of the Variance filter function in 8-bit image[Fig.X]. On the output image we can clearly see the edges on the image represented by the pixels in white.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance.png)
 
@@ -128,7 +127,10 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
+The results under the form of a boxplot are presented on the figure XXXX. Four filter functions have been studied base on the execution's speed.
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot1.png)
 
+**Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation
 
 # 4.Discussion
 
