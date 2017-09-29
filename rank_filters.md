@@ -95,13 +95,9 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 An improved method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window. For a window B of bounded by the coordinate(x,y,w,h), where x>=w and y>=h, we compute :  
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
-
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
-
 ![alg_3](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_3.png)  
-
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
-
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)  
 
 
