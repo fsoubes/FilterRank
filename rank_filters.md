@@ -120,6 +120,8 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 **Figure XX. Result of Variance filter function with radius=2 , 1: input image, 2: output image**
 
+## Benchmark Results
+
 
 
 # 4.Discussion
