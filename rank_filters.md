@@ -93,6 +93,23 @@ For the minimun filters. An easy way to obtain the result is to use and adapt th
 A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
 
 # 3.Results
+Here are shown the results of the selected picture before and after rank filters functions in imageJ.
+
+The output of ImageJ median filter function is an 8-bit image in [Fig.XXXXXXX].
+
+[yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian.png)
+#### Figure XX. Result of median filter function, 1: input image, 2: output image
+
+[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
+#### Figure XX. Result of maximun filter function, 1: input image, 2: output image
+
+[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin.png)
+#### Figure XX. Result of minimun filter function, 1: input image, 2: output image
+
+[yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance.png)
+#### Figure XX. Result of Variance filter function, 1: input image, 2: output image
+
+
 
 # 4.Discussion
 
