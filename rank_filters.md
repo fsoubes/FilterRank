@@ -127,7 +127,8 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
-The results under the form of a boxplot are presented on the figure XXXX. Four filter functions have been studied base on the execution's speed.
+The results of the benchmark are presented on the figure XXXX with boxplots. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
+
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
 **Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation
