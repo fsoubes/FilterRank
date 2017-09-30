@@ -97,7 +97,7 @@ For the minimun filters. An easy way to obtain the result is to use and adapt th
 A variance filter will compute the variance between the pixels of the neighborhood to create the output image.
 
 # 3.Results
-Here are shown the results of the selected images before and after selection of rank filters functions in imageJ.
+Here are shown the results of the selected images before and after selection of rank filters functions in imageJ. The image used can be found in ImageJ samples " Boats.gif".
 
 The followed image shows the output of the Median filter function in 8-bit image[Fig.X]. Now because there is no noise on the input image it feels like the output image is kinda blurry.
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian.png)
@@ -127,7 +127,7 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
-The results of the benchmark are presented on the figure XXXX with boxplots. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
+The results of the benchmark are presented on the figure XXXX with boxplots on the sample image Boats.gif 720x576. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
