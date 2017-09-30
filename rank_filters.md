@@ -70,7 +70,7 @@ If true, do :
 and re-test. If false mdn is the median of the current window.  
 
 It is possible to further improve this algorithm by changing the way the data are stored, by using more than one gray level histogram to handle the pixels values.  One gray level histogram of 256 elements is maintained for each column of the image, containing a number h pixels. By summing w of these histograms, we obtain a kernel of w X h pixels. When sliding the kernel to the right, remove the histogram corresponding to the the leftmost column and add the histogram corresponding to the column right of the previous window. When moving the kernel to the next row, you remove the pixel value from the highest row from each histogram and add the pixels values from the new row included in the kernels as well.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
 
 ## Max/Min filters
 
