@@ -134,7 +134,9 @@ The results of the benchmark are presented on the figure XXXX with boxplots on t
 **Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation.
 
 # 4.Discussion
-
+ 
+ Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges.
+The results of the benchmark shows that the median filter function has the most complex algorithm beause due to the longest time's execution. The max/minx filter functions have quite the same algorithm and this one is less complex than the median one. At last, the variance filter function algorithm is the fastest one between those studied.
 # 5.Conclusion
 
 ## References
