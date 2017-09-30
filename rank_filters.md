@@ -110,6 +110,12 @@ The next image show the output of the Median filter function on the same last im
 
 ** Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
+The next image show the ouput of the Median filter function on the same image that before but this time with salt and pepper noise.[Fig.X]. We can see the full effect of the Median filter, the noise is totally removed from the picture after filter.
+
+![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/saltpepperimagemedian.png)
+
+** Figure XX. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
+
 The followed image shows the output of the Maximun filter function in 8-bit image[Fig.X]. Here we can clearly see the brightest points due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax.png)
 
