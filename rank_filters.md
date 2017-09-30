@@ -1,4 +1,5 @@
 # AUTHORS : Adrien Rohan, Franck Soubès, Guillamaury Debras
+version Adrien
 # Filters 2D (rank filters)
 # 1.Introduction
 
