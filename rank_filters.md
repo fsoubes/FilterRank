@@ -143,14 +143,10 @@ The results obtained with Rank filters functions were obtained with the same ima
 * [^Kit1983]: J. Kittler: "On the accuracy of the Sobel edge detector", Image and Vision Computing, 1(1), pp. 37-42, doi:10.1016/0262-8856(83)90006-9, 1983.
 * [^Mar1980]: D. Marr, E. Hildreth: "Theory of Edge Detection", Proceedings of the Royal Society of London, Series B, Biological Sciences, 207(1167), pp. 187-217, 1980.
 * [^Fab2011]: A. Fabijańska Variance Filter for Edge Detection and Edge-Based Image Segmentation,Computer Engineering Department, Technical University of Lodz, POLAND, Lodz, B. Stefanowskiego Street 18/22,2011.
-
-nouvelle biblio
-
-* [PH07] Simon Perreault and Patrick Hébert. Median filtering in constant time. IEEE transac
+* [^Per2007] S. Perreault, P Hébert. Median filtering in constant time. IEEE transac
 tions on image processing, 16(9):2389–2394, 2007.  
-* [SS15] Grzegorz Sarwas and Sławomir Skoneczny. Object localization and detection using
-variance filter. In Image Processing & Communications Challenges 6, pages 195–202.
+* [^Sar2015] G. Sarwas and S. Skoneczny. Object localization and detection using,variance filter. In Image Processing & Communications Challenges 6, pages 195–202.
 Springer, 2015.  
-* [VJ01] Paul Viola and Michael Jones. Rapid object detection using a boosted cascade of simple
+* [^Vio2001] P. Viola and M. Jones. Rapid object detection using a boosted cascade of simple
 features. In Computer Vision and Pattern Recognition, 2001. CVPR 2001. Proceedings
 of the 2001 IEEE Computer Society Conference on, volume 1, pages I–I. IEEE, 2001.
