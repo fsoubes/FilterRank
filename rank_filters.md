@@ -84,10 +84,10 @@ A faster algorithm will, instead of computing the output image pixel of (n-p+1) 
 In image processing, variance filter is often used for highlighting edges in the image by replacing each pixel with the neighbourhood variance. 
 
 ![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/var2.png)
-### Equation_1: Variance filter is the square of the standard deviation, where u(x) is image intensity at the location x(x1, x2), σ represent the standard deviation, W is size of a filtering window, u(x-q) is the set of all pixels within the filtering window and q is an element of the set W.
+#### Equation_1: Variance filter is the square of the standard deviation, where u(x) is image intensity at the location x(x1, x2), σ represent the standard deviation, W is size of a filtering window, u(x-q) is the set of all pixels within the filtering window and q is an element of the set W.
 ![GitHub Logo2](https://github.com/fsoubes/FilterRank/blob/master/images/var3.png)
 
-### Equation_2&3: Equation used for compute the standard deviation(2) & the mean(3). Where n is the total of pixels within the window (W), and ū is the mean of all the pixels within the window (W).
+#### Equation_2&3: Equation used for compute the standard deviation(2) & the mean(3). Where n is the total of pixels within the window (W), and ū is the mean of all the pixels within the window (W).
 This filter is implemented in imageJ through the class rankfilters in <img src="https://github.com/imagej/imagej1/blob/ab7633f0f238ba08f65cb1ef5e104dba3d3f68af/ij/plugin/filter/RankFilters.java " alt="java" />. For variance algorithm, according to the input image and the size of the kernel, it will not react in the same way. If the kernel’s radius size is less than 2 (5x5), it will compute the sum over all the pixels, whereas for a kernel’s radius size greater than 2, the sum won’t be calculated. In that case this sum is calculated for the first pixel of every line only. For the following pixels, it’ll add the new values and subtract those that are not in the sum any more. This way, the computational time is then reduced. Once, the kernel reaches the end of the thread, it start over at the next line until the end of the input image. It’s notable that the variance algorithm is closely related to the mean algorithm. 
 &nbsp;In application, this algorithm works by using one “window” defined here by a circular kernel, which slides, entry by entry until the end of the signal. It can process through rows or columns.
 
