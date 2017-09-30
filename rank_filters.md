@@ -37,7 +37,7 @@ To sort all the pixels values in the kernels, different algorithm are possible. 
 
 ### Improved algorithms
 
-It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
+Sorting algorithm are costly in time, ans as such it is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added. The pixel values in the window are stored inside a 256 element array hist[0:255] corresponding to the gray level histogram of the window, so that hist[g]=N mean that N pixel in the current windows take the value g. After computing the median value for the first pixel the regular way, store the number of pixel below the median in a variable ltmdn.
 
 To compute the new median when moving the window to the right, remove each pixels from the leftmost column of the previous window from the array:   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_1.gif)  
