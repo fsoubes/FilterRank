@@ -32,7 +32,10 @@ A median filter is a filter that, for each pixel from an input image, will compu
 The naive algorithm for median filtering works as follows. Begin by defining a window of w X h pixels, w and h being odd integers, in order to have a single pixel at the center of the window. Place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid the window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-w+1) X (m-h+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last. 
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
-![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
+![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png) 
+![alg_3](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_1.png)  
+![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_2.png)  
+![alg_5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_3.png)  
 
 
 To sort all the pixels values in the kernels, different algorithm are possible. The Quicksort algorithm chose an arbritrary pivot number from the array (the last one for example), and will create two new arrays, the first one containing all the values lower than the pivot number, and the second one all the values greater than or equal to the pivot number. These operations are repeated on the resulting arrays, until all the resulting arrays can be concatenated in a single sorted array.
