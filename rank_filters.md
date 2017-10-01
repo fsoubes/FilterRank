@@ -133,12 +133,14 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
-The results of the benchmark are presented on the figure XXXX with boxplots on the sample image Boats.gif 720x576. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
+The benchmark used here are based on two separated things, the execution's speed and the memory usage.
+The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Boats.gif 720x576. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
 **Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation.
 
+The second part of the results are presented on the figure XXX with the means summary of the four rank filters functions. This has been obtained with a JS script that we created. We can see that there is almost no difference in memory allocation with those four rank filters functions, indeed they all have bewteen 0.20 - 0.30 Mb.
 # 4.Discussion
  
  Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges.
