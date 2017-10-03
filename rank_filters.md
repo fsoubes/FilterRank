@@ -127,6 +127,8 @@ Another method for variance filtering make use of a faster algorithm to compute 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 
+Here is an exemple of a image I and the new computed image I' and I''.  
+
 Then for a window B bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_1.gif)  
