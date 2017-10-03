@@ -133,17 +133,17 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
-The benchmark used here are based on two separated things, the execution's speed and the memory usage. We also analyze the difference bewteen the inter-groups and intra-groups on the Lena picture ( rbg or 8 bit).
+The benchmark used here are based on two separated things, the execution's speed and the memory usage. We also analyze the difference bewteen the inter-groups and intra-groups on the Lena image ( rbg or 8 bit), 512x512.
 
-The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Lena.png RGB and 8 bit, 512x512. Four filter functions have been studied base on the execution's speed.On the figure XXX, we can see that the median filter is a slowest compared to the others with a mean of 73.37 ms. The variance filter is the second slowest with an execution time mean of 52.28 ms. This can be epxlained because the median and variance filter algorithms are the most complex one. The  minimum and maximun filter functions are likely the same with 26.31 and 24.78 ms. Those are the two functions with the less complexity and the algorithms are likely the same this is why there is almost no difference of time's execution between thoses functions ( less than 2 ms).
+The results of the benchmark speed's execution on the image 8 bit are presented on the figure XXX. We can see that the median filter has still the highest time's exexcution mean of 32.16 ms. The maximum and minimun filter functions have respectivly a time's execution of 17.65 and 17.63 ms. At last the variance filter function does 16.18 ms. 
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/speedlena8bit.png)
 
 **Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations on lena 8 bit, OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
+The results of the benchmark are presented on the figure XXXX with boxplots on the sample image Lena.png RGB . Four filter functions have been studied base on the execution's speed.On the figure XXX, we can see that the median filter is a slowest compared to the others with a mean of 73.37 ms. The variance filter is the second slowest with an execution time mean of 52.28 ms. This can be epxlained because the median and variance filter algorithms are the most complex one. The  minimum and maximun filter functions are likely the same with 26.31 and 24.78 ms. Those are the two functions with the less complexity and the algorithms are likely the same this is why there is almost no difference of time's execution between thoses functions ( less than 2 ms). We can see the same pattern bewteen the RGB image and 8 bit image except for the variance filter function algorithm, indeed it's seems that this last algorithm is more suited for 8bit images speed execution speaking.
 
-The results of the benchmark speed's execution on the image 8 bit are presented on the figure XXX. We can see that the median filter has still the highest time's exexcution mean of 32.16 ms. The maximum and minimun filter functions have respectivly a time's execution of 17.65 and 17.63 ms. At last the variance filter function does 16.18 ms. We can see the same pattern bewteen the RGB image and 8 bit image except for the variance filter function algorithm, indeed it's seems that this last algorithm is more suited for 8bit images speed execution speaking.
 
 ![yolo23](https://github.com/fsoubes/FilterRank/blob/master/images/speedlenargb.png)
 
