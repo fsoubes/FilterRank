@@ -114,8 +114,9 @@ new
 
 lien : https://computersciencesource.wordpress.com/2010/09/03/computer-vision-the-integral-image/  
 
-![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/bigexampleimage.png) 
-![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/bigegsat.png)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png) 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 
 Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. For a window B of bounded by the coordinates(x,y,w,h), where x>=w and y>=h, we compute :  
 
