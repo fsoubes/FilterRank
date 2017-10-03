@@ -137,12 +137,19 @@ The benchmark used here are based on two separated things, the execution's speed
 
 The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Lena.gif 512x512. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
 
-![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/speedena8bit.png)
 
-**Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations, OS : Linux 4.9.0-3-amd64
+**Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations on lena 8 bit, OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
-enlever le boatboxplot et mettre celui de lena rgb et 8 bit et tema la difference
+
+
+![yolo23](https://github.com/fsoubes/FilterRank/blob/master/images/speedlenargb.png)
+
+**Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations on lena RGB, OS : Linux 4.9.0-3-amd64
+Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
+
+
 
 
 The second part of the results are presented on the figure XXX and figure XXXXX, two boxplot of the four rank filters functions based on memory usage are created one on lena 8bit and the other on lena RBG. This has been obtained with a JS script that we create to get data and then a R script to create the boxplot. On the figure XXX we see that the function with the most memory usage is the median filter with a mean of 9.39MB. The variance filter has a memory usage of 8.67 MB. The maximum and minimum filter are the two lowest functions with respectivly 6.89 and 5.24 MB. On a 8 bit image the  median and variance filter uses the most memory compared to all the functions, this seems logical because of the complexity of those two functions compared to the min/max ones.
