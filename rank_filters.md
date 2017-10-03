@@ -119,7 +119,7 @@ lien : https://computersciencesource.wordpress.com/2010/09/03/computer-vision-th
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 
-From a starting image M, compute an image M' for which the pixel M'(x,y) take as value the sum of all pixels values in the original image between M(0,0) and M(x,y) included. Then compute an image M'' for which the pixel M''(x,y) take as value the sum of all squared pixels values in the original image between M(0,0) and M(x,y) included.
+From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included. Then compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included.
 
 Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. For a window B of bounded by the coordinates(x,y,w,h), where x>=w and y>=h, we compute :  
 
