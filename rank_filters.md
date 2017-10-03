@@ -158,11 +158,11 @@ The second part of the results are presented on the figure XXX and figure XXXXX,
 **Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena 8 bit, OS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
-On the figure XXXX we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations we can say that, for memory usage and 8 bit to RGB, the median filter goes from first to last function in memory usage. This could be explained by the fact that the median filter algorithm is better for RGB images than 8 bit images. The other three functions have almost the same memory usage, one theory would be that the algorithm of those functions are not so different in term of memory.
+On the figure XXXX we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations we can say that, for memory usage and 8 bit to RGB, the median filter goes from first to last function in memory usage, it is hard to explain this result, in fact we would have expect the opposite. The other three functions have almost the same memory usage, one theory would be that the the switch between 8 bit and RGB does not impact the memory usage with those functions. Another would be that the iterations are not wide enough.
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/memorylenargb.png)
 
-**Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena 8 RGB, OS : OS : Linux 4.9.0-3-amd64
+**Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena RGB, OS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation.
 
 
