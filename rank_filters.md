@@ -24,8 +24,6 @@ In this section will be presented the algorithms used for median, min, max and v
 
 ## Median filter 
 
-https://www.rroij.com/open-access/triple-input-sorter-optimizationalgorithm-of-median-filter-based-onfpga-.php?aid=41377 article à check Adrien
-
 A median filter is a filter that, for each pixel from an input image, will compute the median value of all neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
 
 ### Naive algorithm
