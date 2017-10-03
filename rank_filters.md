@@ -35,7 +35,7 @@ A median filter is a filter that, for each pixel from an input image, will compu
 The naive algorithm for median filtering works as follows. Begin by defining a window of w X h pixels and place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid the window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-w+1) X (m-h+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last.  
 To sort all the pixels values in the kernels, different algorithm are possible. One of these is the Quicksort algorithm which chose an arbritrary pivot number from the array (the last one for example), and will create two new arrays, the first one containing all the values lower than the pivot number, and the second one all the values greater than or equal to the pivot number. These operations are repeated on the resulting arrays, until all the resulting arrays can be concatenated in a single sorted array.
 
-### Improved algorithms
+### Improved algorithm
 
 Sorting algorithm are costly in time, ans as such it is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added [^Hua1979][^Hua1981]. The pixel values in the window are stored inside a 256 element array hist[0:255] corresponding to the gray level histogram of the window, so that hist[g]=N mean that N pixel in the current windows take the value g. After computing the median value for the first pixel the regular way and storing it in the varable mdn, store the number of pixels in the window that have a value below the median in a variable ltmdn.  
 
@@ -110,16 +110,21 @@ This method is simple, moreover it’s characterised by low computational comple
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
 
 
+
+### Improved algorithm
+
 new  
 
 lien : https://computersciencesource.wordpress.com/2010/09/03/computer-vision-the-integral-image/  
+
+Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included. Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 
-Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included. Then compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included. For a window B bounded by the coordinates(x,y,w,h), where x<=w and y<=h, we compute :  
+Then for a window B bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_1.gif)  
 and  
