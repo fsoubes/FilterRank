@@ -109,7 +109,7 @@ This filter is implemented in imageJ through the class rankfilters in <img src="
 This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
 
-An improved method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window. For a window B of bounded by the coordinate(x,y,w,h), where x>=w and y>=h, we compute :  
+Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window [^Sar2015]. For a window B of bounded by the coordinates(x,y,x+w,y+h), where x>=w and y>=h, we compute :  
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_1.gif)  
 and  
