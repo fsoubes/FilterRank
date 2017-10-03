@@ -18,18 +18,19 @@ The filter choosing the maximum or minimum values are designated as the maximum 
 Next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM).
 
 
-
 # 2.Material & Methods
 
-In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels of value g. All the algorithm will be explained for gray level images, but it is possible to process RGB images by separating the 3 channels and using the algorithms for gray level image on each of the 3 channels and then combine the 3 resulting image. 
+In this section will be presented the algorithms used for median, min, max and variance filtering in image processing. Images will be considered to be matrix of n X m pixels, each pixel having a value g. All the algorithms will be explained for gray level images, but it is possible to process RGB images by separating the 3 channels and using the algorithms for gray level image on each of the 3 channels and then combine the 3 resulting images. Filtering in image processing is done by replacing the value of each pixel by a value computed from the neighborhood. The neighborhood from a pixel is defined as all the pixels present in a window (or kernel) centered on the original pixel. The window can be of different size and even of different shape. In this section all windows are considered to have a square shape, and have a dimension of w X h pixels, w and h being odd integers, in order to have a single pixel at the center of the window. The handling of the borders of the image will at first be ignored in the following explications of the algorithms and will be adressed further into this rapport.
 
 ## Median filter 
 
 https://www.rroij.com/open-access/triple-input-sorter-optimizationalgorithm-of-median-filter-based-onfpga-.php?aid=41377 article à check Adrien
 
-A median filter is a filter that, for each pixel from an input image, will compute the median value of all  neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
+A median filter is a filter that, for each pixel from an input image, will compute the median value of all neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
 
-The naive algorithm for median filtering works as follows. Begin by defining a window of w X h pixels, w and h being odd integers, in order to have a single pixel at the center of the window. Place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid the window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-w+1) X (m-h+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last. 
+### Naive algorithm
+
+The naive algorithm for median filtering works as follows. Begin by defining a window of w X h pixels and place that window so that its upper-left corner is on the upper-left corner of the input image. Compute the median value from all the pixels values in the window by ordering them. Slid the window one pixel column to the right and repeat the process until reaching the end of the row, then repeat the process for the following rows until reaching the lower-right corner of the input image. Then create an output image of (n-w+1) X (m-h+1) pixels from all the computed median values, placing the values left to right, up to bottom, beginning with the first computed value to the last.  
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png) 
@@ -38,25 +39,27 @@ The naive algorithm for median filtering works as follows. Begin by defining a w
 ![alg_5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_3.png)  
 
 
-To sort all the pixels values in the kernels, different algorithm are possible. The Quicksort algorithm chose an arbritrary pivot number from the array (the last one for example), and will create two new arrays, the first one containing all the values lower than the pivot number, and the second one all the values greater than or equal to the pivot number. These operations are repeated on the resulting arrays, until all the resulting arrays can be concatenated in a single sorted array.
+To sort all the pixels values in the kernels, different algorithm are possible. One of these is the Quicksort algorithm which chose an arbritrary pivot number from the array (the last one for example), and will create two new arrays, the first one containing all the values lower than the pivot number, and the second one all the values greater than or equal to the pivot number. These operations are repeated on the resulting arrays, until all the resulting arrays can be concatenated in a single sorted array.
 
-It is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added. Compute the median value of the first pixel the normal way and put it in the variable mdn, create an 256 element array hist[0:255] corresponding to the gray level histogram of the window, and track the number of pixel below the median in variable ltmdn.
+### Improved algorithms
 
-To compute the new median when moving the window to the right, remove each pixels from the leftmost column of the previous window from the array:   
+Sorting algorithm are costly in time, ans as such it is possible to improve this basic algorithm, which reorder all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added [^Hua1979][^Hua1981]. The pixel values in the window are stored inside a 256 element array hist[0:255] corresponding to the gray level histogram of the window, so that hist[g]=N mean that N pixel in the current windows take the value g. After computing the median value for the first pixel the regular way and storing it in the varable mdn, store the number of pixels in the window that have a value below the median in a variable ltmdn.  
+
+When sliding the window to the right, to compute the new median,  for each pixel from the leftmost column of the previous window, remove it from the array hist :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_1.gif)  
-and update :   
+and update ltmdn if needed :   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_2.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
-Add in the array the pixels values of the rightmost column of the current window :    
+For each pixel from the rightmost column of the new window, add it in the array hist :    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_4.gif)    
-and update :  
+and update if needed:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_5.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
+Using the variables ltmdn and mdn, the new median for the current window can be found by doing the following steps.  
 
 If &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_6.gif)  
 
 the current median is lower than mdn, and do :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_7.gif)  
-and  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_8.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_7.gif) &nbsp;&nbsp;and&nbsp;&nbsp; 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_8.gif)  
 until :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
 
@@ -67,12 +70,16 @@ the current median is greater than or equal to mdn, and test :
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_10.gif)  
 
 If true, do :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif)  
-and   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif) 
+&nbsp;&nbsp;and&nbsp;&nbsp; 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
 and re-test. If false mdn is the median of the current window.  
 
-It is possible to improve this algorithm by changing the way the data are stored, by using more than one gray level histogram to handle the pixels values.  One gray level histogram of 256 elements is maintained for each column of the image, containing a number h pixels. By summing w of these histograms, we obtain a kernel of w X h pixels. When sliding the kernel to the right, remove the histogram corresponding to the the leftmost column and add the histogram corresponding to the column right of the previous window. When moving the kernel to the next row, you remove the pixel value from the highest row from each histogram and add the pixels values from the new row included in the kernels as well.
+It is possible to further improve this algorithm by changing the way the data are stored, by using more than one gray level histogram to handle the pixels values [^Wei2006].  One gray level histogram of 256 elements is maintained for each column of the image, containing a number h of pixels. By summing w of these histograms, we obtain a kernel of w X h pixels. When sliding the kernel to the right, remove the histogram corresponding to the the leftmost column and add the histogram corresponding to the column right of the previous window. When moving the kernel to the next row, you remove the pixel value from the highest row from each histogram and add the pixels values from the new row included in the kernels as well.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
+(a) Moving the histogtam down one row by removing a pixel and adding another one.  
+(b) Subtracting one histogram and adding another to move the window to the right.
+
 
 ## Max/Min filters
 
