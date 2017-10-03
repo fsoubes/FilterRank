@@ -137,7 +137,7 @@ The benchmark used here are based on two separated things, the execution's speed
 
 The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Lena.gif 512x512. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
 
-![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/speedena8bit.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/speedlena8bit.png)
 
 **Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations on lena 8 bit, OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
