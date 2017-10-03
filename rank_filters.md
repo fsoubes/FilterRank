@@ -133,14 +133,35 @@ The followed image shows the output of the Variance filter function in 8-bit ima
 
 ## Benchmark Results
 
-The benchmark used here are based on two separated things, the execution's speed and the memory usage.
-The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Boats.gif 720x576. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
+The benchmark used here are based on two separated things, the execution's speed and the memory usage. We also analyze the difference bewteen the inter-groups and intra-groups on the Lena picture ( rbg or 8 bit).
+
+The first results of the benchmark are presented on the figure XXXX with boxplots on the sample image Lena.gif 512x512. Four filter functions have been studied base on the execution's speed. First of all, we can see that the median filter is a slowest compared to the others with a mean of 27.75ms compared to the minimun,maximun and variance respectively of 10.52, 9.89 and 7.29 ms. The variance filter is the fastest with an execution time of 7.29ms. The maximun and minimyn filter functions are likely the same with less than 1ms difference.
 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/databoxplot.png)
 
-**Figure XX. BoxPlot of the benchmark data collected for 100 iterations, OS : Windows 8.1 6.3, Java: 1.8.0_131, vm: 25.131-b11 Oracle Corporation.
+**Figure XX. BoxPlot of the benchmark exexution's speed data collected for 1000 iterations, OS : Linux 4.9.0-3-amd64
+Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
-The second part of the results are presented on the figure XXX with the means summary of the four rank filters functions. This has been obtained with a JS script that we created. We can see that there is almost no difference in memory allocation with those four rank filters functions, indeed they all have bewteen 0.20 - 0.30 Mb.
+enlever le boatboxplot et mettre celui de lena rgb et 8 bit et tema la difference
+
+
+The second part of the results are presented on the figure XXX and figure XXXXX, two boxplot of the four rank filters functions based on memory usage are created one on lena 8bit and the other on lena RBG. This has been obtained with a JS script that we create to get data and then a R script to create the boxplot. On the figure XXX we see that the function with the most memory usage is the median filter with a mean of 9.39MB. The variance filter has a memory usage of 8.67 MB. The maximum and minimum filter are the two lowest functions with respectivly 6.89 and 5.24 MB. On a 8 bit image the  median and variance filter uses the most memory compared to all the functions, this seems logical because of the complexity of those two functions compared to the min/max ones.
+
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/memorylena8bit.png)
+
+**Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena 8 bit, OS : OS : Linux 4.9.0-3-amd64
+Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
+
+On the figure XXXX we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations we can say that, for memory usage and 8 bit to RGB, the median filter goes from first to last function in memory usage. This could be explained by the fact that the median filter algorithm is better for RGB images than 8 bit images. The other three functions have almost the same memory usage, one theory would be that the algorithm of those functions are not so different in term of memory.
+
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/memorylenargb.png)
+
+**Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena 8 RGB, OS : OS : Linux 4.9.0-3-amd64
+Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
+
+
+
+
 # 4.Discussion
  
  Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges.
