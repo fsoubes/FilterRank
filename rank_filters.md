@@ -163,7 +163,7 @@ On the figure XXXX we see that the variance filter function has the most memory 
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/memorylenargb.png)
 
 **Figure XX. BoxPlot of the benchmark memory usage  collected for 1000 iterations on lena 8 RGB, OS : OS : Linux 4.9.0-3-amd64
-Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
+Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation.
 
 
 
