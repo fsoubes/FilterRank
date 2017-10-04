@@ -162,7 +162,7 @@ Here is shown how the starting matrix is extended for 3 X 3 filter.
 A third method is used to bypass boundaries issues by shrinking the kernel near the boundaries, in order to fill the kernel while doing the operation.
 
 ## Benchmarking analysis
-Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of our various algorithms in terms of speed (execution time) and load memory.
+Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms in terms of speed (execution time) and load memory.
 
 
 
