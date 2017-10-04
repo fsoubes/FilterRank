@@ -103,6 +103,10 @@ In image processing, variance filter is often used for highlighting edges in the
 ##### Equation_2: Equation used for compute the standard deviation. Where n is the total of pixels within the window (W), and ū is the mean of all the pixels within the window (W).
 This filter is implemented in imageJ through the class rankfilters in <img src="https://github.com/imagej/imagej1/blob/ab7633f0f238ba08f65cb1ef5e104dba3d3f68af/ij/plugin/filter/RankFilters.java " alt="java" />. For variance algorithm, according to the input image and the size of the kernel, it will not react in the same way. If the kernel’s radius size is less than 2 (5x5), it will compute the sum over all the pixels, whereas for a kernel’s radius size greater than 2, the sum won’t be calculated. In that case this sum is calculated for the first pixel of every line only. For the following pixels, it’ll add the new values and subtract those that are not in the sum any more. This way, the computational time is then reduced. Once, the kernel reaches the end of the thread, it start over at the next line until the end of the input image. It’s notable that the variance algorithm is closely related to the mean algorithm. 
 &nbsp;In application, this algorithm works by using one “window” defined here by a circular kernel, which slides, entry by entry until the end of the signal. It can process through rows or columns.
+This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
+However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011].
+
+### Naive algorithm
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
@@ -110,11 +114,7 @@ This filter is implemented in imageJ through the class rankfilters in <img src="
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
 
-
-This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
-However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
-
-
+### Improved algorithm
 Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included. Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
