@@ -164,7 +164,7 @@ A third method is used to bypass boundaries issues by shrinking the kernel near 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
 
 ## Benchmarking analysis
-Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first one, named *benchmark2* whose aim is to compute the time speed 
+Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first one, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the macro recorder present in ImageJ.
 
 
 
