@@ -225,8 +225,8 @@ The results of the benchmark shows that the median filter function has the most 
 
 # Conclusion
 
-From the results of the benchmarks it can be concluded that the median filters use the most complex algorithm among the filters presented here, as the two implementation (the default ImageJ filter and the filter from the FastFilter plugin) are both significantly more time consuming than any implementation of the other filters. Considering that the median filter is widely used in image processing for de-noising image, improving the execution time would increase is usefulness for use with high-resolution image. This is why different 
-The minimum and maximum are unsuprisingly of similar complexity to each other in both implementation and are the fastest of the filters presented here, while the default implementation in ImageJ of the variance filters is only slightly slower than the default minimum and maximum filters.
+From the results of the benchmarks it can be concluded that the median filters use the most complex algorithm among the filters presented here, as the two implementation (the default ImageJ filter and the filter from the FastFilter plugin) are both significantly more time consuming than any implementation of the other filters, an the time of execution is even greater on an RGB image. Considering that the median filter is widely used in image processing for de-noising image, improving the execution time would increase is usefulness for use with high-resolution image. The minimum and maximum filters are unsuprisingly of similar complexity to each other in both implementation and are the fastest of the filters presented here, while the default implementation in ImageJ of the variance filters is only slightly slower than the default minimum and maximum filters. 
+It should be noted though that the FastFilters implementation of the minimum and maximum filters did not perform better on the benchmarks than the default implementation. On the other hand the FastFilters implementation of the median filter perform better than the default implementation, particularly for RGB images, justifying the use of this plugin.
 
 
 ## References 
