@@ -8,7 +8,7 @@ print("Java: "+ getInfo("java.version") + ", vm: " + getInfo("java.vm.version") 
 
 best = 100000;
 worst = -1;
-count = 100;
+count = 1100;
 sum = 0;
 for(i=0; i<count; i++){
     open("/home/rohan/Documents/bioinfo/ImageJ/RankFilters/lena-std.tif");
@@ -28,7 +28,7 @@ print("Benchmark worst: " + worst);
 
 best = 100000;
 worst = -1;
-count = 100;
+count = 1100;
 sum = 0;
 for(i=0; i<count; i++){
     open("/home/rohan/Documents/bioinfo/ImageJ/RankFilters/lena-std.tif");
@@ -48,7 +48,7 @@ print("Benchmark worst: " + worst);
 
 best = 100000;
 worst = -1;
-count = 100;
+count = 1100;
 sum = 0;
 for(i=0; i<count; i++){
     open("/home/rohan/Documents/bioinfo/ImageJ/RankFilters/lena-std.tif");
@@ -68,7 +68,7 @@ print("Benchmark worst: " + worst);
 
 best = 100000;
 worst = -1;
-count = 100;
+count = 1100;
 sum = 0;
 for(i=0; i<count; i++){
     open("/home/rohan/Documents/bioinfo/ImageJ/RankFilters/lena-std.tif");
