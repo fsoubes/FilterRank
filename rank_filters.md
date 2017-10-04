@@ -129,7 +129,7 @@ Another method for variance filtering make use of a faster algorithm to compute 
 
 Here is an exemple of a image I and the new computed image I' and I''.  
 
-Then for a window B bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
+To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_1.gif)  
 and  
@@ -137,7 +137,8 @@ and
 ![EqVar2_23](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_2.gif),  
 where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusive and I''(x,y) is the sum of all squared pixels values between I(0,0) and I(x,y) inclusive. The variance of the pixels value in the window B is :  
 
-![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
+![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)  
+Repeat for each window.
 
 ## Boundary issues
 
