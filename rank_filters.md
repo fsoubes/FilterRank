@@ -160,6 +160,9 @@ The results obtained with Rank filters functions were obtained with the same ima
 
 # Conclusion
 
+The results from the benchmarks shows that for the default rank filter plugin from ImageJ, the median filters is the most complex algorithm by a large margin
+
+
 ## References 
 
 * [^Hua1979] Huang T, Yang G, Tang G. A fast two-dimensional median filtering algorithm. IEEE Transactions on Acoustics, Speech, and Signal Processing. 1979;27(1):13–18.  
