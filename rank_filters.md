@@ -160,7 +160,7 @@ The results obtained with Rank filters functions were obtained with the same ima
 
 # Conclusion
 
-The results from the benchmarks shows that for the default rank filter plugin from ImageJ, the median filters is the most complex algorithm by a large margin
+The results from the benchmarks shows that for the default rank filter plugin from ImageJ, the median filters is the most complex algorithm by a large margin, while the minimum, maximum and variance filter are with the processing of a RGB image taking more than double the time used for the 8 bit image.
 
 
 ## References 
