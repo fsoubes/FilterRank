@@ -225,7 +225,8 @@ The results of the benchmark shows that the median filter function has the most 
 
 # Conclusion
 
-The results from the benchmarks shows that for the default rank filter plugin from ImageJ, the median filters is the most complex algorithm by a large margin, while the minimum, maximum and variance filter are with the processing of a RGB image taking more than double the time used for the 8 bit image.
+From the results of the benchmarks it can be concluded that the median filters use the most complex algorithm among the filters presented here, as the two implementation (the default ImageJ filter and the filter from the FastFilter plugin) are both significantly more time consuming than any implementation of the other filters. Considering that the median filter is widely used in image processing for de-noising image, improving the execution time would increase is usefulness for use with high-resolution image. This is why different 
+The minimum and maximum are unsuprisingly of similar complexity to each other in both implementation and are the fastest of the filters presented here, while the default implementation in ImageJ of the variance filters is only slightly slower than the default minimum and maximum filters.
 
 
 ## References 
