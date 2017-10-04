@@ -114,7 +114,6 @@ This filter is implemented in imageJ through the class rankfilters in <img src="
 This method is simple, moreover it’s characterised by low computational complexity compared to other methods (Cany, Sobel).
 However it’s not devoid of weakness because of its low resistance to noise. Indeed the impulse and Gaussian noise significantly decreases quality of edge detection [^Fab2011]. 
 
-lien : https://computersciencesource.wordpress.com/2010/09/03/computer-vision-the-integral-image/
 
 Another method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included. Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included.
 
