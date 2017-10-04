@@ -161,8 +161,10 @@ Here is shown how the starting matrix is extended for 3 X 3 filter.
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/bund_issues.png )  
 A third method is used to bypass boundaries issues by shrinking the kernel near the boundaries, in order to fill the kernel while doing the operation.
 
+http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
+
 ## Benchmarking analysis
-Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms in terms of speed (execution time) and load memory.
+Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first one, named *benchmark2* whose aim is to compute the time speed 
 
 
 
