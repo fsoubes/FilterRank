@@ -150,7 +150,7 @@ Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
 The results of the benchmark memory usage on the image 8 bit and RGB are presented on the figure XXX on four boxplots. On the top left boxplot of the figure XXX we see that the function with the most memory usage is the median filter with a mean of 9.39MB. The variance filter has a memory usage of 8.67 MB. The maximum and minimum filter are the two lowest functions with respectivly 6.89 and 5.24 MB. On a 8 bit image the  median and variance filter uses the most memory compared to all the functions, this seems logical because of the complexity of those two functions compared to the min/max ones.
 
-![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/boxplotresultsmemory.png)
+![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/boxploresultsmemory.png)
 
 **Figure XX. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
