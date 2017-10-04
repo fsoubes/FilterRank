@@ -81,6 +81,8 @@ It is possible to further improve this algorithm by changing the way the data ar
 
 ## Max/Min filters
 
+** Equation 2-3 Formula of the conversion between max I and min I.**
+
 ### Naive Algorithm
 
 A max and min filter are non-linear digital filtering techniques often used to find respectively the brightest or darkest points in an image.
@@ -90,7 +92,24 @@ A max filter operate like a median filter but will search the maximum value amon
 The naive algorithm for the max filter is the same as the one from the median filter, but rather than computing the median from the neighboring pixels values, instead compute the maximum value. To improve it, after computing the max value for the first pixel in the row, when moving the window to the right, compute the maximum value from the new pixels (the ones from the rightmost column). If this maximum is greater than the previous one use this new value. Else, check the pixels from the leftmost column of the previous window. If they do not contain the previous maximum value, use this value as the new maximum. Else, compute the maximum value of the new window using the naive algorithm.
 ### Improved algorithm
 
-A faster algorithm will, instead of computing the output image pixel of (n-p+1) X (m-p+1) pixels directly using a 2-D window, will compute a first output image of (n-p+1) X m pixels using a 1-D window of p pixels on all the rows, then compute the second and final output image of (n-p+1) X (m-p+1) from this first output image using a 1-D window of p pixels on all the columns.
+A faster algorithm will, instead of computing the output image pixel of (n-p+1) X (m-p+1) pixels directly using a 2-D window, will compute a first output image of (n-p+1) X m pixels using a 1-D window of p pixels on all the rows, then compute the second and final output image of (n-p+1) X (m-p+1) from this first output image using a 1-D window of p pixels on all the columns.  
+The separability comes from the property of the maximum operator. If S and T are two sets of numbers, then
+
+![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
+
+** Equation 2-1: Property of the maximun operator.**
+
+The same applies to the minimum operator : 
+
+![Property of the min operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule2.png)
+
+** Equation 2-2: Property of the min operator.**
+
+For the minimun filters. An easy way to obtain the result is to use and adapt the maiximun filter. In fact we can pre- and post-process the image to get the desired result, using the formula:
+
+![Formula of the conversion between max I and min I](https://github.com/fsoubes/FilterRank/blob/master/images/minmax.png)
+
+** Equation 2-3 Formula of the conversion between max I and min I.**
 
 ## Variance filter
 
