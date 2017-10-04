@@ -164,7 +164,7 @@ A third method is used to bypass boundaries issues by shrinking the kernel near 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
 
 ## Benchmarking analysis
-Benchmark analysis is a method widely used to assess the relative performance of an object[^Flem1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first one, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the macro recorder present in ImageJ.
+Benchmark analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first one, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the macro recorder present in ImageJ.
 
 
 
@@ -198,4 +198,4 @@ Acm Transactions on Graphics (TOG).
 * [^Can1986] Canny J. A computational approach to edge detection. IEEE Transactions on pattern analysis and machine intelligence. 1986;(6):679–698.  
 * [^Kit1983] Kittler J. On the accuracy of the Sobel edge detector. 1983;1(1):37–42. Image and Vision Computing.  
 * [^Mar1980] Marr D, Hildreth E. Theory of edge detection. Proceedings of the Royal Society of London B: Biological Sciences. 1980;207(1167):187–217.
-* [^Flem1896] Philip J. Fleming and John J. Wallace. 1986. How not to lie with statistics: the correct way to summarize benchmark results. Commun. ACM 29, 3 (March 1986), 218-221. DOI=http://dx.doi.org/10.1145/5666.5673 
+* [^Fle1896] Philip J. Fleming and John J. Wallace. 1986. How not to lie with statistics: the correct way to summarize benchmark results. Commun. ACM 29, 3 (March 1986), 218-221. DOI=http://dx.doi.org/10.1145/5666.5673 
