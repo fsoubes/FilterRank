@@ -169,11 +169,14 @@ The operation process is ran 1100 times for both measurements to provide robust 
 
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena 512*512 pixels.
 
-![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )
 
 # Results
 
 The results obtained with Rank filters functions were obtained with the same image : Boat 360x288 pixels, for personal concerns we choose to use the 8-bit version of this image.
+
+
+![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )
+
 
 
 
