@@ -160,7 +160,6 @@ The kernels used in the different filters are partially out of bound of the imag
 #### Fig 3. Extension of the starting matrix before a treatment by a 3 X 3 filter, by (a) extending border value and by (b) 0-padding..  
 A third method used to bypass boundaries issues is by shrinking the kernel near the boundaries, in order to completely fill the kernel without going out of bound during the process. It is the method used in the FastFilters plugin.
 
-http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
 
 ## Benchmarking analysis
 Benchmark analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution's time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. The second script *memoryall.js* was implemented in javascript, to measure the memory used by the JVM while running the filter in ImageJ until the end of the process. 
