@@ -154,10 +154,10 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 Repeat for each window. The default variance filter in ImageJ is based on this algorithm.  
 ## Boundary issues
 
-The kernels used in the different filters are partially out of bound of the image when centered on pixels near the boundaries of an image, and in these case there are less pixels available to compute the central value. There are multiple ways to handle these cases.  The simplest way is to ignore each case where the kernel is out of bound, resulting in an output image that is cropped compared to the input image. Another method consist to attribute values to out of bound pixels, for example by giving them the value of the nearest in bound pixels, thus creating enough values to realise the process. The latter method is used in the default RankFilters plugin of ImageJ. Another way is to attribute an arbritrary value to thos out of bound pixels, for example 0,s amethod called 0-padding.
+The kernels used in the different filters are partially out of bound of the image when centered on pixels near the boundaries of an image, and in these case there are less pixels available to compute the central value. There are multiple ways to handle these cases.  The simplest way is to ignore each case where the kernel is out of bound, resulting either in an output image that is cropped compared to the input image or by keeping the border values unchanged on the output image.  Another method consist to pre-process the image by attributing values to out of bound pixels, for example by giving them the value of the nearest in bound pixels, thus creating enough values to realise the process. The latter method is used in the default RankFilters plugin of ImageJ. Another way is to attribute an arbritrary value to thos out of bound pixels, for example 0,s amethod called 0-padding.
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/bund_issues.png )  
-#### Fig 3. Extension of the starting matrix for 3 X 3 filter, by (a) extending border value and by (b) 0-padding..  
+#### Fig 3. Extension of the starting matrix before a treatment by a 3 X 3 filter, by (a) extending border value and by (b) 0-padding..  
 A third method used to bypass boundaries issues is by shrinking the kernel near the boundaries, in order to completely fill the kernel without going out of bound during the process. It is the method used in the FastFilters plugin.
 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
