@@ -177,34 +177,34 @@ The followed image shows the output of the Median filter function in 8-bit image
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian2.png)
 
-** Figure XX. Result of Median filter function with radius=2, A: input image, B: output image.**
+#### Figure XX. Result of Median filter function with radius=2, A: input image, B: output image.**
 
 The next image show the output of the Median filter function on the same last image but this time with noise.[Fig.X]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and adversarlly 
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian2.png)
 
-** Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
+#### Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
 The next image show the ouput of the Median filter function on the same image that before but this time with salt and pepper noise.[Fig.X]. We can see the full effect of the Median filter, the noise is totally removed from the picture after filter.
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/saltpepperimagemedian2.png)
 
-** Figure XX. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
+#### Figure XX. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
 
 The followed image shows the output of the Maximun filter function in 8-bit image[Fig.X]. Here we can clearly see the brightest points due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax2.png)
 
-** Figure XX. Result of Maximun filter function with radius=2, A: input image, B: output image**
+#### Figure XX. Result of Maximun filter function with radius=2, A: input image, B: output image**
 
 The followed image shows the output of the Minimun filter function in 8-bit image[Fig.X]. Here we can clearly see the darkest points in the image due to the Minimun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin2.png)
 
-** Figure XX. Result of Minimun filter function with radius=2, A: input image, B: output image**
+#### Figure XX. Result of Minimun filter function with radius=2, A: input image, B: output image**
 
 The followed image shows the output of the Variance filter function in 8-bit image[Fig.X]. On the output image we can clearly see the edges on the image represented by the pixels in white.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance2.png)
 
-**Figure XX. Result of Variance filter function with radius=2 , A: input image, B: output image**
+#### Figure XX. Result of Variance filter function with radius=2 , A: input image, B: output image**
 
 The following image shows the output after using both Rank filters and Fast filters plugins with a radius = 3.
 
