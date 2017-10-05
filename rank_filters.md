@@ -176,7 +176,8 @@ The results obtained with Rank filters functions were obtained with the same ima
 
 The following image shows the output after using both Rank filters and Fast filters plugins with a radius = 3.
 
-![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )
+![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )  
+Fig. X: Images created from the use of (a) the default median filter, (b) the default minimum filter, (c) the default maximum filter, (d) the FastFilters median filter, (e) the FastFilters minimum filter, and (f) the FastFilters maximum filters
 
 When comparing those results,it seems that there's not much significant differences between the two different plugins. 
 
