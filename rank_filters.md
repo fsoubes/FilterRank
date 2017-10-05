@@ -223,7 +223,7 @@ On the bot-left boxplot, the same four filter functions have been studied this t
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxplotresultsspedtime.png)
 
-**Figure 11. Comparison between the Rank filter and Fast filter functions on the exexution's speed collected for 1000
+#### Figure 11. Comparison between the Rank filter and Fast filter functions on the exexution's speed collected for 1000
 iterations on lena 8 bit and RGB , OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
@@ -232,7 +232,7 @@ The results of the benchmark memory usage on the image 8 bit and RGB are present
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxploresultsmemory.png)
 
-**Figure 12. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
+#### Figure 12. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
 On the figure XXXX we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations(top left, bot left) we can say that, for memory usage and 8 bit to RGB, the median filter goes from first to last function in memory usage, it is hard to explain this result, in fact we would have expect the opposite. The other three functions have almost the same memory usage, one theory would be that the the switch between 8 bit and RGB does not impact the memory usage with those functions. Another would be that the iterations are not wide enough. The results on the Fast filter functions are presented on the boxplot top-right and bot-right. First we can see on the top-right boxplot that the mean of the three functions are almost the same, 9.26 MB, 8.86M and 10.21 MB, the functions use quite the same amount of memory.  On the bot-right boxplot the same pattern applys on the memory usage, an 8bit or RGB image does not seems to have an impact on the memory usage of the functions. If we have to compare the Rank and Fast filter functions in term of memory usage, we cannot say that there is any significant difference between the Fast and Rank filter functions in term of memory usage.
