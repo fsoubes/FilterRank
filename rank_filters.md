@@ -75,8 +75,7 @@ and re-test. If false mdn is the median of the current window. The default media
 
 It is possible to further improve this algorithm by changing the way the data are stored, by using more than one gray level histogram to handle the pixels values [^Per2007].  One gray level histogram of 256 elements is maintained for each column of the image, containing a number h of pixels. By summing w of these histograms, we obtain a kernel of w X h pixels. When sliding the kernel to the right, remove the histogram corresponding to the the leftmost column and add the histogram corresponding to the column right of the previous window. When moving the kernel to the next row, you remove the pixel value from the highest row from each histogram and add the pixels values from the new row included in the kernels as well.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
-(a) Moving the histogtam down one row by removing a pixel and adding another one.  
-(b) Subtracting one histogram and adding another to move the window to the right.
+#### Fig 1. (a) Moving the histogram down one row by removing a pixel and adding another one. (b) Subtracting one histogram and adding another to move the window to the right.
 
 
 ## Max/Min filters
@@ -141,7 +140,7 @@ Another method for variance filtering make use of a faster algorithm to compute 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 
-Here is an exemple of a image I and the new computed image I' and I''.  
+#### Fig 2. An exemple of a image I and the new computed image I' and I''.  
 
 To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
 
@@ -157,8 +156,8 @@ Repeat for each window. The default variance filter in ImageJ is based on this a
 
 The kernels used in the different filters are partially out of bound of the image when centered on pixels near the boundaries of an image, and in these case there are less pixels available to compute the central value. There are multiple ways to handle these cases.  The simplest way is to ignore each case where the kernel is out of bound, resulting in an output image that is cropped compared to the input image. Another method consist to attribute values to out of bound pixels, by giving them the value of the nearest in bound pixels, thus creating enough values to realise the process. The first examples consist to pad the matrix with extending border values. 
 
-Here is shown how the starting matrix is extended for 3 X 3 filter.  
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/bund_issues.png )  
+#### Fig 3. Extension of the starting matrix for 3 X 3 filter.  
 A third method is used to bypass boundaries issues by shrinking the kernel near the boundaries, in order to fill the kernel while doing the operation.
 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
