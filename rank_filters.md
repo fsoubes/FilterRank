@@ -158,7 +158,7 @@ The kernels used in the different filters are partially out of bound of the imag
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/bund_issues.png )  
 #### Fig 3. Extension of the starting matrix for 3 X 3 filter.  
-A third method is used to bypass boundaries issues by shrinking the kernel near the boundaries, in order to fill the kernel while doing the operation.
+A third method used to bypass boundaries issues is by shrinking the kernel near the boundaries, in order to completely fill the kernel without going out of bound during the process. It is the method used in the FastFilters plugin.
 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
 
