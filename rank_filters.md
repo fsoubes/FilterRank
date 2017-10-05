@@ -174,8 +174,12 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 The results obtained with Rank filters functions were obtained with the same image : Boat 360x288 pixels, for personal concerns we choose to use the 8-bit version of this image.
 
+The following image shows the output after using both Rank filters and Fast filters plugins with a radius = 3.
 
 ![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )
+
+When comparing those results,it seems that there's not much significant differences between the two different plugins. 
+
 
 
 
