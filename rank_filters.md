@@ -164,16 +164,17 @@ A third method is used to bypass boundaries issues by shrinking the kernel near 
 http://imagejdocu.tudor.lu/doku.php?id=plugin:filter:fast_filters:start
 
 ## Benchmarking analysis
-Benchmark analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. The second script *a* was implemented in javascript, to measure the memory used by the JVM while running the filter in ImageJ until the end of the process. 
+Benchmark analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. The second script *memoryall.js* was implemented in javascript, to measure the memory used by the JVM while running the filter in ImageJ until the end of the process. 
 The operation process is ran 1100 times for both measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may biased our results.
 
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena 512*512 pixels.
 
-
+![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )
 
 # Results
 
 The results obtained with Rank filters functions were obtained with the same image : Boat 360x288 pixels, for personal concerns we choose to use the 8-bit version of this image.
+
 
 
 
