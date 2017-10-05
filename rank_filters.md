@@ -239,9 +239,11 @@ On the figure 12 we see that the variance filter function has the most memory us
 
 # Discussion
 
-Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges.
-The results of the benchmark shows that the median filter function has the most complex algorithm beause due to the longest time execution. The max/minx filter functions have quite the same algorithm and this one is less complex than the median one. the variance filter function algorithm is the fastest one between those studied. There is some variation between 8 bit and RGB image, this was expected because of the complexity of an RGB image compared to an 8 bit image. 
+Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges. When we compare the quality of the output images between the Fast rank filter functions and the Rank ones, we do not see any difference.
 
+The results of the benchmark on execution speed shows that the median filter function has the most complex algorithm due to the longest time's execution. The max/minx filter functions have quite the same algorithm and this one is less complex than the median. The variance filter function algorithm is the fastest one between those studied. There is some variation between 8 bit and RGB image, this was expected because of the complexity of an RGB image compared to an 8 bit image.
+
+The results of the benchmark on memory usage shows that there is almost no differences between Rank filter and Fast filter functions. Also the results shows that the variance filter is the one with the hightest memory usage. Even if the algorithms are different this do not affect the memory usage. 
 
 # Conclusion
 
