@@ -176,39 +176,39 @@ The followed image shows the output of the Median filter function in 8-bit image
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian2.png)
 
-#### Figure XX. Result of Median filter function with radius=2, A: input image, B: output image.**
+#### Figure 4. Result of Median filter function with radius=2, A: input image, B: output image.**
 
 The next image show the output of the Median filter function on the same last image but this time with noise.[Fig.X]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and adversarlly 
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian2.png)
 
-#### Figure XX. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
+#### Figure 5. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
 The next image show the ouput of the Median filter function on the same image that before but this time with salt and pepper noise.[Fig.X]. We can see the full effect of the Median filter, the noise is totally removed from the picture after filter.
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/saltpepperimagemedian2.png)
 
-#### Figure XX. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
+#### Figure 6. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
 
 The followed image shows the output of the Maximun filter function in 8-bit image[Fig.X]. Here we can clearly see the brightest points due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax2.png)
 
-#### Figure XX. Result of Maximun filter function with radius=2, A: input image, B: output image**
+#### Figure 7. Result of Maximun filter function with radius=2, A: input image, B: output image**
 
 The followed image shows the output of the Minimun filter function in 8-bit image[Fig.X]. Here we can clearly see the darkest points in the image due to the Minimun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin2.png)
 
-#### Figure XX. Result of Minimun filter function with radius=2, A: input image, B: output image**
+#### Figure 8. Result of Minimun filter function with radius=2, A: input image, B: output image**
 
 The followed image shows the output of the Variance filter function in 8-bit image[Fig.X]. On the output image we can clearly see the edges on the image represented by the pixels in white.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance2.png)
 
-#### Figure XX. Result of Variance filter function with radius=2 , A: input image, B: output image**
+#### Figure 9. Result of Variance filter function with radius=2 , A: input image, B: output image**
 
 The following image shows the output after using both Rank filters and Fast filters plugins with a radius = 3.
 
 ![Montage](https://github.com/fsoubes/FilterRank/blob/master/images/Montage.jpg )  
-#### Fig. X: Images created with a radius of 3 from the use of (a) the default median filter, (b) the default minimum filter, (c) the default maximum filter, (d) the FastFilters median filter, (e) the FastFilters minimum filter, and (f) the FastFilters maximum filters
+#### Fig. 10: Images created with a radius of 3 from the use of (a) the default median filter, (b) the default minimum filter, (c) the default maximum filter, (d) the FastFilters median filter, (e) the FastFilters minimum filter, and (f) the FastFilters maximum filters
 
 When comparing those results,it seems that there's not much significant differences between the two different plugins. 
 
@@ -223,7 +223,7 @@ On the bot-left boxplot, the same four filter functions have been studied this t
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxplotresultsspedtime.png)
 
-**Figure XX. Comparison between the Rank filter and Fast filter functions on the exexution's speed collected for 1000
+**Figure 11. Comparison between the Rank filter and Fast filter functions on the exexution's speed collected for 1000
 iterations on lena 8 bit and RGB , OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
@@ -232,7 +232,7 @@ The results of the benchmark memory usage on the image 8 bit and RGB are present
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxploresultsmemory.png)
 
-**Figure XX. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
+**Figure 12. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
 On the figure XXXX we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations(top left, bot left) we can say that, for memory usage and 8 bit to RGB, the median filter goes from first to last function in memory usage, it is hard to explain this result, in fact we would have expect the opposite. The other three functions have almost the same memory usage, one theory would be that the the switch between 8 bit and RGB does not impact the memory usage with those functions. Another would be that the iterations are not wide enough. The results on the Fast filter functions are presented on the boxplot top-right and bot-right. First we can see on the top-right boxplot that the mean of the three functions are almost the same, 9.26 MB, 8.86M and 10.21 MB, the functions use quite the same amount of memory.  On the bot-right boxplot the same pattern applys on the memory usage, an 8bit or RGB image does not seems to have an impact on the memory usage of the functions. If we have to compare the Rank and Fast filter functions in term of memory usage, we cannot say that there is any significant difference between the Fast and Rank filter functions in term of memory usage.
