@@ -46,7 +46,7 @@ Sorting algorithms are costly in time, and as such it is possible to improve thi
 When sliding the window to the right, to compute the new median,  for each pixel from the leftmost column of the previous window, remove it from the array hist :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_1.gif)  
 and update ltmdn if needed :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_2.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_2.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_3.gif)  
 For each pixel from the rightmost column of the new window, add it in the array hist :    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_4.gif)    
 and update if needed:  
