@@ -80,7 +80,6 @@ It is possible to further improve this algorithm by changing the way the data ar
 
 ## Max/Min filters
 
-#### Equation 2-3 Formula of the conversion between max I and min I.
 
 ### Naive Algorithm
 
