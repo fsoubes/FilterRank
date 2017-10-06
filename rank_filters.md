@@ -1,4 +1,4 @@
-# AUTHORS : Adrien Rohan, Franck Soubès, Guillamaury Debras
+# AUTHORS : *Adrien Rohan, Franck Soubès, Guillamaury Debras
 # Filters 2D (rank filters)
 # 1.Introduction
 
