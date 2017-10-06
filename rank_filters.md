@@ -24,7 +24,7 @@ In this section will be presented the algorithms used for median, min, max and v
 
 ## Median filter 
 
-A median filter is a filter that, for each pixel from an input image, will compute the median value of all neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image.
+A median filter is a filter that, for each pixel from an input image, will compute the median value of all neighboring pixels and produce an output image where each pixel will take have the median value calculated for the corresponding pixel in the input image. By definition in an ordered list of numbers, the median is the value such that there is an equal number of number before and after this value.
 
 ### Naive algorithm
 
