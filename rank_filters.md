@@ -80,7 +80,7 @@ It is possible to further improve this algorithm by changing the way the data ar
 
 ## Max/Min filters
 
-** Equation 2-3 Formula of the conversion between max I and min I.**
+#### Equation 2-3 Formula of the conversion between max I and min I.
 
 ### Naive Algorithm
 
@@ -96,19 +96,19 @@ The separability comes from the property of the maximum operator. If S and T are
 
 ![Property of the maximun operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule1.png)
 
-** Equation 2-1: Property of the maximun operator.**
+#### Equation 2-1: Property of the maximun operator.
 
 The same applies to the minimum operator : 
 
 ![Property of the min operator](https://github.com/fsoubes/FilterRank/blob/master/images/formule2.png)
 
-** Equation 2-2: Property of the min operator.**
+ #### Equation 2-2: Property of the min operator.
 
 For the minimun filters. An easy way to obtain the result is to use and adapt the maiximun filter. In fact we can pre- and post-process the image to get the desired result, using the formula:
 
 ![Formula of the conversion between max I and min I](https://github.com/fsoubes/FilterRank/blob/master/images/minmax.png)
 
-** Equation 2-3 Formula of the conversion between max I and min I.**
+ #### Equation 2-3 Formula of the conversion between max I and min I.
 
 ## Variance filter
 
@@ -157,7 +157,9 @@ Repeat for each window. The default variance filter in ImageJ is based on this a
 The kernels used in the different filters are partially out of bound of the image when centered on pixels near the boundaries of an image, and in this case there are less pixel available to compute the central value. There are multiple ways to handle these cases. The simplest way is to ignore each case where the kernel is out of bound, resulting either in an output image that is cropped compared to the input image or by keeping the border values unchanged on the output image.  Another method consists into pre-processing the image by attributing values to out of bound pixels, for example by giving them the value of the nearest in bound pixels, thus creating enough values to realise the process. This last method is used in the default RankFilters plugin of ImageJ. Another way is to attribute an arbritrary value to those out of bound pixels, for example 0,is a method called 0-padding.
 
 ![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/bund_issues.png )  
-#### Fig 3. Extension of the starting matrix before a treatment by a 3 X 3 filter, by (a) extending border value and by (b) 0-padding..  
+
+#### Fig 3. Extension of the starting matrix before a treatment by a 3 X 3 filter, by (a) extending border value and by (b) 0-padding.. 
+
 A third method used to bypass boundaries issues is by shrinking the kernel near the boundaries, in order to completely fill the kernel without going out of bound during the process. This is the method used in the FastFilters plugin.
 
 
