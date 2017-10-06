@@ -1,4 +1,5 @@
 # AUTHORS : *Adrien Rohan, Franck Soubès, Guillamaury Debras
+# Link to GitHub <img src="https://github.com/fsoubes/FilterRank " alt="java" />
 # Filters 2D (rank filters)
 # 1.Introduction
 
@@ -16,6 +17,8 @@ The filter that chooses the maximum or minimum values is called the maximum filt
 * Variance filter
 
 Next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM). The ImageJ plugins compared are the default ImageJ RankFilters plugin which has implementation for the median, maximum, minimum and variance filters, and the FastFilters plugin, which contains implementation for the median maximum and minimum filters.  
+
+
 
 
 # 2.Material & Methods
