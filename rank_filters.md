@@ -169,37 +169,37 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 
 # Results
-Here are shown the results of the selected images before and after selection of rank filters functions in imageJ. The image used can be found in ImageJ samples " Boats.gif", we decide to use this sample because of the edges that can be easily notified..
+Here are shown the results of the selected images before and after selection of rank filters functions in imageJ. The image used can be found in ImageJ samples " Boats.gif", we decide to use this sample because of the edges that can be easily noted.
 
-The followed image shows the output of the Median filter function in 8-bit image[Fig.4]. Now because there is no noise on the input image it feels like the output image is kinda blurry.
+The following image shows the output of the Median filter function in 8-bit image[Fig.4]. Now while there is no noise on the input image the output image is now blurrier.
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/normalmedian2.png)
 
 #### Figure 4. Result of Median filter function with radius=2, A: input image, B: output image.**
 
-The next image shows the output of the Median filter function on the same last image but this time with noise.[Fig.5]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and adversarlly 
+The next image shows the output of the Median filter function on the same image but this time with noise.[Fig.5]. With this image we can see the effect of the Median filter on an image with noise. The filter indeed removes partially the noise from the image and add blur.
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/noiseimagemedian2.png)
 
 #### Figure 5. Result of Median filter function with radius=2 on a noise image, A: input image, B: output image.**
 
-The next image shows the ouput of the Median filter function on the same image that before but this time with salt and pepper noise.[Fig.6]. We can see the full effect of the Median filter, the noise is totally removed from the picture after filter.
+The next image shows the ouput of the Median filter function on the same image than before but this time with salt and pepper noise.[Fig.6]. We can see the full effect of the Median filter, the noise is totally removed from the picture after the filter.
 
 ![yolo](https://github.com/fsoubes/FilterRank/blob/master/images/saltpepperimagemedian2.png)
 
 #### Figure 6. Result of Median filter function with radius=2 on a salt-pepper image, A: input image, B: output image.**
 
-The followed image shows the output of the Maximun filter function in 8-bit image[Fig.7]. Here we can clearly see the brightest points due to the Maximun filter.
+The following image shows the output of the Maximun filter function in 8-bit image[Fig.7]. Here we can clearly see that the brightest parts have been dilated due to the Maximun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmax2.png)
 
 #### Figure 7. Result of Maximun filter function with radius=2, A: input image, B: output image**
 
-The followed image shows the output of the Minimun filter function in 8-bit image[Fig.8]. Here we can clearly see the darkest points in the image due to the Minimun filter.
+The following image shows the output of the Minimun filter function in 8-bit image[Fig.8]. Here we can clearly see that the darkest parts of the image have been dilated due to the Minimun filter.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalmin2.png)
 
 #### Figure 8. Result of Minimun filter function with radius=2, A: input image, B: output image**
 
-The followed image shows the output of the Variance filter function in 8-bit image[Fig.9]. On the output image we can clearly see the edges on the image represented by the pixels in white.
+The following image shows the output of the Variance filter function in 8-bit image[Fig.9]. On the output image we can clearly see the edges on the image represented by the pixels in white.
 ![yolo2](https://github.com/fsoubes/FilterRank/blob/master/images/normalvariance2.png)
 
 #### Figure 9. Result of Variance filter function with radius=2 , A: input image, B: output image**
@@ -211,13 +211,13 @@ The following image shows the output after using both Rank filters and Fast filt
 
 When comparing those results,it seems that there's not much significant differences between the two different plugins. 
 
-## Benchmark Results
+## Benchmarks Results
 
-The benchmark used here are based on two separated things, the execution speed and the memory usage. We also analyze the difference bewteen the inter-groups and intra-groups on the Lena image ( rbg or 8 bit), 512x512.
+The benchmarks used here are based on two separated things, the execution speed and the memory usage. We also analyze the difference between the inter-groups and intra-groups on the Lena image ( rbg or 8 bit), 512x512.
 
-The results of the benchmark speed's execution on the image 8 bit and RGB are presented on the Fig. 11 on four boxplots. On the top left we can see that the median filter has still the highest time exexcution mean of 32.16 ms. The maximum and minimun filter functions have respectivly a time's execution of 17.65 and 17.63 ms. At last the variance filter function does 16.18 ms. 
+The results of the benchmark speed execution on the image 8 bit and RGB are presented on the Fig. 11 on four boxplots. On the top left we can see that the median filter has still the highest time exexcution mean of 32.16 ms. The maximum and minimun filter functions have respectivly a time execution of 17.65 and 17.63 ms. At last the variance filter function does 16.18 ms. 
 
-On the bot-left boxplot, the same four filter functions have been studied this time with an RGB image.We can see that the median filter is a slowest compared to the others with a mean of 73.37 ms. The variance filter is the second slowest with an execution time mean of 52.28 ms. This can be epxlained because the median and variance filter algorithms are the most complex one. The  minimum and maximun filter functions are likely the same with 26.31 and 24.78 ms. Those are the two functions with the less complexity and the algorithms are likely the same this is why there is almost no difference of time's execution between those functions ( less than 2 ms). We can see the same pattern bewteen the RGB image and 8 bit image except for the variance filter function algorithm, indeed it's seems an extreme data compromised the mean of the variance function execution time.In general we see an increase of the execution time from 8 bit to RGB image. The comparison between the Fast filter functions and the Rank filter functions are interesting, indeed the fast filer functions take less time than the rank filter for each functions ( median,min,max), the variance function wasn't available so we cannot compare this last one. The same pattern is present for the Fast filter functions with an execution time from 8 bit to RBG image. We conclude that the Fast filter functions algotithms are more efficient in term of speed's execution than the Rank filter functions.
+On the bottom left boxplot, the same four filter functions have been studied this time with an RGB image. We can see that the median filter is slowest compared to the others with a mean of 73.37 ms. The variance filter is the second slowest with a mean execution time  of 52.28 ms. This can be epxlained because the median and variance filter algorithms are the most complex ones. The  minimum and maximun filter functions are almost the same with 26.31 and 24.78 ms. Those are the two functions with the less complexity and the algorithms are almost the same this is why there is almost no difference of time execution between those functions ( less than 2 ms). We can see the same pattern between the RGB image and 8 bit image except for the variance filter function algorithm, indeed it seems an extreme data point compromised the mean of the variance function execution time.In general we see an increase of the execution time from 8 bit to RGB image. The comparison between the Fast filter functions and the Rank filter functions are interesting, indeed the Fast filter functions take less time than the Rank filter for each functions ( median,min,max), the variance function wasn't available so we cannot compare this last one. The same pattern is present for the Fast filter functions with an execution time from 8 bit to RBG image. We conclude that the Fast filter functions algotithms are more efficient in term of speed execution than the Rank filter functions.
 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxplotresultsspedtime.png)
@@ -227,20 +227,20 @@ iterations on lena 8 bit and RGB , OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
 
-The results of the benchmark memory usage on the image 8 bit and RGB are presented on the Fig. 12 on four boxplots. On the top left boxplot of the figure 12 we see that the function with the most memory usage is the median filter with a mean of 9.39MB. The variance filter has a memory usage of 8.67 MB. The maximum and minimum filter are the two lowest functions with respectivly 6.89 and 5.24 MB. On a 8 bit image the  median and variance filter uses the most memory compared to all the functions, this seems logical because of the complexity of those two functions compared to the min/max ones even thought the difference is mimimal.
+The results of the benchmark memory usage on the image 8 bit and RGB are presented on the Fig. 12 on four boxplots. On the top left boxplot of the figure 12 we see that the function with the most memory usage is the median filter with a mean of 9.39 MB. The variance filter has a memory usage of 8.67 MB. The maximum and minimum filter are the two lowest functions with respectivly 6.89 and 5.24 MB. On a 8 bit image the  median and variance filter uses the most memory compared to all the functions, this seems logical because of the complexity of those two functions compared to the min/max ones even thought the difference is mimimal.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/boxploresultsmemory.png)
 
 #### Figure 12. Comparison between the Rank filter and Fast filter functions on the memory usage  collected for 1000 iterations on lena 8 bit and RGBOS : OS : Linux 4.9.0-3-amd64
 Java: 1.8.0_144, vm: 25.144-b01 Oracle Corporation
 
-On the figure 12 we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations(top left, bot left) we can say that, for memory usage on 8 bit to RGB, the median filter goes from first to last function in memory usage, it is hard to explain this result, in fact we would have expect the opposite. The other three functions have almost the same memory usage, one theory would be that the the switch between 8 bit and RGB does not impact the memory usage with those functions. Another would be that the iterations are not wide enough. The results on the Fast filter functions are presented on the boxplot top-right and bot-right. First we can see on the top-right boxplot that the mean of the three functions are almost the same, 9.26 MB, 8.86M and 10.21 MB, the functions use quite the same amount of memory.  On the bot-right boxplot the same pattern applys on the memory usage, an 8bit or RGB image does not seems to have an impact on the memory usage of the functions. If we have to compare the Rank and Fast filter functions in term of memory usage, we cannot say that there are significant differences between the Fast and Rank filter functions.
+On the figure 12 we see that the variance filter function has the most memory usage with a mean of 10 MB for 1000 iterations. The Maximun functions uses 7.12 MB the median and minimum uses respectivly 6.07 and 6.96 MB. If we compared the results based on inter-groups interpretations(top left, bottom left) we can say that, for memory usage on 8 bit to RGB, the median filter goes from first to last function in memory usage, it is hard to explain this result, in fact we would have expect the opposite. The other three functions have almost the same memory usage, one theory would be that the the switch between 8 bit and RGB does not impact the memory usage with those functions. Another would be that the iterations are not wide enough. The results on the Fast filter functions are presented on the boxplot top-right and bottom-right. First we can see on the top-right boxplot that the mean of the three functions are almost the same, 9.26 MB, 8.86M and 10.21 MB, the functions use quite the same amount of memory.  On the bottom-right boxplot the same pattern applys on the memory usage, an 8bit or RGB image does not seems to have an impact on the memory usage of the functions. If we have to compare the Rank and Fast filter functions in term of memory usage, we cannot say that there are significant differences between the Fast and Rank filter functions.
 
 # Discussion
 
 Four rank filter functions have been studied, the median, minimun, maximun and variance one. Each one of them have a particular effect. The median filter is used to remove speficic noise like salt and pepper. The min/max filters are used to show the darkest/brightest points in an image, and are often used before a skeletonize function, at last the variance filter is mainly use to distingish the edges. When we compare the quality of the output images between the Fast rank filter functions and the Rank ones, we do not see any difference.
 
-The results of the benchmark on execution speed shows that the median filter function has the most complex algorithm due to the longest time's execution. The max/minx filter functions have quite the same algorithm and this one is less complex than the median. The variance filter function algorithm is the fastest one between those studied. There is some variation between 8 bit and RGB image, this was expected because of the complexity of an RGB image compared to an 8 bit image.
+The results of the benchmark on execution speed shows that the median filter function has the most complex algorithm due to the longest time's execution. The max/min filter functions have quite the same algorithm and this one is less complex than the median. The variance filter function algorithm is the fastest one between those studied. There is some variation between 8 bit and RGB images, this was expected because of the complexity of a RGB image compared to an 8 bit image.
 
 The results of the benchmark on memory usage shows that there is almost no differences between Rank filter and Fast filter functions. Also the results shows that the variance filter is the one with the hightest memory usage . We conclude that even if the algorithms are different this do not affect the memory usage. 
 
