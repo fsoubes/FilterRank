@@ -169,7 +169,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 
 # Results
-Here are shown the results of the selected images before and after selection of rank filters functions in imageJ. The image used can be found in ImageJ samples " Boats.gif".
+Here are shown the results of the selected images before and after selection of rank filters functions in imageJ. The image used can be found in ImageJ samples " Boats.gif", we decide to use this sample because of the edges that can be easily notified..
 
 The followed image shows the output of the Median filter function in 8-bit image[Fig.4]. Now because there is no noise on the input image it feels like the output image is kinda blurry.
 
