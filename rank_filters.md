@@ -1,5 +1,5 @@
 # AUTHORS : *Adrien Rohan, Franck Soubès, Guillamaury Debras
-# Link to GitHub <img src="https://github.com/fsoubes/FilterRank " alt="java" />
+# Link to <img src="https://github.com/fsoubes/FilterRank " alt="our project GitHub" />
 # Filters 2D (rank filters)
 # 1.Introduction
 
