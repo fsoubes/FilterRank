@@ -44,33 +44,33 @@ To sort all the pixels value in the kernel, different algorithms are possible. O
 Sorting algorithms are costly in time, and as such it is possible to improve this basic algorithm, which reorders all the pixels values in the window each time it moves, by making use of the fact that only a portion of pixel is removed from the window when it moves to the right, and the same number of pixels is added [^Hua1979][^Hua1981]. The pixel values in the window are stored inside a 256 element array hist[0:255] corresponding to the gray level histogram of the window, so that hist[g]=N mean that N pixel in the current windows take the value g. After computing the median value for the first pixel the regular way and storing it in the varable mdn, store the number of pixels in the window that have a value below the median in a variable ltmdn.  
 
 When sliding the window to the right, to compute the new median,  for each pixel from the leftmost column of the previous window, remove it from the array hist :  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_1.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_1.gif)  
 and update ltmdn if needed :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_2.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_2.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
 For each pixel from the rightmost column of the new window, add it in the array hist :    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_4.gif)    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_4.gif)    
 and update if needed:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_5.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_3.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_5.gif) &nbsp;if&nbsp; ![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_3.gif)  
 Using the variables ltmdn and mdn, the new median for the current window can be found by doing the following steps.  
 
-If &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_6.gif)  
+If &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_6.gif)  
 
 the current median is lower than mdn, and do :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_7.gif) &nbsp;&nbsp;and&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_7.gif) &nbsp;&nbsp;and&nbsp;&nbsp; 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_8.gif)  
 until :  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_9.gif)  
 
 
-Else if &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_9.gif)  
+Else if &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_9.gif)  
 
 the current median is greater than or equal to mdn, and test :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_10.gif)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_10.gif)  
 
 If true, do :   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_11.gif) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_11.gif) 
 &nbsp;&nbsp;and&nbsp;&nbsp; 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/Equation/EqMed2_12.gif)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/EqMed2_12.gif)  
 and re-test. If false mdn is the median of the current window. The default median filter on ImageJ is based on this algorithm.
 
 It is possible to further improve this algorithm by changing the way the data are stored, by using more than one gray level histogram to handle the pixels values [^Per2007].  One gray level histogram of 256 elements is maintained for each column of the image, containing a number h of pixels. By summing w of these histograms, we obtain a kernel of w X h pixels. When sliding the kernel to the right, remove the histogram corresponding to the the leftmost column and add the histogram corresponding to the column right of the previous window [Fig 1]. When moving the kernel to the next row, you remove the pixel value from the highest row from each histogram and add the pixels values from the new row included in the kernels as well.  
