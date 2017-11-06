@@ -21,7 +21,7 @@ let test1 = [	0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0];
 
 
-let transposition = function (array,w){
+const transposition = function (array,w){
 
 	/* 
   	function made by Franck 
@@ -61,7 +61,7 @@ console.log(padd(tested,3,3,1));
 */
 
 
-let SAT = function (array ,w, h){  
+const SAT = function (array ,w, h){  
 
 	/*  
 	function made by Franck Soubès
@@ -92,7 +92,7 @@ let SAT = function (array ,w, h){
   
 // have to implement function to padd matrix with 0
   
-let transform2 = function (array1d, w){
+const transform2 = function (array1d, w){
 
 	/*
   	function made by Franck Soubès
@@ -106,7 +106,7 @@ let transform2 = function (array1d, w){
 
 
 
-let Imgfirst = function (array ,w,h,wk,hk){
+const Imgfirst = function (array ,w,h,wk,hk){
 
 	/*
   	function made by Franck Soubès
@@ -141,7 +141,7 @@ console.log(Img6)
 
 
 
-let Variancefilter = function (arrayI, arrayII, w, h,wk,hk) {
+const Variancefilter = function (arrayI, arrayII, w, h,wk,hk) {
 	
   /*
     function made by Franck Soubès
