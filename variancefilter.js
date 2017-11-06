@@ -151,10 +151,11 @@ let Variancefilter = function (arrayI, arrayII, w, h,wk,hk) {
   
 	let filtered=[] ;
 	for (let x =0 ; x< w ; x++) {
-  	for (let y =0; y< h ; y++) {
-    	let ind = (y) +(x*w);
-       let compute = (arrayII[ind]/Math.pow(wk,2)) - Math.pow(arrayI[ind]/Math.pow(wk,2),2) ;
-       filtered.push(compute) ;   
+  		for (let y =0; y< h ; y++) {
+    			
+			let ind = (y) +(x*w);
+       			let compute = (arrayII[ind]/Math.pow(wk,2.0)) - Math.pow(arrayI[ind]/Math.pow(wk,2.0),2.0) ;
+       			filtered.push(compute) ;   
     }  
   }	  
 	return filtered;	   
