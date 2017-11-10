@@ -136,13 +136,6 @@ const Imgfirst = function (array ,w,h,wk,hk){
 }
 
 
-let Img6 = Imgfirst(testreal2,w,h,wk,hk); // OK 
-let Img5 = Imgfirst(testreal,w,h,wk,hk); // OK
-console.log(Img5);
-console.log(Img6)
-
-
-
 const Variancefilter = function (arrayI, arrayII, w, h,wk,hk) {
 	
   /*
