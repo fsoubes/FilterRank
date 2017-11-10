@@ -1,3 +1,5 @@
+"use strict"
+
 /*
 	Variance Filter ~ Franck Soubès 
 */
