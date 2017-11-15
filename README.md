@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FilterRank 
 The project entitled Tiny Image in JavaScript — TIJ — is a small toolbox of image processing functions written in JavaScript and using graphics acceleration via WebGL.
 
@@ -34,4 +35,3 @@ The manuscript must contain the conventional scientific sections comprising:
 The manuscript must be written in plain english using the extended version — github.io addons — of the markdown language. Then, this source must be converted in PDF using your own favorite tool and deposited in the moodle.
 
 ### Note: In parallel of the PDF, the source files will be deposited in the moodle as a zip file containing the markdown file and a directory entitlted img containing the images of the figures.
-
