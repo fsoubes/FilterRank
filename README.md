@@ -3,5 +3,7 @@ The project entitled Tiny Image in JavaScript — TIJ — is a small toolbox of 
 
 
 Median filter : Adrien Rohan
+
 Min/Max filter : Guillamaury Debras
+
 Variance filter : Franck Soubès
