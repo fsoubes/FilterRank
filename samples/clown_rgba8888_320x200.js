@@ -1,0 +1,1 @@
+../times/samples/clown_rgba8888_320x200.js
