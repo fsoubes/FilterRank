@@ -1,5 +1,8 @@
 "use strict";
 
+const wk= 3;
+const hk = 3;
+
 //let img0 = new T.Image('uint8',360,288);
 let img0 = new T.Image('uint8',256,254);
 //img0.setPixels(boats_pixels);
@@ -18,8 +21,6 @@ img1.setPixels(imgsqr);
 let win1 = new T.Window('Boats');
 let view1 = T.view(img1.getRaster());
 
-const wk= 3;
-const hk = 3;
 
 let ImgI = variance(img0,img1,wk,hk);
 console.log(ImgI);

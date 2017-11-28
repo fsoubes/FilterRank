@@ -1,1 +1,1 @@
-/home/franck1337/tinyproj/times/javascripts/TIMES.bundle.js
+../times/javascripts/TIMES.bundle.js
