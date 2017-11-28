@@ -115,7 +115,7 @@ const variance = function (img, img2, wk,hk, copy=true) {
 
 const padding = function(img,k,w,h){
     /**
-     * Padding : Fill with 0 an image in function of the size of the kernel size
+     * Padding : Fill with 0 an image in function of the size of the kernel 
      *
      * @param {TRaster} kernel - Convolution mask represented by a single value
      * width or height of the kernel
