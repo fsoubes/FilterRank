@@ -215,6 +215,5 @@ const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
 }
 
 
-//const VarianceFilter = array.map((current,y+(x*w),arrayed) => elem === arrayed[y+x*w]/Math.pow(wk,2.O));
 
 
