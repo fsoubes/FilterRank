@@ -158,8 +158,8 @@ const IntegralImage = function (array ,w,h,wk,hk){
     for (let x = wk-1  ;  x <= w + (wk-2) ; x++){
 	for(  let y = hk-1  ; y <= h +(hk-2) ; y++){
 	    
-	    if ( array[x-1][y-1] == 0 && array[x+wk-1][y-1] == 0)
-	    {
+	    if ( array[x-1][y-1] == 0 && array[x+wk-1][y-1] == 0){
+		
 		arrayI.push(0);
 	    }
 	    else if ( array[x+wk-1][y+wk-1] == 0 && array[x+wk-1][y-1] == 0 && array[x+wk-1][y+wk-1] == 0){
