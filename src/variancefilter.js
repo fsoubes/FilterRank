@@ -49,8 +49,8 @@ const variance = function (img, img2, wk,hk, copy=true) {
      * table of all the pixels of img2.
      * After this process the two img are then padded with 0 according to
      * the dimension of the convolution mask. 
-     * Finally an algorithm based on Integral Image is applied.
-     *
+     * Finally an algorithm based on Integral Image is applied to compute 
+     * the variance.
      *
      * @param {TRaster} kernel - Convolution mask represented by the width wk
      and the height hk
