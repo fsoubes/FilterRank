@@ -42,7 +42,7 @@
 "use strict";
 
 const variance = function (img, img2, wk,hk, copy=true) {  
-
+    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels of img and after compute the summed squared area 
@@ -64,50 +64,49 @@ const variance = function (img, img2, wk,hk, copy=true) {
     
     let output =  new T.Raster(img.type, img.width, img.height);
     let pixels = img.raster.pixelData;
+    
     let output2 = new T.Raster(img2.type, img2.width , img2.height);
-    let w= output.width;
-    let h = output.height ;
     let pixels2 = img2.raster.pixelData;
-    h = Math.max(w,h);
-    w = Math.max(w,h);
+
+    let w= Math.max(output.width,output.height);
+    let h = Math.max(output.height,output.width);
+
     let img_copy = [];
     let img_copy2 =[];
-    for (let i = 0 ; i < w ; i++) {
-	let sum = 0 ; // for each new lines sum =0
-	let sum1=0 ;
-	for (let j = 0 ; j < h ; j++) {
-	    let ind = (i) +(j*w); // index for 1D
-    	    sum = sum + pixels[ind] ;
-	    sum1 = sum1 + pixels2[ind] ;
-	    if (i === 0) {
-      		pixels[ind] = sum;
-		pixels2[ind] = sum1;
-		img_copy[ind] = pixels[ind];
-		img_copy2[ind] = pixels2[ind];
-	    }
-	    else {
-		
-      		pixels[ind] = pixels[ind-1] + sum;
-		img_copy[ind] = pixels[ind];
-		pixels2[ind] = pixels2[ind-1] + sum1;
-		img_copy2[ind] = pixels2[ind];
 
-      	    }
-	}
-    }
-    let img_transformed = [];
-    let img_transformed2 = [];
+    let sum = 0;
+    let arr = Array.apply(NaN, Array(w));
+    let width = arr.map((i, x) => x);
+    let height = arr.map((j,y)=> y);
     
+    let firstintegral = width.map(x =>{
+	sum = 0;
+	height.map(y =>{
+	    sum += pixels[x + y*w];
+	    (x==0) ? img_copy[x+y*w] = sum:img_copy[x+y*w] = img_copy[(x-1)+y*w] + sum;
+	});
+    });
+    
+    let img_transformed = [];
     while(img_copy.length) img_transformed.push(img_copy.splice(0,w));
     let padd = padding(img_transformed,wk,w,h);
+
+    let secondintegral = width.map(x =>{
+	sum = 0;
+	height.map(y =>{
+	    sum += pixels2[x + y*w];
+	    (x==0) ? img_copy2[x+y*w] = sum: img_copy2[x+y*w] = img_copy2[(x-1)+y*w] + sum;
+	});
+    });
     
+    let img_transformed2 = [];  
     while(img_copy2.length) img_transformed2.push(img_copy2.splice(0,w));
     let padd2 = padding(img_transformed2,wk,w,h);
     
     let img_returned3 = IntegralImage(padd,w,h,wk,hk);
     let img_returned4 = IntegralImage(padd2,w,h,wk,hk);
+    
     output = Variancefilter(img_returned3,img_returned4,w,h,wk,hk);    
-
     return output;
     
 }
@@ -138,6 +137,7 @@ const padding = function(img,k,w,h){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
+    
     return returned_image ;
 }
 
@@ -185,7 +185,6 @@ const IntegralImage = function (array ,w,h,wk,hk){
 	    }	
 	}
     }
-    
     return arrayI; // 1d
 }
 
@@ -203,15 +202,19 @@ const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
      * @author Franck Soubès
      */
     
-    let filtered=[] ;
-    for (let x =0 ; x< w ; x++) {
-	for (let y =0; y< h ; y++) {
-	    let ind = (y)+(x*w);
-	    let compute = (arrayII[ind]/Math.pow(wk,2.00)) - Math.pow(arrayI[ind]/Math.pow(wk,2.00),2.00) ;
-	    filtered.push(compute) ;
-	}  
-    }
-    return filtered;	   
+    let filtered=[];
+    let arr = Array.apply(NaN, Array(w));
+    let width = arr.map((i, x) => x);
+    let height = arr.map((j,y)=>y);
+   
+    let firstedintegral =width.map(x =>{
+	height.map(y =>{
+	    let compute = (arrayII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(arrayI[x+y*w]/Math.pow(wk,2.00),2.00) ;
+	    filtered[x+y*w] = compute ;
+	});
+    });
+    
+    return filtered;
 }
 
 

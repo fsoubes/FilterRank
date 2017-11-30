@@ -1,1 +1,0 @@
-../times/samples/boats_360x288.js

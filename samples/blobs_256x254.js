@@ -1,1 +1,0 @@
-../times/samples/blobs_256x254.js
