@@ -163,7 +163,7 @@ const IntegralImage = function (array ,w,h,wk,hk){
 	    || array[x-1][y-1] == 0 && array[x-1][y+hk-1] == 0
 	    || array[x+wk-1][y+hk-1] == 0 && array[x-1][y+hk-1] == 0
 	    ? arrayI.push(0)
-	    : arrayI.push((array[x-1][y-1])-(array[x+wk-1][y-1])-(array[x-1][y+hk-1])+(array[x+wk-1][y+hk-1])); 
+	    : arrayI.push(array[x-1][y-1]-array[x+wk-1][y-1]-array[x-1][y+hk-1]+array[x+wk-1][y+hk-1]); 
 	}
     }
     return arrayI; // 1d
