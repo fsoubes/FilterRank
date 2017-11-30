@@ -76,7 +76,7 @@ const variance = function (img, img2, wk,hk, copy=true) {
 
     let sum = 0;
     let arr = Array.apply(NaN, Array(w));
-    let width = arr.map((i, x) => x);
+    let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=> y);
     
     let firstintegral = width.map(x =>{
@@ -185,7 +185,7 @@ const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
     
     let filtered=[];
     let arr = Array.apply(NaN, Array(w));
-    let width = arr.map((i, x) => x);
+    let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=>y);
    
     let firstedintegral =width.map(x =>{
