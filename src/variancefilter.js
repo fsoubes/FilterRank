@@ -188,7 +188,7 @@ const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=>y);
    
-    let firstedintegral =width.map(x =>{
+    let compute_variance =width.map(x =>{
 	height.map(y =>{
 	    filtered[x+y*w] =  (arrayII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(arrayI[x+y*w]/Math.pow(wk,2.00),2.00) ;
 	});
