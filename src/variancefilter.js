@@ -109,7 +109,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
     */
     
     let padd2 = padding(img_copy2,wk,w,h);
-    output = Variancefilter(padd,padd2,w,h,wk,hk); 
+    output = Variancefilter(padd,padd2,w,h); 
     return output;
     
 }
@@ -175,13 +175,11 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     return arrayI; // 1d
 }
 
-const Variancefilter = function (imgI, imgII, w, h, wk, hk,copy=false) {
+const Variancefilter = function (imgI, imgII, w, h, copy=false) {
 
     /**
      * Variancefilter : simply applied the variance formula. 
      *
-     * @param {TRaster} kernel - Convolution mask represented by the width 'wk'
-     * of the kernel and the height 'hk' of the kernel
      * @param {TRaster} imgI - Input image to process
      * @param {TRaster} imgII - Input image2 to process
      * @return {TRaster} - return an array with computed variance
