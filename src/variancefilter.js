@@ -20,7 +20,7 @@
  *
  * Authors:
  * Jean-Christophe Taveau
- * Franck Soubès
+ * 
  */
 
 /**
@@ -61,7 +61,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
      *
      * @author Franck Soubès
      */
-    
+
     let output =  new T.Raster(img.type, img.width, img.height);
     let pixels = img.raster.pixelData;
     
@@ -76,27 +76,37 @@ const variance = function (img, img2, kernel = 2, copy=true) {
     let img_copy2 =[];
 
     let sum = 0;
-    let arr = Array.apply(NaN, Array(w));
+    let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=> y);
     
-    let firstintegral = width.map(x =>{
+    let firstintegral = width.forEach(x =>{
 	sum = 0;
-	height.map(y =>{
+	height.forEach(y =>{
 	    sum += pixels[x + y*w];
 	    (x==0) ? img_copy[x+y*w] = sum:img_copy[x+y*w] = img_copy[(x-1)+y*w] + sum;
 	});
     });
     
     let padd = padding(img_copy,wk,w,h);
-
-    let secondintegral = width.map(x =>{
+    
+    let secondintegral = width.forEach(x =>{
 	sum = 0;
-	height.map(y =>{
+	height.forEach(y =>{
 	    sum += pixels2[x + y*w];
 	    (x==0) ? img_copy2[x+y*w] = sum: img_copy2[x+y*w] = img_copy2[(x-1)+y*w] + sum;
 	});
     });
+
+    /*
+    let integral = [];
+    img.raster.pixelData.reduce((sum1,px,i) => {
+	let x = i%w;
+	sum1[x] += px;
+	integral[i] = sum1[x] + ((x === 0 ) ? 0.0 : integral(i-1))
+	
+	return sum1;},new Float32Array(w).fill(0.0));
+    */
     
     let padd2 = padding(img_copy2,wk,w,h);
     output = Variancefilter(padd,padd2,w,h,wk,hk); 
@@ -105,7 +115,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
 }
 
 
-const padding = function(img,k,w,h){
+const padding = function(img,k,w,h,copy = false){
     /**
      * Padding : Fill with 0 an image in function of the kernel radius
      *
@@ -136,7 +146,7 @@ const padding = function(img,k,w,h){
     return IntegralImage(returned_image,w,h,k) ;
 }
 
-const IntegralImage = function (img ,w,h,k){
+const IntegralImage = function (img ,w,h,k,copy=false){
     
     /**
      * IntegralImage : 
@@ -165,7 +175,7 @@ const IntegralImage = function (img ,w,h,k){
     return arrayI; // 1d
 }
 
-const Variancefilter = function (imgI, imgII, w, h, wk, hk) {
+const Variancefilter = function (imgI, imgII, w, h, wk, hk,copy=false) {
 
     /**
      * Variancefilter : simply applied the variance formula. 
@@ -180,12 +190,12 @@ const Variancefilter = function (imgI, imgII, w, h, wk, hk) {
      */
     
     let filtered=[];
-    let arr = Array.apply(NaN, Array(w));
+    let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=>y);
    
-    let compute_variance =width.map(x =>{
-	height.map(y =>{
+    let compute_variance =width.forEach(x =>{
+	height.forEach(y =>{
 	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(wk,2.00),2.00) ;
 	});
     });
