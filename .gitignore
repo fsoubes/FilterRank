@@ -1,6 +1,8 @@
-
 # Temporary gedit files
 ############################
+css/*
+javascripts/*
+
 **/*.*~
 **/*.old
 
