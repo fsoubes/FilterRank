@@ -41,7 +41,7 @@
 
 "use strict";
 
-const variance = function (img, img2, wk,hk, copy=true) {  
+const variance = function (img, img2, kernel = 2, copy=true) {  
     
     /**
      * Variance filter :  It will first compute the summed area table of 
@@ -70,7 +70,8 @@ const variance = function (img, img2, wk,hk, copy=true) {
 
     let w= Math.max(output.width,output.height);
     let h = Math.max(output.height,output.width);
-
+    let wk = kernel;
+    let hk = wk ;
     let img_copy = [];
     let img_copy2 =[];
 
@@ -87,9 +88,7 @@ const variance = function (img, img2, wk,hk, copy=true) {
 	});
     });
     
-    let img_transformed = [];
-    while(img_copy.length) img_transformed.push(img_copy.splice(0,w));
-    let padd = padding(img_transformed,wk,w,h);
+    let padd = padding(img_copy,wk,w,h);
 
     let secondintegral = width.map(x =>{
 	sum = 0;
@@ -99,14 +98,8 @@ const variance = function (img, img2, wk,hk, copy=true) {
 	});
     });
     
-    let img_transformed2 = [];  
-    while(img_copy2.length) img_transformed2.push(img_copy2.splice(0,w));
-    let padd2 = padding(img_transformed2,wk,w,h);
-    
-    let img_returned3 = IntegralImage(padd,w,h,wk,hk);
-    let img_returned4 = IntegralImage(padd2,w,h,wk,hk);
-    
-    output = Variancefilter(img_returned3,img_returned4,w,h,wk,hk);    
+    let padd2 = padding(img_copy2,wk,w,h);
+    output = Variancefilter(padd,padd2,w,h,wk,hk); 
     return output;
     
 }
@@ -123,61 +116,64 @@ const padding = function(img,k,w,h){
      *
      * @author Franck Soubès
      */
-    
+
+    let new_img = [];
+    while(img.length) new_img.push(img.splice(0,w));
     let ker = ((k-1)/2) *2;
     let extremity = new Array(ker).fill(0);
-    let leftrightpad = img => (extremity).concat(img).concat(extremity);
-    let lenpad = img => Array.from(Array(img.length), () => 0);
-    let updownpad = img => [lenpad(img[0])].concat(img).concat([lenpad(img[0])]);
-    let balancedpad = img  => img.map(img => leftrightpad(img));
-    let imagepadded = img => balancedpad(updownpad(img));
-    let returned_image = imagepadded(img);
+    let leftrightpad = new_img => (extremity).concat(new_img).concat(extremity);
+    let lenpad = new_img => Array.from(Array(new_img.length), () => 0);
+    let updownpad = new_img => [lenpad(new_img[0])].concat(new_img).concat([lenpad(new_img[0])]);
+    let balancedpad = new_img  => new_img.map(new_img => leftrightpad(new_img));
+    let imagepadded = new_img => balancedpad(updownpad(new_img));
+    let returned_image = imagepadded(new_img);
     
     for (let i =0 ; i<ker;i++ ){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
     
-    return returned_image ;
+    return IntegralImage(returned_image,w,h,k) ;
 }
 
-const IntegralImage = function (array ,w,h,wk,hk){
+const IntegralImage = function (img ,w,h,k){
     
     /**
      * IntegralImage : 
      *
      * @param {TRaster} kernel - Convolution mask represented by the width 'wk'
      * of the kernel and the height 'hk' of the kernel
-     * @param {TRaster} array - Input image to process
+     * @param {TRaster} img - Input image to process
      * @return {TRaster} - return an array of pixel wih computed pixels
      *
      * @author Franck Soubès
      */
     
     let arrayI =[];
-    for (let x = wk-1  ;  x <= w + (wk-2) ; x++){
-	for(  let y = hk-1  ; y <= h +(hk-2) ; y++){
+    
+    for (let x = k-1  ;  x <= w + (k-2) ; x++){
+	for(  let y = k-1  ; y <= h +(k-2) ; y++){
 	    
-	    array[x-1][y-1] == 0 && array[x+wk-1][y-1] == 0
-	    || array[x+wk-1][y+wk-1] == 0 && array[x+wk-1][y-1]== 0 && array[x+wk-1][y+wk-1] == 0
-	    || array[x-1][y-1] == 0 && array[x-1][y+hk-1] == 0
-	    || array[x+wk-1][y+hk-1] == 0 && array[x-1][y+hk-1] == 0
+	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0
+	    || img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0
+	    || img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0
+	    || img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0
 	    ? arrayI.push(0)
-	    : arrayI.push(array[x-1][y-1]-array[x+wk-1][y-1]-array[x-1][y+hk-1]+array[x+wk-1][y+hk-1]); 
+	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
     return arrayI; // 1d
 }
 
-const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
+const Variancefilter = function (imgI, imgII, w, h, wk, hk) {
 
     /**
      * Variancefilter : simply applied the variance formula. 
      *
      * @param {TRaster} kernel - Convolution mask represented by the width 'wk'
      * of the kernel and the height 'hk' of the kernel
-     * @param {TRaster} arrayI - Input image to process
-     * @param {TRaster} arrayII - Input image2 to process
+     * @param {TRaster} imgI - Input image to process
+     * @param {TRaster} imgII - Input image2 to process
      * @return {TRaster} - return an array with computed variance
      *
      * @author Franck Soubès
@@ -190,7 +186,7 @@ const Variancefilter = function (arrayI, arrayII, w, h, wk, hk) {
    
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-	    filtered[x+y*w] =  (arrayII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(arrayI[x+y*w]/Math.pow(wk,2.00),2.00) ;
+	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(wk,2.00),2.00) ;
 	});
     });
     

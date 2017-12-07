@@ -1,7 +1,5 @@
 "use strict";
-
-const wk=2;
-const hk = 2;
+///////////Variance_filter////////////
 
 let img0 = new T.Image('uint8',360,288);
 //let img0 = new T.Image('uint8',256,254);
@@ -21,9 +19,9 @@ img1.setPixels(imgsqr);
 let win1 = new T.Window('Boats');
 let view1 = T.view(img1.getRaster());
 
-
-let ImgI = variance(img0,img1,wk,hk);
-console.log(ImgI);
+let kernel_size;
+let ImgI = variance(img0,img1,kernel_size);
+//console.log(ImgI);
 
 let img2 = new T.Image('uint8',360,288);
 //let img2 = new T.Image('uint8',256,254);
