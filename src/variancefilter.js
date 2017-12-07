@@ -194,8 +194,8 @@ const Variancefilter = function (imgI, imgII, w, h, wk, hk,copy=false) {
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=>y);
    
-    let compute_variance =width.forEach(x =>{
-	height.forEach(y =>{
+    let compute_variance =width.map(x =>{
+	height.map(y =>{
 	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(wk,2.00),2.00) ;
 	});
     });
