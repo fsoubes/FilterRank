@@ -69,7 +69,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
     let h = output.height;
     let wk = kernel;
     let hk = wk ;
-    
+		
     let integral = [];
     img.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -83,7 +83,22 @@ const variance = function (img, img2, kernel = 2, copy=true) {
 	sum1[x] += px;
 	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-
+	
+    /* another method not totally functionnal but way more faster with the use of forEach
+        let sum = 0;
+    let arr= Array.from(Array(w), () => NaN);
+    let width = arr.map((i,x) => x);
+    let height = arr.map((j,y)=> y);
+    
+    let firstintegral = width.forEach(x =>{
+	sum = 0;
+	height.forEach(y =>{
+	    sum += pixels[x + y*w];
+	    (x==0) ? img_copy[x+y*w] = sum:img_copy[x+y*w] = img_copy[(x-1)+y*w] + sum;
+	});
+    });
+    */
+	
     let padd = padding(integral,wk,w,h);
     let padd2 = padding(integral2,wk,w,h);
     
