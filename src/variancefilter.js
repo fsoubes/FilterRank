@@ -52,64 +52,43 @@ const variance = function (img, img2, kernel = 2, copy=true) {
      * Finally an algorithm based on Integral Image is applied to compute 
      * the variance.
      *
-     * @param {TRaster} kernel - Convolution mask represented by the width wk
-     and the height hk
+     * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
+       with this algorithm the kernel doesn't have to be squared.
      * @param {TRaster} img - Input image to process
      * @param {TRaster} img2 - Input image to process 
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
      *
-     * @author Franck Soubès
+     * @author Franck Soubès / Jean-Christophe Taveau 
      */
 
-    let output =  new T.Raster(img.type, img.width, img.height);
-    let pixels = img.raster.pixelData;
+    let output =  new T.Raster(img.type, img.width, img.height);    
     
-    let output2 = new T.Raster(img2.type, img2.width , img2.height);
-    let pixels2 = img2.raster.pixelData;
-
-    let w= Math.max(output.width,output.height);
-    let h = Math.max(output.height,output.width);
+   
+    let w= output.width;
+    let h = output.height;
     let wk = kernel;
     let hk = wk ;
-    let img_copy = [];
-    let img_copy2 =[];
-
-    let sum = 0;
-    let arr= Array.from(Array(w), () => NaN);
-    let width = arr.map((i,x) => x);
-    let height = arr.map((j,y)=> y);
     
-    let firstintegral = width.forEach(x =>{
-	sum = 0;
-	height.forEach(y =>{
-	    sum += pixels[x + y*w];
-	    (x==0) ? img_copy[x+y*w] = sum:img_copy[x+y*w] = img_copy[(x-1)+y*w] + sum;
-	});
-    });
-    
-    let padd = padding(img_copy,wk,w,h);
-    
-    let secondintegral = width.forEach(x =>{
-	sum = 0;
-	height.forEach(y =>{
-	    sum += pixels2[x + y*w];
-	    (x==0) ? img_copy2[x+y*w] = sum: img_copy2[x+y*w] = img_copy2[(x-1)+y*w] + sum;
-	});
-    });
-
-    /*
     let integral = [];
     img.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	integral[i] = sum1[x] + ((x === 0 ) ? 0.0 : integral(i-1))
-	
+	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-    */
+
+    let integral2 = [];
+    img2.raster.pixelData.reduce((sum1,px,i) => {
+	let x = i%w;
+	sum1[x] += px;
+	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
+	return sum1;},new Float32Array(w).fill(0.0));
+
+    let padd = padding(integral,wk,w,h);
+    let padd2 = padding(integral2,wk,w,h);
     
-    let padd2 = padding(img_copy2,wk,w,h);
-    output = Variancefilter(padd,padd2,w,h); 
+
+    output = Variancefilter(padd,padd2,w,h,wk); 
     return output;
     
 }
@@ -161,8 +140,8 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     
     let arrayI =[];
     
-    for (let x = k-1  ;  x <= w + (k-2) ; x++){
-	for(  let y = k-1  ; y <= h +(k-2) ; y++){
+    for (let x = k-1  ;  x <= h + (k-2) ; x++){
+	for(  let y = k-1  ; y <= w+(k-2) ; y++){
 	    
 	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0
 	    || img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0
@@ -175,10 +154,10 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     return arrayI; // 1d
 }
 
-const Variancefilter = function (imgI, imgII, w, h, copy=false) {
+const Variancefilter = function (imgI, imgII, w, h,kernel, copy=false) {
 
     /**
-     * Variancefilter : simply applied the variance formula. 
+     * Variancefilter : simply apply the variance formula. 
      *
      * @param {TRaster} imgI - Input image to process
      * @param {TRaster} imgII - Input image2 to process
@@ -190,11 +169,13 @@ const Variancefilter = function (imgI, imgII, w, h, copy=false) {
     let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
-    let height = arr.map((j,y)=>y);
+    
+    let arr1 = Array.from(Array(h), () => NaN);
+    let height = arr1.map((j,y)=>y);
    
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(wk,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(wk,2.00),2.00) ;
+	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	});
     });
     
