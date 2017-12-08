@@ -68,7 +68,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
     let w= output.width;
     let h = output.height;
     let wk = kernel;
-    let hk = wk ;
+
 		
     let integral = [];
     img.raster.pixelData.reduce((sum1,px,i) => {
@@ -114,9 +114,9 @@ const padding = function(img,k,w,h,copy = false){
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
      * @param {TRaster} kernel - Convolution mask represented by a single value
-     * width or height of the kernel
-     * @param {TRaster} img - Input image to process
-     * @return {TRaster} - Padded image with 0
+     * width*height of the kernel.
+     * @param {TRaster} img - Input image to process.
+     * @return {TRaster} - Padded image with 0.
      *
      * @author Franck Soubès
      */
@@ -145,10 +145,10 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
      *
-     * @param {TRaster} kernel - Convolution mask represented by the width 'wk'
-     * of the kernel and the height 'hk' of the kernel
-     * @param {TRaster} img - Input image to process
-     * @return {TRaster} - return an array of pixel wih computed pixels
+     * @param {TRaster} kernel -  Convolution mask represented by a single value
+     * width*height of the kernel.
+     * @param {TRaster} img - Input image to process.
+     * @return {TRaster} - return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
@@ -174,9 +174,11 @@ const Variancefilter = function (imgI, imgII, w, h,kernel, copy=false) {
     /**
      * Variancefilter : simply apply the variance formula. 
      *
-     * @param {TRaster} imgI - Input image to process
-     * @param {TRaster} imgII - Input image2 to process
-     * @return {TRaster} - return an array with computed variance
+     * @param {TRaster} kernel -  Convolution mask represented by a single value
+     * width*height of the kernel.
+     * @param {TRaster} imgI - Input image to process.
+     * @param {TRaster} imgII - Input image2 to process.
+     * @return {TRaster} - return an array with computed variance.
      *
      * @author Franck Soubès
      */
