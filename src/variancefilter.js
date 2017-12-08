@@ -45,8 +45,8 @@ const variance = function (img, img2, kernel = 2, copy=true) {
     
     /**
      * Variance filter :  It will first compute the summed area table of 
-     * all the pixels of img and after compute the summed squared area 
-     * table of all the pixels of img2.
+     * all the pixels wihtin the first img and after compute the summed squared area 
+     * table of all the pixels within the img2.
      * After this process the two img are then padded with 0 according to
      * the dimension of the convolution mask. 
      * Finally an algorithm based on Integral Image is applied to compute 
