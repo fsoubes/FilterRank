@@ -111,7 +111,7 @@ const variance = function (img, img2, kernel = 2, copy=true) {
 
 const padding = function(img,k,w,h,copy = false){
     /**
-     * Padding : Fill with 0 an image in function of the kernel radius
+     * Padding : Fill with 0 an image in function of the kernel radius.
      *
      * @param {TRaster} kernel - Convolution mask represented by a single value
      * width or height of the kernel
@@ -143,7 +143,7 @@ const padding = function(img,k,w,h,copy = false){
 const IntegralImage = function (img ,w,h,k,copy=false){
     
     /**
-     * IntegralImage : 
+     * IntegralImage : Compute the four coordinates of the main algorithm.
      *
      * @param {TRaster} kernel - Convolution mask represented by the width 'wk'
      * of the kernel and the height 'hk' of the kernel
