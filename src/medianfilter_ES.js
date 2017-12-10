@@ -1,58 +1,49 @@
-// on calcule le nombre de pixels égale à la médiane dans le kernel
-const computeSumMedian = function computeSumMedian(radiusKernel, histogramList, median, columnIndex){
-    return histogramList.filter(function(element, index){ return index > columnIndex && index <= columnIndex+radiusKernel*2+1; })
-	.reduce(function(acc, element){	return acc+element[median]; }, 0);
-}
-
-// on enlève un pixel à chaque histogramme et on ajoute le pixel de la ligne suivante
-const js5_slideDownHistogram = function js5_slideDownHistogram(image, radiusKernel, histogramList, rowIndex, result){
-    let newHistogramList = histogramList.reduce(function(acc, element, index){
-	let newKernelHistogram = element.slice(0);
-	newKernelHistogram[image.raster.pixelData[image.width*rowIndex+index]]--;
-	newKernelHistogram[image.raster.pixelData[image.width*(rowIndex+radiusKernel*2+1)+index]]++;
-	return acc.concat([newKernelHistogram]);
-    }, []);    
-    js5_computeRowMedian(image, radiusKernel, newHistogramList, result);
-    return newHistogramList;
-}
+// étendre les bordures de l'image
+/*const padding = function padding(image){
+    image.raster.pixelData.map(function
+}*/
 
 // calcul de médiane pour un pixel situé à droite d'un pixel pour lequel elle a déjà été calculé
-const js5_computeRightMedian = function js5_computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, columnIndex){
+const js5_computeRightMedian = function js5_computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, columnIndex, histSize){
     let halfNbPixelKernel = ((radiusKernel*2+1)*(radiusKernel*2+1)-1)/2;
-    /*for (let i=0; i<256; i++){
-	ltmedian = (histogramList[columnIndex][i] != 0 && i < median) ?  ltmedian-histogramList[columnIndex][i] : ltmedian;
-	ltmedian = (histogramList[columnIndex+radiusKernel*2+1][i] != 0 && i < median) ? ltmedian+histogramList[columnIndex+radiusKernel*2+1][i] : ltmedian;
-    }*/
-
     // TO DO
-    ltmedian = Array(256).fill(0).reduce(function(acc, element, index){
+    ltmedian = Array(histSize).fill(0).reduce(function(acc, element, index){
 	acc= (histogramList[columnIndex][index] != 0 && index < median) ?  acc-histogramList[columnIndex][index] : acc;
 	return (histogramList[columnIndex+radiusKernel*2+1][index] != 0 && index < median) ? acc+histogramList[columnIndex+radiusKernel*2+1][index] : acc;
 	
     }, ltmedian);
     //
-    
-    function computeNewMedianFirstCase(median, ltmedian){
-	return (ltmedian <= halfNbPixelKernel) ? [median, ltmedian]
-	    :  ( median--, sumMedian = computeSumMedian(radiusKernel, histogramList, median, columnIndex), ltmedian = ltmedian-sumMedian, computeNewMedianFirstCase(median, ltmedian))
+    // KEEP WHILE
+    while (ltmedian > halfNbPixelKernel){
+	median--;
+	let sumMedian = 0;
+	for (let j=0; j<radiusKernel*2+1; j++){
+	    sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
+	}
+	ltmedian = ltmedian-sumMedian;
     }
-    [median, ltmedian] = computeNewMedianFirstCase(median, ltmedian);
-    
-    function computeNewMedianSecondCase(median, ltmedian){
-	sumMedian = computeSumMedian(radiusKernel, histogramList, median, columnIndex);
-	return (ltmedian+sumMedian > halfNbPixelKernel) ? [median, ltmedian]
-	    : (ltmedian = ltmedian+sumMedian, median++, sumMedian = computeSumMedian(radiusKernel, histogramList, median, columnIndex), computeNewMedianSecondCase(median, ltmedian))
+    if (ltmedian <= halfNbPixelKernel){
+	let sumMedian = 0;
+	for (let j=0; j<radiusKernel*2+1; j++){
+	    sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
+	}
+	while (ltmedian+sumMedian <= halfNbPixelKernel){
+	    ltmedian = ltmedian+sumMedian;
+	    median++;
+	    sumMedian=0;
+	    for (let j=0; j<radiusKernel*2+1; j++){
+		sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
+	    }
+	}
     }
-    [median, ltmedian] = (ltmedian <= halfNbPixelKernel) ? (computeNewMedianSecondCase(median, ltmedian)) : [median, ltmedian]; 
-    
+    //
     return [median, ltmedian];
 }
 
 // calcul des médiane pour la ligne de l'image à partir des histogramme
-const js5_computeRowMedian = function js5_computeRowMedian(image, radiusKernel, histogramList, result) {
+const js5_computeRowMedian = function js5_computeRowMedian(image, radiusKernel, histogramList, result, histSize) {
     let kernelHistogram = [];
-    let ltmedian = 0;
-    
+    let ltmedian = 0;    
     let sortedKernelPixels = histogramList.filter(function(element, index){ return index<radiusKernel*2+1; })
 	.reduce(function(acc, element){
 	return acc.concat(element.reduce(function(acc2, element2, index){ return (element2>0) ? acc2.concat(Array(element2).fill(index)) : acc2; }, []));
@@ -60,57 +51,54 @@ const js5_computeRowMedian = function js5_computeRowMedian(image, radiusKernel, 
 	.slice()
 	.sort((a, b) => a - b);    
     let median = sortedKernelPixels[(sortedKernelPixels.length-1)/2];
-    for (let i=0; i<sortedKernelPixels.length/2+1; i++){
-	if (sortedKernelPixels[i] < median){
-	    ltmedian++;
-	}
-    }
-
     // TO DO
-    /*ltmedian = Array(Math.floor(sortedKernelPixels.length/2+1)).fill(0).reduce(function(acc, element, index){
-	return (sortedKernelPixels[index] < median) ? acc++ : acc;
-    },0);*/
-    //
-    
+    ltmedian = Array(Math.floor(sortedKernelPixels.length/2+1)).fill(0).reduce(function(acc, element, index){
+	(sortedKernelPixels[index] < median) ? acc++ : acc;
+	return acc;
+    },ltmedian);
+    //    
     result.push(median);
-    
-    
-    for (let i=0; i<image.width-radiusKernel*2-1; i++){
-	[median, ltmedian] = js5_computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, i);
+    // TO DO trouver pq concat ne marche pas
+    Array(Math.floor(image.width-radiusKernel*2-1)).fill(0).forEach(function(element, index){
+	[median, ltmedian] = js5_computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, index, histSize);
 	result.push(median);
-    }
-
-    // TO DO
-    /*Array(Math.floor(image.width-radiusKernel*2-1)).fill(0).forEach(function(acc, element, index){
-	[median, ltmedian] = js5_computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, index);
-	result.concat(median);
-    });*/
-    //
-    
+    });
+    //    
     return [median, ltmedian];
 }
 
-// creation d'un histogramme de niveau de gris (contenant les valeurs des r premier pixels de la colonne, r etant la hauteur du kernel) pour chaque colonne de l'image
-const js5_createHistogram  = function js5_createHistogram(image, radiusKernel, result) {
-    let histogramList = Array(image.width).fill(0).reduce(function(acc,element){ return acc.concat([Array(256).fill(0)]); },[]);
+const js5_medianFilter = function js5_medianFilter(image, radiusKernel) {
+    console.log("Pixels :", image.raster.pixelData);
+    console.log("Size :", image.width, image.height);
+    console.log("Type :", image.type);
+    
+    let histSize = (image.type === 'uint8') ? 256
+	: (image.type === 'uint16') ? 65536 : 256;    
+    let result = [];
+
+    //// creation d'un histogramme de niveau de gris (contenant les valeurs des r premier pixels de la colonne, r etant la hauteur du kernel) pour chaque colonne de l'image
+    let histogramList = Array(image.width).fill(0).reduce(function(acc,element){ return acc.concat([Array(histSize).fill(0)]); },[]);
     image.raster.pixelData.filter(function(element, index){
 	return index < (radiusKernel*2+1)*image.width;
     }).forEach(function(element2, index2){
 	histogramList[index2%image.width][element2] = histogramList[index2%image.width][element2]+1;
     });
-    js5_computeRowMedian(image, radiusKernel, histogramList, result);
-    return histogramList;    
-}
-
-
-const js5_medianFilter = function js5_medianFilter(image, radiusKernel) {
-    console.log("Pixels :", image.raster.pixelData);
-    console.log("Size :", image.width, image.height);
-    let result = []
-    let histogramList = js5_createHistogram(image, radiusKernel, result);
-    for (let i=0; i<image.height-radiusKernel*2-1; i++){
-	histogramList = js5_slideDownHistogram(image, radiusKernel, histogramList, i, result);
-    }
+    js5_computeRowMedian(image, radiusKernel, histogramList, result, histSize);
+    //
+    
+    // TO DO
+    Array(image.height-radiusKernel*2-1).fill(0).reduce(function(acc,element,index){
+	//// on enlève un pixel à chaque histogramme et on ajoute le pixel de la ligne suivante
+	let newHistogramList = acc.reduce(function(acc2, element2, index2){
+	    let newKernelHistogram = element2.slice(0);
+	    newKernelHistogram[image.raster.pixelData[image.width*index+index2]]--;
+	    newKernelHistogram[image.raster.pixelData[image.width*(index+radiusKernel*2+1)+index2]]++;
+	    return acc2.concat([newKernelHistogram]);
+	}, []);    
+	js5_computeRowMedian(image, radiusKernel, newHistogramList, result, histSize);
+	return acc = newHistogramList;
+    }, histogramList);
+    //    
     console.log(result);
     return result;
 }
