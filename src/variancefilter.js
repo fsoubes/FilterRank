@@ -167,7 +167,7 @@ const IntegralImage = function (img ,w,h,k,copy=true){
 	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
 	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
 	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? arrayI.push(0) // as a result the image will be croped for abberant coordinates
+	    ? arrayI.push(0) // as a result the image will be croped for aberrant coordinates
 	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
