@@ -114,7 +114,9 @@ let win003 = new T.Window('Blobs crop uint16');
 win003.addView(view003);
 win003.addToDOM('workspace');
 
-
+/**
+ * Display argb images
+ */
 
 
 
