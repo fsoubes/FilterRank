@@ -76,6 +76,7 @@ const variance = function (img, kernel , copy_mode=true) {
 
     
     
+    
     let integral2 = [];
     imgsquare.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -97,10 +98,17 @@ const variance = function (img, kernel , copy_mode=true) {
 	});
     });
     */
-	
-    let padd = padding(integral,wk,w,h);
-    let padd2 = padding(integral2,wk,w,h);
-    let filtered = Variancefilter(padd,padd2,w,h,wk);
+
+    console.log(integral);
+    console.log("pls1");
+    //output2.setPixel(integral2);
+    console.log(integral2)
+    console.log("pls2");
+    //console.log(output2);
+    let padd = padding(integral,wk,w,h,true);
+    //output2.setPixel(integral2);
+    let padd2 = padding(integral2,wk,w,h,true);
+    let filtered= Variancefilter(padd,padd2,img.type,w,h,wk);
     //let output = new T.Image(img.type, img.width, img.height);
     
     //output.setRaster(filtered); 
@@ -110,7 +118,7 @@ const variance = function (img, kernel , copy_mode=true) {
 }
 
 
-const padding = function(img,k,w,h,copy = false){
+const padding = function(img,k,w,h,copy_mode = true){
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
@@ -121,7 +129,9 @@ const padding = function(img,k,w,h,copy = false){
      *
      * @author Franck Soubès
      */
-
+    
+    //img = img.pixelData;
+    //console.log(img);
     let new_img = [];
     while(img.length) new_img.push(img.splice(0,w));
     let ker = ((k-1)/2) *2;
@@ -141,7 +151,7 @@ const padding = function(img,k,w,h,copy = false){
     return IntegralImage(returned_image,w,h,k) ;
 }
 
-const IntegralImage = function (img ,w,h,k,copy=false){
+const IntegralImage = function (img ,w,h,k,copy=true){
     
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
@@ -170,7 +180,7 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     return arrayI; // 1d
 }
 
-const Variancefilter = function (imgI, imgII, w, h,kernel, copy=false) {
+const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
     /**
      * Variancefilter : simply apply the variance formula. 
@@ -187,17 +197,26 @@ const Variancefilter = function (imgI, imgII, w, h,kernel, copy=false) {
     let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
-    
+    let result,resulted;
+    console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    console.log(imgI);
-    console.log(imgII);
-    let compute_variance =width.map(x =>{
-	height.map(y =>{
-	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+    let arr2 = Array.from(Array(h), () => NaN);
+    let height1 = arr1.map((j,y)=>y);
+    let arr3 = Array.from(Array(h), () => NaN);
+    let width1 = arr.map((i,x) => x);
+    
+   // if (type = "uint8") {
+	let compute_variance =width.map(x =>{
+	    height.map(y =>{
+		//filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+		result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+		result > 255 && type == "uint8" ? filtered[x+y*w] = 255 : filtered[x+y*w] = result;
+		//(result > 65536 && type == "uint16") ? filtered[x+y*w] = 65535: filtered[x+y*w] = result;	   
+		
+	    });
 	});
-    });
-    console.log(filtered);
+
     
     return filtered;
 }

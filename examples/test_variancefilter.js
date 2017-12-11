@@ -48,6 +48,8 @@ win3.addToDOM('workspace');
 
 let img01 = new T.Image('uint16',256,254);
 let uint16_blobs = blobs_pixels.map ( (px) => px * 256);
+console.log(uint16_blobs);
+console.log("guigui");
 img01.setPixels(uint16_blobs);
 let win01 = new T.Window('Blobs uint16');
 let view01 = T.view(img01.getRaster());
@@ -65,14 +67,29 @@ let view02 = T.view(img02.getRaster());
 win02.addView(view02);
 win02.addToDOM('workspace');
 
+
+let img03 = new T.Image('uint8',256,254);
+img03.setPixels(ImgI);
+console.log("ok");
+console.log(img2.width);
+let process1 = T.pipe(T.crop(1,1,img3.width - kernel_size,img03.height - kernel_size),T.view);
+let view03 = process1(img03.getRaster());
+//console.log(`${view3.width} x ${view3.height} `);
+let win03 = new T.Window('Blobs crop uint8');
+win03.addView(view03);
+win03.addToDOM('workspace');
+
 /**
  * Display float32 images
  */
 
 
 let img002 = new T.Image('float32',256,254);
+//let img002 = new T.Image('float32',360,288);
+//let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
 let float_blobs = blobs_pixels.map( (px) => px/128 - 1.0);
 img002.setPixels(float_blobs);
+//img002.setPixels(float_boats);
 let win002 = new T.Window('Blobs float32');
 let view002 = T.view(img002.getRaster());
 // Create the window content from the view
@@ -83,9 +100,10 @@ win002.addToDOM('workspace');
 
 
 let img003 = new T.Image('float32',256,254);
+//let img003 = new T.Image('float32',360,288);
 let ImgIII = variance(img002,kernel_size);
 img003.setPixels(ImgIII);
-let win003 = new T.Window('Boats');
+let win003 = new T.Window('Blobs float32');
 let view003 = T.view(img003.getRaster());
 win003.addView(view003);
 win003.addToDOM('workspace');
