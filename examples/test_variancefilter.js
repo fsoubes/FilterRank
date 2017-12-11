@@ -106,7 +106,7 @@ let view002 = T.view(img002.getRaster());
 win002.addView(view002);
 win002.addToDOM('workspace');
 
-let img003 = new T.Image('uint16',256,254);
+let img003 = new T.Image('float32',256,254);
 img003.setPixels(ImgI);
 let process2 = T.pipe(T.crop(1,1,img003.width - kernel_size,img003.height - kernel_size),T.view);
 let view003 = process1(img003.getRaster());
