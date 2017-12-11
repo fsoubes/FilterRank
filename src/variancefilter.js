@@ -1,3 +1,4 @@
+"use strict";
 /*
  *  TIMES: Tiny Image ECMAScript Application
  *  Copyright (C) 2017  Jean-Christophe Taveau.
@@ -39,10 +40,8 @@
  * @author Franck Soubès
  */
 
-"use strict";
-
-const variance = function (img, kernel =2, copy=true) {  
-//const variance = (kernel=3) => (img,img2,copy= true) => {    
+const variance = function (img, kernel =2, copy_mode=true) {  
+//const variance = (kernel=3) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
@@ -61,9 +60,8 @@ const variance = function (img, kernel =2, copy=true) {
      *
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
-    //let output = T.Raster.from(raster,copy_mode);
-    
-    let output =  new T.Raster(img.type, img.width, img.height);    
+    let output = T.Raster.from(img.raster,copy_mode);
+    //let output =  new T.Raster(img.type, img.width, img.height);    
     let w= output.width;
     let h = output.height;
     let wk = kernel;
@@ -105,8 +103,8 @@ const variance = function (img, kernel =2, copy=true) {
     let filtered = Variancefilter(padd,padd2,w,h,wk);
     //let output = new T.Image(img.type, img.width, img.height);
     
-    //output.setPixels(filtered); 
-    
+    //output.setRaster(filtered); 
+    //return output;
     return filtered;
     
 }
