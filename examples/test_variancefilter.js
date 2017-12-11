@@ -11,16 +11,16 @@ win0.addView(view0);
 win0.addToDOM('workspace');
 
 
-//let imgsqr = boats_pixels.map((x) => x * x );
-let imgsqr = blobs_pixels.map((x) => x * x );
+
+
 //let img1 = new T.Image('uint8',360,288);
 let img1 = new T.Image('uint8',256,254);
-img1.setPixels(imgsqr);
 let win1 = new T.Window('Boats');
 let view1 = T.view(img1.getRaster());
 
 let kernel_size;
-let ImgI = variance(img0,img1,kernel_size);
+let ImgI = variance(img0,kernel_size);
+
 //console.log(ImgI);
 
 //let img2 = new T.Image('uint8',360,288);

@@ -41,8 +41,8 @@
 
 "use strict";
 
-const variance = function (img, img2, kernel = 2, copy=true) {  
-    
+const variance = function (img, kernel =2, copy=true) {  
+//const variance = (kernel=3) => (img,img2,copy= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
@@ -61,15 +61,15 @@ const variance = function (img, img2, kernel = 2, copy=true) {
      *
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
-
-    let output =  new T.Raster(img.type, img.width, img.height);    
+    //let output = T.Raster.from(raster,copy_mode);
     
-   
+    let output =  new T.Raster(img.type, img.width, img.height);    
     let w= output.width;
+    
     let h = output.height;
     let wk = kernel;
-
-		
+    let pixels = img.raster.pixelData ;
+    let imgsquare =  pixels.map((x) => x * x );		
     let integral = [];
     img.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -77,8 +77,10 @@ const variance = function (img, img2, kernel = 2, copy=true) {
 	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
 
+    
+    
     let integral2 = [];
-    img2.raster.pixelData.reduce((sum1,px,i) => {
+    imgsquare.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
 	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
@@ -101,10 +103,12 @@ const variance = function (img, img2, kernel = 2, copy=true) {
 	
     let padd = padding(integral,wk,w,h);
     let padd2 = padding(integral2,wk,w,h);
+    let filtered = Variancefilter(padd,padd2,w,h,wk);
+    //let output = new T.Image(img.type, img.width, img.height);
     
-
-    output = Variancefilter(padd,padd2,w,h,wk); 
-    return output;
+    //output.setPixels(filtered); 
+    
+    return filtered;
     
 }
 
@@ -159,9 +163,9 @@ const IntegralImage = function (img ,w,h,k,copy=false){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
 	    
 	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0
-	    || img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0
-	    || img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0
-	    || img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0
+	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0
+	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0
+	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 
 	    ? arrayI.push(0)
 	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
