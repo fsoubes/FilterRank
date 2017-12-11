@@ -1,12 +1,14 @@
 
 
-function remplissage(im,kernel,filtre,type){
+function remplissage(im,kernel,filtre,type,copy_mode=true){
     let finalim=[];
     let listedligne0=[];
     let listedim=[];
     let newsize = (kernel-1)*2;
     let kernelmod=kernel-1;
     let ima =  new T.Raster(im.type, im.width, im.height);
+    let realtype = im.type;
+    
     let pixels = im.raster.pixelData;
     let wim = ima.width;
     let h = wim + newsize/2;
@@ -22,7 +24,16 @@ function remplissage(im,kernel,filtre,type){
         listedligne0.push(0);
         }
         if (filtre == 'min'){
+	 if (realtype == 'uint8'){
         listedligne0.push(255);
+                             }
+         if (realtype == 'uint16'){
+        listedligne0.push(65535);
+                             }
+        if (realtype == 'float32'){
+        listedligne0.push(4294967296);
+                             }
+
         }
         }
         
@@ -53,7 +64,16 @@ function remplissage(im,kernel,filtre,type){
 	    if (filtre=='min'){
 		
 		for ( let i=0 ; i < wim*(wim-haut+kernelmod); i++){
-		    pixels.push(255);
+			if (realtype =='uint8'){
+		          pixels.push(255);
+                                   }
+                         if (realtype =='uint16'){
+		           pixels.push(65535);
+                                   } 
+                         if (realtype == 'float32'){
+                            pixels.push(4294967296);
+                             }
+               
 		}
 
 	    }
@@ -69,7 +89,7 @@ function remplissage(im,kernel,filtre,type){
 
 
 
- function Two_One(array){
+ function Two_One(array,copy_mode=true){
  var newArr = [];
 
 for(var i = 0; i < array.length; i++)
@@ -81,7 +101,7 @@ for(var i = 0; i < array.length; i++)
 
 
 
-function filtreligne(largeur,hauteur,array,kernel,filtr){
+function filtreligne(largeur,hauteur,array,kernel,filtr,copy_mode=true){
 
     var output=[];
     let image2=[];
@@ -130,7 +150,7 @@ function filtreligne(largeur,hauteur,array,kernel,filtr){
 
 
 
-function filtrecol(largeur,hauteur,array,kernel,filtr){
+function filtrecol(largeur,hauteur,array,kernel,filtr,copy_mode=true){
 
     //let output=[];
     let image2=[];
@@ -183,7 +203,7 @@ function filtrecol(largeur,hauteur,array,kernel,filtr){
      return output2;
 }
 
-function transpose(array) {
+function transpose(array,copy_mode=true) {
     return array.reduce((prev, next) => next.map((item, i) =>
         (prev[i] || []).concat(next[i])
     ), []);
@@ -192,7 +212,7 @@ function transpose(array) {
 
 
 
-function kernelsize(filtre,i,image2,kernel,copy=true){
+function kernelsize(filtre,i,image2,kernel,copy_mode=true){
     let output = 0 ;
     
     if (filtre=="max"){
@@ -257,7 +277,7 @@ function kernelsize(filtre,i,image2,kernel,copy=true){
 }
 
 
-function min_max(im,kernel,filter){
+function min_max(im,kernel,filter,copy_mode=true){
     let max = 'max';
     let min = 'min';
     let lin = "lin";
@@ -267,11 +287,18 @@ function min_max(im,kernel,filter){
     let wim = image.width;
     let hei = image.height;
     let rempli = remplissage(im,kernel,filter,lin);
-    let filtrel = filtreligne(wim,hei,rempli,kernel,min);
-    let imginter = new T.Image('uint8',wim,hei);
+  
+    let filtrel = filtreligne(wim,hei,rempli,kernel,filter);
+
+  
+    let type = im.type;
+    let imginter = new T.Image(type,wim,hei);
     imginter.setPixels(filtrel);
-    let rempli2 = remplissage(imginter,kernel,min,col);
-    let filtre2 = filtrecol(wim,hei,rempli2,kernel,min);
+  
+   
+    let rempli2 = remplissage(imginter,kernel,filter,col);
+    let filtre2 = filtrecol(wim,hei,rempli2,kernel,filter);
+ 
 
     return filtre2;
     
