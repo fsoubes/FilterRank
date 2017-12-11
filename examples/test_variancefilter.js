@@ -1,5 +1,8 @@
+////////////////////////////////////////
+/////////// Variance_filter ////////////
+////////////////////////////////////////
 "use strict";
-///////////Variance_filter////////////
+
 /**
  * Display uint8 images
  */
@@ -37,7 +40,6 @@ console.log("ok");
 console.log(img2.width);
 let process = T.pipe(T.crop(1,1,img3.width - kernel_size,img3.height - kernel_size),T.view);
 let view3 = process(img3.getRaster());
-//console.log(`${view3.width} x ${view3.height} `);
 let win3 = new T.Window('Blobs crop uint8');
 win3.addView(view3);
 win3.addToDOM('workspace');
@@ -68,14 +70,11 @@ win02.addView(view02);
 win02.addToDOM('workspace');
 
 
-let img03 = new T.Image('uint8',256,254);
+let img03 = new T.Image('uint16',256,254);
 img03.setPixels(ImgI);
-console.log("ok");
-console.log(img2.width);
-let process1 = T.pipe(T.crop(1,1,img3.width - kernel_size,img03.height - kernel_size),T.view);
+let process1 = T.pipe(T.crop(1,1,img03.width - kernel_size,img03.height - kernel_size),T.view);
 let view03 = process1(img03.getRaster());
-//console.log(`${view3.width} x ${view3.height} `);
-let win03 = new T.Window('Blobs crop uint8');
+let win03 = new T.Window('Blobs crop uint16');
 win03.addView(view03);
 win03.addToDOM('workspace');
 
@@ -84,31 +83,36 @@ win03.addToDOM('workspace');
  */
 
 
-let img002 = new T.Image('float32',256,254);
-//let img002 = new T.Image('float32',360,288);
+let img001 = new T.Image('float32',256,254);
+//let img001 = new T.Image('float32',360,288);
 //let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
 let float_blobs = blobs_pixels.map( (px) => px/128 - 1.0);
-img002.setPixels(float_blobs);
-//img002.setPixels(float_boats);
+img001.setPixels(float_blobs);
+//img001.setPixels(float_boats);
+let win001 = new T.Window('Blobs float32');
+let view001 = T.view(img001.getRaster());
+// Create the window content from the view
+win001.addView(view001);
+// Add the window to the DOM and display it
+win001.addToDOM('workspace');
+
+
+let img002 = new T.Image('float32',256,254);
+//let img002 = new T.Image('float32',360,288);
+let ImgIII = variance(img002,kernel_size);
+img002.setPixels(ImgIII);
 let win002 = new T.Window('Blobs float32');
 let view002 = T.view(img002.getRaster());
-// Create the window content from the view
 win002.addView(view002);
-// Add the window to the DOM and display it
 win002.addToDOM('workspace');
 
-
-
-let img003 = new T.Image('float32',256,254);
-//let img003 = new T.Image('float32',360,288);
-let ImgIII = variance(img002,kernel_size);
-img003.setPixels(ImgIII);
-let win003 = new T.Window('Blobs float32');
-let view003 = T.view(img003.getRaster());
+let img003 = new T.Image('uint16',256,254);
+img003.setPixels(ImgI);
+let process2 = T.pipe(T.crop(1,1,img003.width - kernel_size,img003.height - kernel_size),T.view);
+let view003 = process1(img003.getRaster());
+let win003 = new T.Window('Blobs crop uint16');
 win003.addView(view003);
 win003.addToDOM('workspace');
-
-
 
 
 
