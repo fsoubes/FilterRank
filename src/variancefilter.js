@@ -200,7 +200,11 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	height.map(y =>{
 	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
-	    result > 255 && type === "uint8" ? filtered[x+y*w] = 255 : result > 65535 && type === "uint16"? filtered[x+y*w] = 65535 :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+	    result > 255 && type === "uint8"
+	    ? filtered[x+y*w] = 255
+            : result > 65535 && type === "uint16"
+	    ? filtered[x+y*w] = 65535
+            :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	  
 	    
