@@ -195,10 +195,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    let arr2 = Array.from(Array(h), () => NaN);
-    let height1 = arr1.map((j,y)=>y);
-    let arr3 = Array.from(Array(h), () => NaN);
-    let width1 = arr.map((i,x) => x);
+
     
    // if (type = "uint8") {
 	let compute_variance =width.map(x =>{
