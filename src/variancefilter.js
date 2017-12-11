@@ -40,7 +40,7 @@
  * @author Franck Soubès
  */
 
-const variance = function (img, kernel =2, copy_mode=true) {  
+const variance = function (img, kernel , copy_mode=true) {  
 //const variance = (kernel=3) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
@@ -190,12 +190,14 @@ const Variancefilter = function (imgI, imgII, w, h,kernel, copy=false) {
     
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-   
+    console.log(imgI);
+    console.log(imgII);
     let compute_variance =width.map(x =>{
 	height.map(y =>{
 	    filtered[x+y*w] =  (imgII[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(imgI[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	});
     });
+    console.log(filtered);
     
     return filtered;
 }
