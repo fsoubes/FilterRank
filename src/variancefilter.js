@@ -99,12 +99,6 @@ const variance = function (img, kernel , copy_mode=true) {
     });
     */
 
-    console.log(integral);
-    console.log("pls1");
-    //output2.setPixel(integral2);
-    console.log(integral2)
-    console.log("pls2");
-    //console.log(output2);
     let padd = padding(integral,wk,w,h,true);
     //output2.setPixel(integral2);
     let padd2 = padding(integral2,wk,w,h,true);
