@@ -65,7 +65,6 @@ const variance = function (img, kernel =2, copy=true) {
     
     let output =  new T.Raster(img.type, img.width, img.height);    
     let w= output.width;
-    
     let h = output.height;
     let wk = kernel;
     let pixels = img.raster.pixelData ;
@@ -161,12 +160,12 @@ const IntegralImage = function (img ,w,h,k,copy=false){
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
-	    
-	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0
-	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0
-	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0
-	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 
-	    ? arrayI.push(0)
+	    // push black pixel for abberant coordinnates that'll falsify the results
+	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 // left
+	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
+	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
+	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
+	    ? arrayI.push(0) // as a result the image will be croped for abberant coordinates
 	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
