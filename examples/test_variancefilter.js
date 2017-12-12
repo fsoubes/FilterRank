@@ -23,20 +23,24 @@ let win1 = new T.Window('Blobs 8bit');
 let view1 = T.view(img1.getRaster());
 
 let img111 = new T.Image('uint16',256,254);
-let sqrt = blobs_pixels.map((x) => x * x );	;
+let sqrt = blobs_pixels.map((x) => x * x );
 img111.setPixels(sqrt);
 
 let kernel_size=2;
-let ImgI = variance(img0,img111,kernel_size);
+//let ImgI = variance(img2,img111,kernel_size);
 
-//console.log(ImgI);
 let img2 = new T.Image('uint8',256,254);
-img2.setPixels(ImgI);
+img2.setPixels(blobs_pixels);
+//img2.setPixels(ImgI);
 let win2 = new T.Window('Blob 8bit');
-let view2 = T.view(img2.getRaster());
+let workflow = T.pipe(variance(img2,img111,kernel_size),T.view);
+let view2 = workflow(img2.getRaster());
 win2.addView(view2);
 win2.addToDOM('workspace');
 //let img2 = new T.Image('uint8',360,288);
+
+
+
 /*
 let img3 = new T.Image('uint8',256,254);
 img3.setPixels(ImgI);

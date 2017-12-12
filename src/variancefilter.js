@@ -87,7 +87,7 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 	return sum1;},new Float32Array(w).fill(0.0));
 
     //console.log(img.raster.pixelData);
-    let padd = padding(img,wk,w,h,true);
+    padding(img,wk,w,h,true);
     console.log(img.raster.pixelData);
     
     img2.raster.pixelData.reduce((sum1,px,i) => {
@@ -95,11 +95,9 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 	sum1[x] += px;
 	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-    console.log(img2.raster.pixelData);
-    let padd2 = padding(img2,wk,w,h,true);
-    console.log("tested");
-    console.log(img2.raster.pixelData);
-    console.log("tested");
+
+    padding(img2,wk,w,h,true);
+
     
 
     /* another method not totally functionnal but way more faster with the use of forEach
@@ -117,13 +115,15 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     });
     */
    
-    let filtered= Variancefilter(img,img2,img.type,w,h,wk, true);
-    //let output = new T.Image(img.type, img.width, img.height);
+    Variancefilter(img,img2,img.type,w,h,wk, true);
     
-    //output.setRaster(filtered); 
-    //return output;
-    //return filtered;
-    return filtered;
+    //let output = new T.Image(img.type, img.width, img.height);
+
+   
+    output.pixelData = img;
+    console.log("test");
+    console.log(img);
+    return output;
 }
 
 
@@ -211,8 +211,8 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     
     let output = T.Raster.from(img.raster,copy_mode);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    img = img.raster.pixelData;
-    img2 = img2.raster.pixelData;
+    //img = img.raster.pixelData;
+    //img2 = img2.raster.pixelData;
     let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
@@ -220,27 +220,27 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    
+    console.log("ok");
+    console.log(img.raster.pixelData);
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-
-	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+	    
+	    result =  (img2.raster.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.raster.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
-	    ? filtered[x+y*w] = 255
+	    ? img.raster.pixelData[x+y*w] = 255
             : result > 65535 && type === "uint16"
-	    ? filtered[x+y*w] = 65535
+	    ? img.raster.pixelData[x+y*w] = 65535
 	    : result>1 && type === "float32"
-	    ? filtered[x+y*w] = 1
-            :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+	    ? img.raster.pixelData[x+y*w] = 1
+            :img.raster.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	  	    
 	});
     });
 
-    console.log(filtered);
 
     
-    return filtered;
+    return img;
 }
 
 
