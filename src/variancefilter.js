@@ -20,6 +20,7 @@
  *
  *
  * Authors:
+ * Franck Soubès
  * Jean-Christophe Taveau
  * 
  */
@@ -62,13 +63,14 @@ const variance = function (img, img2,kernel , copy_mode=true) {
      */
     let output = T.Raster.from(img.raster,copy_mode);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
+    
     //let output =  new T.Raster(img.type, img.width, img.height);    
     let w= output.width;
     let h = output.height;
     let wk = kernel;
     let pixels = img.raster.pixelData ;
     let imgsquare =  pixels.map((x) => x * x );		
-    let integral = [];
+
     /*
     img.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -88,13 +90,12 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     let padd = padding(img,wk,w,h,true);
     console.log(img.raster.pixelData);
     
-    let integral2 = [];
     img2.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
+	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-
+    console.log(img2.raster.pixelData);
     let padd2 = padding(img2,wk,w,h,true);
     console.log("tested");
     console.log(img2.raster.pixelData);
@@ -115,13 +116,8 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 	});
     });
     */
-
-    //let padd = padding(img,wk,w,h,true);
-    //output2.setPixel(integral2);
-    
+   
     let filtered= Variancefilter(img,img2,img.type,w,h,wk, true);
-    console.log(filtered);
-    //console.log(filtered);
     //let output = new T.Image(img.type, img.width, img.height);
     
     //output.setRaster(filtered); 
@@ -132,6 +128,7 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 
 
 const padding = function(img,k,w,h,copy_mode = true){
+
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
@@ -143,10 +140,8 @@ const padding = function(img,k,w,h,copy_mode = true){
      * @author Franck Soubès
      */
     
-    //img = img.pixelData;
-    //console.log(img);
+
     let output = T.Raster.from(img.raster,copy_mode= true);
-    console.log(img.raster.pixelData);
     let ima = img.raster.pixelData;
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
@@ -158,25 +153,16 @@ const padding = function(img,k,w,h,copy_mode = true){
     let balancedpad = new_img  => new_img.map(new_img => leftrightpad(new_img));
     let imagepadded = new_img => balancedpad(updownpad(new_img));
     let returned_image = imagepadded(new_img);
-    console.log(returned_image);
     for (let i =0 ; i<ker;i++ ){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
-    let test = IntegralImage(returned_image,w,h,k);
-    console.log("test");
-    console.log(test);
-    console.log("il est là");
-    //console.log("test");
-    let output2 =  new T.Raster(img.type, img.width, img.height);
-    output2.pixelData = test;   
-    img.setRaster(output2);
+    //let test = IntegralImage(returned_image,w,h,k);
+    let output4 =  new T.Raster(img.type, img.width, img.height);
+    output4.pixelData = IntegralImage(returned_image,w,h,k);   
+    img.setRaster(output4);
+
     
-    //console.log(img.raster.pixelData);
-    //img.setRaster(test);
-    //img.raster.pixelData= IntegralImage(returned_image);
-    //console.log(img.raster.pixelData);
-    //return img;//return IntegralImage(returned_image,w,h,k) ;
     return img;
 }
 
@@ -192,8 +178,7 @@ const IntegralImage = function (img ,w,h,k,copy_mode=false){
      *
      * @author Franck Soubès
      */
-    //let output = T.Raster.from(img.raster,copy_mode);
-    //img = img.raster.pixelData;
+
     let arrayI =[];
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
@@ -226,10 +211,6 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     
     let output = T.Raster.from(img.raster,copy_mode);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    console.log("testA");
-    console.log(img.raster.pixelData);
-    console.log(img2.raster.pixelData);
-    console.log("testB");
     img = img.raster.pixelData;
     img2 = img2.raster.pixelData;
     let filtered=[];
@@ -242,7 +223,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+
 	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
 	    ? filtered[x+y*w] = 255
@@ -252,8 +233,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    ? filtered[x+y*w] = 1
             :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
-	  
-	    
+	  	    
 	});
     });
 
