@@ -40,7 +40,7 @@
  * @author Franck Soubès
  */
 
-const variance = function (img, img2,kernel , copy_mode=true) {  
+const variance = function (img, kernel , copy_mode=true) {  
 //const variance = (kernel=3) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
@@ -61,7 +61,6 @@ const variance = function (img, img2,kernel , copy_mode=true) {
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
     let output = T.Raster.from(img.raster,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
     //let output =  new T.Raster(img.type, img.width, img.height);    
     let w= output.width;
     let h = output.height;
@@ -69,40 +68,24 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     let pixels = img.raster.pixelData ;
     let imgsquare =  pixels.map((x) => x * x );		
     let integral = [];
-    /*
     img.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
 	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
 
-    */
-
-     img.raster.pixelData.reduce((sum1,px,i) => {
-	let x = i%w;
-	sum1[x] += px;
-	img.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
-	return sum1;},new Float32Array(w).fill(0.0));
-
-    //console.log(img.raster.pixelData);
-    let padd = padding(img,wk,w,h,true);
-    console.log(img.raster.pixelData);
+    
+    
     
     let integral2 = [];
-    img2.raster.pixelData.reduce((sum1,px,i) => {
+    imgsquare.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
+	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-
-    let padd2 = padding(img2,wk,w,h,true);
-    console.log("tested");
-    console.log(img2.raster.pixelData);
-    console.log("tested");
-    
-
+	
     /* another method not totally functionnal but way more faster with the use of forEach
-    let sum = 0;
+        let sum = 0;
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=> y);
@@ -116,18 +99,21 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     });
     */
 
-    //let padd = padding(img,wk,w,h,true);
-    //output2.setPixel(integral2);
+    let padd = padding(integral,wk,w,h,true);
+    console.log(padd);
+    console.log("tu vx mon raster");
     
-    let filtered= Variancefilter(img,img2,img.type,w,h,wk, true);
-    console.log(filtered);
-    //console.log(filtered);
+    //output2.setPixel(integral2);
+    let padd2 = padding(integral2,wk,w,h,true);
+    console.log("tu va l'avoir");
+    console.log(padd2);
+    let filtered= Variancefilter(padd,padd2,img.type,w,h,wk, true);
     //let output = new T.Image(img.type, img.width, img.height);
     
     //output.setRaster(filtered); 
     //return output;
-    //return filtered;
     return filtered;
+    
 }
 
 
@@ -145,11 +131,8 @@ const padding = function(img,k,w,h,copy_mode = true){
     
     //img = img.pixelData;
     //console.log(img);
-    let output = T.Raster.from(img.raster,copy_mode= true);
-    console.log(img.raster.pixelData);
-    let ima = img.raster.pixelData;
     let new_img = [];
-    while(ima.length) new_img.push(ima.splice(0,w));
+    while(img.length) new_img.push(img.splice(0,w));
     let ker = ((k-1)/2) *2;
     let extremity = new Array(ker).fill(0);
     let leftrightpad = new_img => (extremity).concat(new_img).concat(extremity);
@@ -158,29 +141,16 @@ const padding = function(img,k,w,h,copy_mode = true){
     let balancedpad = new_img  => new_img.map(new_img => leftrightpad(new_img));
     let imagepadded = new_img => balancedpad(updownpad(new_img));
     let returned_image = imagepadded(new_img);
-    console.log(returned_image);
+    
     for (let i =0 ; i<ker;i++ ){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
-    let test = IntegralImage(returned_image,w,h,k);
-    console.log("test");
-    console.log(test);
-    console.log("il est là");
-    //console.log("test");
-    let output2 =  new T.Raster(img.type, img.width, img.height);
-    output2.pixelData = test;   
-    img.setRaster(output2);
     
-    //console.log(img.raster.pixelData);
-    //img.setRaster(test);
-    //img.raster.pixelData= IntegralImage(returned_image);
-    //console.log(img.raster.pixelData);
-    //return img;//return IntegralImage(returned_image,w,h,k) ;
-    return img;
+    return IntegralImage(returned_image,w,h,k) ;
 }
 
-const IntegralImage = function (img ,w,h,k,copy_mode=false){
+const IntegralImage = function (img ,w,h,k,copy=true){
     
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
@@ -192,8 +162,7 @@ const IntegralImage = function (img ,w,h,k,copy_mode=false){
      *
      * @author Franck Soubès
      */
-    //let output = T.Raster.from(img.raster,copy_mode);
-    //img = img.raster.pixelData;
+    
     let arrayI =[];
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
@@ -224,14 +193,6 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      * @author Franck Soubès
      */
     
-    let output = T.Raster.from(img.raster,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    console.log("testA");
-    console.log(img.raster.pixelData);
-    console.log(img2.raster.pixelData);
-    console.log("testB");
-    img = img.raster.pixelData;
-    img2 = img2.raster.pixelData;
     let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
@@ -239,7 +200,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    
+
     let compute_variance =width.map(x =>{
 	height.map(y =>{
 	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
@@ -262,7 +223,3 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     
     return filtered;
 }
-
-
-
-
