@@ -100,18 +100,13 @@ const variance = function (img, kernel , copy_mode=true) {
     */
 
     let padd = padding(integral,wk,w,h,true);
-    console.log(padd);
-    console.log("tu vx mon raster");
+
     
-    //output2.setPixel(integral2);
+
     let padd2 = padding(integral2,wk,w,h,true);
-    console.log("tu va l'avoir");
-    console.log(padd2);
+
     let filtered= Variancefilter(padd,padd2,img.type,w,h,wk, true);
-    //let output = new T.Image(img.type, img.width, img.height);
-    
-    //output.setRaster(filtered); 
-    //return output;
+
     return filtered;
     
 }
