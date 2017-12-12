@@ -83,7 +83,7 @@ win03.addView(view03);
 win03.addToDOM('workspace');
 
 
-// Display float32 images
+// Display float32 images.
 
 
 
