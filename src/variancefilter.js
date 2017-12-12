@@ -63,8 +63,7 @@ const variance = function (img, img2,kernel , copy_mode=true) {
      */
     let output = T.Raster.from(img.raster,copy_mode);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    
-    //let output =  new T.Raster(img.type, img.width, img.height);    
+      
     let w= output.width;
     let h = output.height;
     let wk = kernel;
@@ -86,7 +85,6 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 	img.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
 
-    //console.log(img.raster.pixelData);
     padding(img,wk,w,h,true);
     console.log(img.raster.pixelData);
     
@@ -95,11 +93,10 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 	sum1[x] += px;
 	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-
+    
     padding(img2,wk,w,h,true);
 
-    
-
+   
     /* another method not totally functionnal but way more faster with the use of forEach
     let sum = 0;
     let arr= Array.from(Array(w), () => NaN);
@@ -115,11 +112,7 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     });
     */
    
-    Variancefilter(img,img2,img.type,w,h,wk, true);
-    
-    //let output = new T.Image(img.type, img.width, img.height);
-
-   
+    Variancefilter(img,img2,img.type,w,h,wk, true); 
     output.pixelData = img;
     console.log("test");
     console.log(img);
@@ -157,11 +150,10 @@ const padding = function(img,k,w,h,copy_mode = true){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
-    //let test = IntegralImage(returned_image,w,h,k);
+   
     let output4 =  new T.Raster(img.type, img.width, img.height);
     output4.pixelData = IntegralImage(returned_image,w,h,k);   
     img.setRaster(output4);
-
     
     return img;
 }
@@ -211,17 +203,12 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     
     let output = T.Raster.from(img.raster,copy_mode);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    //img = img.raster.pixelData;
-    //img2 = img2.raster.pixelData;
-    let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let result;
     console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    console.log("ok");
-    console.log(img.raster.pixelData);
     let compute_variance =width.map(x =>{
 	height.map(y =>{
 	    
@@ -232,14 +219,12 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    ? img.raster.pixelData[x+y*w] = 65535
 	    : result>1 && type === "float32"
 	    ? img.raster.pixelData[x+y*w] = 1
-            :img.raster.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+            : img.raster.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	  	    
 	});
     });
 
-
-    
     return img;
 }
 
