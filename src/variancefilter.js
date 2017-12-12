@@ -102,7 +102,7 @@ const variance = function (img, kernel , copy_mode=true) {
     let padd = padding(integral,wk,w,h,true);
     //output2.setPixel(integral2);
     let padd2 = padding(integral2,wk,w,h,true);
-    let filtered= Variancefilter(padd,padd2,img.type,w,h,wk);
+    let filtered= Variancefilter(padd,padd2,img.type,w,h,wk, true);
     //let output = new T.Image(img.type, img.width, img.height);
     
     //output.setRaster(filtered); 
@@ -167,7 +167,7 @@ const IntegralImage = function (img ,w,h,k,copy=true){
 	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
 	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
 	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? arrayI.push(0) // as a result the image will be croped for aberrant coordinates
+	    ? arrayI.push(0) // as a result the image will be croped for abberant coordinates
 	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
@@ -198,17 +198,23 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-		
+	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
 	    ? filtered[x+y*w] = 255
             : result > 65535 && type === "uint16"
 	    ? filtered[x+y*w] = 65535
+	    : result>1 && type === "float32"
+	    ? filtered[x+y*w] = 1
             :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
-	  	    
+	  
+	    
 	});
     });
+
+    console.log(filtered);
+
     
     return filtered;
 }
