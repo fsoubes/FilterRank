@@ -40,8 +40,8 @@
  * @author Franck Soubès
  */
 
-const variance = function (img, kernel , copy_mode=true) {  
-//const variance = (kernel=3) => (img,copy_mode= true) => {    
+//const variance = function (img, kernel , copy_mode=true) {  
+const variance = (kernel) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
@@ -60,22 +60,21 @@ const variance = function (img, kernel , copy_mode=true) {
      *
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
-    let output = T.Raster.from(img.raster,copy_mode);
-    //let output =  new T.Raster(img.type, img.width, img.height);    
+    console.log(kernel);
+    console.log("ok");
+    let output = T.Raster.from(img,copy_mode);
     let w= output.width;
     let h = output.height;
     let wk = kernel;
-    let pixels = img.raster.pixelData ;
+    let pixels = img.pixelData ;
     let imgsquare =  pixels.map((x) => x * x );		
     let integral = [];
-    img.raster.pixelData.reduce((sum1,px,i) => {
+    img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
 	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
 
-    
-    
     
     let integral2 = [];
     imgsquare.reduce((sum1,px,i) => {
@@ -100,15 +99,11 @@ const variance = function (img, kernel , copy_mode=true) {
     */
 
     let padd = padding(integral,wk,w,h,true);
-
-    
-
     let padd2 = padding(integral2,wk,w,h,true);
-
     let filtered= Variancefilter(padd,padd2,img.type,w,h,wk, true);
-
-    return filtered;
-    
+    output.pixelData = filtered;
+  
+    return (output);
 }
 
 
@@ -124,8 +119,6 @@ const padding = function(img,k,w,h,copy_mode = true){
      * @author Franck Soubès
      */
     
-    //img = img.pixelData;
-    //console.log(img);
     let new_img = [];
     while(img.length) new_img.push(img.splice(0,w));
     let ker = ((k-1)/2) *2;
@@ -212,8 +205,6 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    
 	});
     });
-
-    console.log(filtered);
 
     
     return filtered;

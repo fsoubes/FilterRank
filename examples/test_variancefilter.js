@@ -7,6 +7,7 @@
  * Display uint8 images
  */
 
+
 //let img0 = new T.Image('uint8',360,288);
 let img0 = new T.Image('uint8',256,254);
 //img0.setPixels(boats_pixels);
@@ -22,26 +23,27 @@ let img1 = new T.Image('uint8',256,254);
 let win1 = new T.Window('Blobs 8bit');
 let view1 = T.view(img1.getRaster());
 
-let img111 = new T.Image('uint16',256,254);
+let img111 = new T.Image('uint8',256,254);
 let sqrt = blobs_pixels.map((x) => x * x );
 img111.setPixels(sqrt);
-
+console.log("ok");
 let kernel_size=2;
-//let ImgI = variance(img2,img111,kernel_size);
+
 
 let img2 = new T.Image('uint8',256,254);
-img2.setPixels(blobs_pixels);
-//img2.setPixels(ImgI);
+let ImgI = variance(img0,kernel_size);
+img2.setPixels(ImgI);
+
 let win2 = new T.Window('Blob 8bit');
-let workflow = T.pipe(variance(img2,img111,kernel_size),T.view);
-let view2 = workflow(img2.getRaster());
+//let workflow = T.pipe(Integral(img2,2),T.view);
+let view2 = T.view(img2.getRaster());
 win2.addView(view2);
 win2.addToDOM('workspace');
 //let img2 = new T.Image('uint8',360,288);
 
 
 
-/*
+
 let img3 = new T.Image('uint8',256,254);
 img3.setPixels(ImgI);
 console.log("ok");
@@ -52,10 +54,13 @@ let win3 = new T.Window('Blobs crop uint8');
 win3.addView(view3);
 win3.addToDOM('workspace');
 
-// Display uint16 images
- 
+
+/**
+ * Display uint16 images
+ */
+ /*
 let img01 = new T.Image('uint16',256,254);
-let uint16_blobs = blobs_pixels.map ( (px) => px * 256);
+let uint16_blobs = blobs_pixels.map ((px) => px * 256);
 img01.setPixels(uint16_blobs);
 let win01 = new T.Window('Blobs uint16');
 let view01 = T.view(img01.getRaster());
@@ -63,6 +68,8 @@ let view01 = T.view(img01.getRaster());
 win01.addView(view01);
 // Add the window to the DOM and display it
 win01.addToDOM('workspace');
+
+
 
 
 let img02 = new T.Image('uint16',256,254);
@@ -111,8 +118,8 @@ let win002 = new T.Window('Blobs float32 ');
 let view002 = T.view(img002.getRaster());
 win002.addView(view002);
 win002.addToDOM('workspace');
-
-
+*/
+ /*
 let img003 = new T.Image('float32',256,254);
 img003.setPixels(ImgIII);
 let process2 = T.pipe(T.crop(1,1,img003.width - kernel_size,img003.height - kernel_size),T.view);

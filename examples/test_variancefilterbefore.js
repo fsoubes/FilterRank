@@ -7,46 +7,45 @@
  * Display uint8 images
  */
 
+let pixels = blobs_pixels;
+
 //let img0 = new T.Image('uint8',360,288);
 let img0 = new T.Image('uint8',256,254);
 //img0.setPixels(boats_pixels);
-img0.setPixels(blobs_pixels);
+img0.setPixels(pixels);
 let win0 = new T.Window('Blobs 8 bit');
 let view0 = T.view(img0.getRaster());
 win0.addView(view0);
 win0.addToDOM('workspace');
 
-
+/*
 //let img1 = new T.Image('uint8',360,288);
 let img1 = new T.Image('uint8',256,254);
+img1.setPixels(pixels);
+let workflow = T.pipe(variance(2),T.view);
+let view1 = workflow(img0.getRaster());
 let win1 = new T.Window('Blobs 8bit');
-let view1 = T.view(img1.getRaster());
+win1.addView(view1);
+win1.addToDOM("workspace");
+*/
 
-let kernel_size=2;
-let ImgI = variance(img0,kernel_size);
+let kernel_size = 2 ;
+//let img1 = new T.Image('uint8',360,288);
+let img1 = new T.Image('uint8',256,254);
+img1.setPixels(pixels);
 
-//console.log(ImgI);
-let img2 = new T.Image('uint8',256,254);
-img2.setPixels(ImgI);
-let win2 = new T.Window('Blob 8bit');
-let view2 = T.view(img2.getRaster());
-win2.addView(view2);
-win2.addToDOM('workspace');
-//let img2 = new T.Image('uint8',360,288);
+let workflow = T.pipe(variance(kernel_size),T.view);
 
-let img3 = new T.Image('uint8',256,254);
-img3.setPixels(ImgI);
-console.log("ok");
-console.log(img2.width);
-let process = T.pipe(T.crop(1,2,img3.width - kernel_size,img3.height - kernel_size),T.view);
-let view3 = process(img3.getRaster());
-let win3 = new T.Window('Blobs crop uint8');
-win3.addView(view3);
-win3.addToDOM('workspace');
+let process = T.pipe(T.crop(1,2,img1.width - kernel_size,img1.height - kernel_size),T.view);
+let view1 = process(workflow(img0.getRaster()));
+let win1 = new T.Window('Blobs 8bit');
+win1.addView(view1);
+win1.addToDOM("workspace");
 
-/**
- * Display uint16 images
- */
+//let process1 = T.pipe(T.crop(1,2,img03.width - kernel_size,img03.height - kernel_size),T.view);
+
+/*
+//Display uint16 image/
 
 let img01 = new T.Image('uint16',256,254);
 let uint16_blobs = blobs_pixels.map ( (px) => px * 256);
@@ -76,9 +75,7 @@ let win03 = new T.Window('Blobs crop uint16');
 win03.addView(view03);
 win03.addToDOM('workspace');
 
-/**
- * Display float32 images
- */
+// Display float32 images/
 
 
 let img001 = new T.Image('float32',256,254);
@@ -114,7 +111,7 @@ let view003 = process2(img003.getRaster());
 let win003 = new T.Window('Blobs crop uint16');
 win003.addView(view003);
 win003.addToDOM('workspace');
-   */
+   
 let img0001 = new T.Image('float32',256,254);
 //let img001 = new T.Image('float32',360,288);
 //let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
@@ -128,3 +125,4 @@ let view0001 = process(img0001.getRaster());
 win0001.addView(view0001);
 // Add the window to the DOM and display it
 win0001.addToDOM('workspace');
+*/

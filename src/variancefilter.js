@@ -41,8 +41,9 @@
  * @author Franck Soubès
  */
 
-const variance = function (img, img2,kernel , copy_mode=true) {  
-//const variance = (kernel=3) => (img,copy_mode= true) => {    
+const variance = function (img, kernel , copy_mode=true) {
+//const Integral = (img, img2,kernel , copy_mode=true) => {  
+//const Integral = (kernel) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
@@ -61,11 +62,13 @@ const variance = function (img, img2,kernel , copy_mode=true) {
      *
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
+
+
     let output = T.Raster.from(img.raster,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
-      
-    let w= output.width;
-    let h = output.height;
+    //let imgsqr= T.Raster.from(img2.raster,copy_mode);
+     
+    let w= img.width;
+    let h = img.height;
     let wk = kernel;
     let pixels = img.raster.pixelData ;
     let imgsquare =  pixels.map((x) => x * x );		
@@ -79,14 +82,14 @@ const variance = function (img, img2,kernel , copy_mode=true) {
 
     */
 
-     img.raster.pixelData.reduce((sum1,px,i) => {
+     imgsquare.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
 	img.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
-	return sum1;},new Float32Array(w).fill(0.0));
-
-    padding(img,wk,w,h,true);
+	 return sum1;},new Float32Array(w).fill(0.0));
     console.log(img.raster.pixelData);
+    
+    padding(img,wk,w,h,true);
     
     img2.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -112,11 +115,10 @@ const variance = function (img, img2,kernel , copy_mode=true) {
     });
     */
    
-    Variancefilter(img,img2,img.type,w,h,wk, true); 
-    output.pixelData = img;
-    console.log("test");
-    console.log(img);
-    return output;
+    Variancefilter(img,img2,img.type,w,h,wk, true);
+    //let test = img.raster.pixelData
+    output.pixelData = img.raster.pixelData;
+    return output.pixelData;
 }
 
 
@@ -136,6 +138,7 @@ const padding = function(img,k,w,h,copy_mode = true){
 
     let output = T.Raster.from(img.raster,copy_mode= true);
     let ima = img.raster.pixelData;
+    console.log(ima);
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
     let ker = ((k-1)/2) *2;
@@ -150,15 +153,16 @@ const padding = function(img,k,w,h,copy_mode = true){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
+
    
     let output4 =  new T.Raster(img.type, img.width, img.height);
-    output4.pixelData = IntegralImage(returned_image,w,h,k);   
+    output4.pixelData = Getcoord(returned_image,w,h,k);   
     img.setRaster(output4);
     
     return img;
 }
 
-const IntegralImage = function (img ,w,h,k,copy_mode=false){
+const Getcoord = function (img ,w,h,k,copy_mode=false){
     
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
@@ -227,6 +231,21 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
     return img;
 }
+
+ /*
+const variance = (kernel,img,img2) => (img,img2,copy_mode= true) => {  
+
+    let output = T.Raster.from(img.raster,copy_mode);
+    let imgsqr= T.Raster.from(img2.raster,copy_mode);
+    output.pixelData = Integral(raster,raster2,kernel);
+    console.log(output);
+
+    return output;
+}
+*/
+
+    
+    
 
 
 
