@@ -37,9 +37,11 @@ img1.setPixels(pixels);
 let workflow = T.pipe(variance(kernel_size),T.view);
 //let process = T.pipe(T.crop(1,2,img1.width - kernel_size,img1.height - kernel_size),T.view);
 let view1 = workflow(img0.getRaster());
-console.log(view1);
+let tested = T.pipe(T.crop(1,2,view1.width - kernel_size, view1.height - kernel_size), T.view);
+let view2 = tested(img0.getRaster());
+
 let win1 = new T.Window('Blobs 8bit');
-win1.addView(view1);
+win1.addView(view2);
 win1.addToDOM("workspace");
 
 //let process1 = T.pipe(T.crop(1,2,img03.width - kernel_size,img03.height - kernel_size),T.view);

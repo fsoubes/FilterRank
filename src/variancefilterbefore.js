@@ -60,8 +60,7 @@ const variance = (kernel) => (img,copy_mode= true) => {
      *
      * @author Franck Soubès / Jean-Christophe Taveau 
      */
-    console.log(kernel);
-    console.log("ok");
+
     let output = T.Raster.from(img,copy_mode);
     let w= output.width;
     let h = output.height;
