@@ -166,7 +166,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      * @param {Array} img1 - Input image to process.
      * @param {Array} img2 - Input image2 to process.
      * @param{TRaster} type - Type of the image (uint8,uint16,float32).
-     * @param {kernel} kernem - Convolution mask represented by a single value.
+     * @param {kernel} kernel - Convolution mask represented by a single value.
      * @return {Array} - return an array with computed variance.
      *
      * @author Franck Soubès
