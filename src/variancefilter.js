@@ -29,6 +29,7 @@
  * @module rankFilters
  */
 
+
 /**
  * Variance filter
  *
@@ -41,9 +42,9 @@
  * @author Franck Soubès
  */
 
-const variance = function (img, kernel , copy_mode=true) {
-//const Integral = (img, img2,kernel , copy_mode=true) => {  
-//const Integral = (kernel) => (img,copy_mode= true) => {    
+
+const variance = (kernel,img2) => (img,copy_mode = true) => {
+   
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
@@ -64,32 +65,19 @@ const variance = function (img, kernel , copy_mode=true) {
      */
 
 
-    let output = T.Raster.from(img.raster,copy_mode);
-    //let imgsqr= T.Raster.from(img2.raster,copy_mode);
-     
+    let output = T.Raster.from(img,copy_mode);
+    let imgsqr= T.Raster.from(img2.raster,copy_mode);
     let w= img.width;
     let h = img.height;
-    let wk = kernel;
-    let pixels = img.raster.pixelData ;
-    let imgsquare =  pixels.map((x) => x * x );		
+    let wk = kernel;	
 
-    /*
-    img.raster.pixelData.reduce((sum1,px,i) => {
+
+     img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
-	return sum1;},new Float32Array(w).fill(0.0));
+	img.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.pixelData[i-1])
+	 return sum1;},new Float32Array(w).fill(0.0));   
 
-    */
-
-     imgsquare.reduce((sum1,px,i) => {
-	let x = i%w;
-	sum1[x] += px;
-	img.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.raster.pixelData[i-1])
-	 return sum1;},new Float32Array(w).fill(0.0));
-    console.log(img.raster.pixelData);
-    
-    padding(img,wk,w,h,true);
     
     img2.raster.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
@@ -97,7 +85,6 @@ const variance = function (img, kernel , copy_mode=true) {
 	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
     
-    padding(img2,wk,w,h,true);
 
    
     /* another method not totally functionnal but way more faster with the use of forEach
@@ -114,15 +101,16 @@ const variance = function (img, kernel , copy_mode=true) {
 	});
     });
     */
-   
-    Variancefilter(img,img2,img.type,w,h,wk, true);
-    //let test = img.raster.pixelData
-    output.pixelData = img.raster.pixelData;
-    return output.pixelData;
+    
+    padding(img,wk,w,h,false,true);
+    padding(img2,wk,w,h,true,true);
+    Variancefilter(img,img2,img.type,w,h,wk, true);    
+    output.pixelData = img.pixelData;
+    return output;
 }
 
 
-const padding = function(img,k,w,h,copy_mode = true){
+const padding = function(img,k,w,h,flag,copy_mode = true){
 
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
@@ -134,11 +122,20 @@ const padding = function(img,k,w,h,copy_mode = true){
      *
      * @author Franck Soubès
      */
-    
 
-    let output = T.Raster.from(img.raster,copy_mode= true);
-    let ima = img.raster.pixelData;
-    console.log(ima);
+    
+    //flag == true ? img.getRaster() : img.pixelData ;
+    
+    let ima ;
+    if (flag){
+	ima = img.getRaster();
+	ima = ima.pixelData;
+    }
+    else
+    {
+	ima = img.pixelData;
+    }
+    
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
     let ker = ((k-1)/2) *2;
@@ -153,12 +150,8 @@ const padding = function(img,k,w,h,copy_mode = true){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
-
-   
-    let output4 =  new T.Raster(img.type, img.width, img.height);
-    output4.pixelData = Getcoord(returned_image,w,h,k);   
-    img.setRaster(output4);
-    
+      
+    img.pixelData = Getcoord(returned_image,w,h,k);
     return img;
 }
 
@@ -198,32 +191,30 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      *
      * @param {TRaster} kernel -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {TRaster} imgI - Input image to process.
-     * @param {TRaster} imgII - Input image2 to process.
+     * @param {TRaster} img1 - Input image to process.
+     * @param {TRaster} img2 - Input image2 to process.
      * @return {TRaster} - return an array with computed variance.
      *
      * @author Franck Soubès
      */
     
-    let output = T.Raster.from(img.raster,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
+    console.log(type);
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let result;
-    console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
     let compute_variance =width.map(x =>{
 	height.map(y =>{
 	    
-	    result =  (img2.raster.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.raster.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+	    result =  (img2.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
-	    ? img.raster.pixelData[x+y*w] = 255
-            : result > 65535 && type === "uint16"
-	    ? img.raster.pixelData[x+y*w] = 65535
+	    ? img.pixelData[x+y*w] = 255
+	    :result > 65535 && type === "uint16"
+	    ? img.pixelData[x+y*w] = 65535
 	    : result>1 && type === "float32"
-	    ? img.raster.pixelData[x+y*w] = 1
-            : img.raster.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+	    ? img.pixelData[x+y*w] = 1
+            : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	  	    
 	});
@@ -232,20 +223,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     return img;
 }
 
- /*
-const variance = (kernel,img,img2) => (img,img2,copy_mode= true) => {  
 
-    let output = T.Raster.from(img.raster,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    output.pixelData = Integral(raster,raster2,kernel);
-    console.log(output);
-
-    return output;
-}
-*/
-
-    
-    
 
 
 
