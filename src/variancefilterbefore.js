@@ -28,17 +28,6 @@
  * @module rankFilters
  */
 
-/**
- * Variance filter
- *
- * @param {TRaster} kernel - Convolution mask represented by the width wk
- and the height hk
- * @param {TRaster} img - Input image to process
- * @param {boolean} copy - Copy mode to manage memory usage
- * @return {TRaster} - Filtered Image
- *
- * @author Franck Soubès
- */
 
 //const variance = function (img, kernel , copy_mode=true) {  
 const variance = (kernel) => (img,copy_mode= true) => {    
@@ -54,7 +43,6 @@ const variance = (kernel) => (img,copy_mode= true) => {
      * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
        with this algorithm the kernel doesn't have to be squared.
      * @param {TRaster} img - Input image to process
-     * @param {TRaster} img2 - Input image to process 
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
      *
@@ -110,10 +98,12 @@ const padding = function(img,k,w,h,copy_mode = true){
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
-     * @param {TRaster} kernel - Convolution mask represented by a single value
+     * @param {Array} img - Input image to process.
+     * @param {kernel} k - Convolution mask represented by a single value.
      * width*height of the kernel.
-     * @param {TRaster} img - Input image to process.
-     * @return {TRaster} - Padded image with 0.
+     * @param{hight} h - height of the image.
+     * @param{width} w - width of the image.
+     * @return {Array} - Padded image with 0.
      *
      * @author Franck Soubès
      */
@@ -142,10 +132,12 @@ const IntegralImage = function (img ,w,h,k,copy=true){
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
      *
-     * @param {TRaster} kernel -  Convolution mask represented by a single value
+     * @param {Array} img -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {TRaster} img - Input image to process.
-     * @return {TRaster} - return an array of pixel wih computed pixels.
+     * @param{hight} w - height of the image.
+     * @param{width} h - width of the image.
+     * @param {kernel} k - Convolution mask represented by a single value.
+     * @return {Array} - return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
@@ -171,11 +163,11 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     /**
      * Variancefilter : simply apply the variance formula. 
      *
-     * @param {TRaster} kernel -  Convolution mask represented by a single value
-     * width*height of the kernel.
-     * @param {TRaster} imgI - Input image to process.
-     * @param {TRaster} imgII - Input image2 to process.
-     * @return {TRaster} - return an array with computed variance.
+     * @param {Array} img1 - Input image to process.
+     * @param {Array} img2 - Input image2 to process.
+     * @param{TRaster} type - Type of the image (uint8,uint16,float32).
+     * @param {kernel} kernem - Convolution mask represented by a single value.
+     * @return {Array} - return an array with computed variance.
      *
      * @author Franck Soubès
      */
