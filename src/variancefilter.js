@@ -123,16 +123,12 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      * @author Franck Soubès
      */
 
-    
-    //flag == true ? img.getRaster() : img.pixelData ;
-    
     let ima ;
     if (flag){
 	ima = img.getRaster();
 	ima = ima.pixelData;
     }
-    else
-    {
+    else{
 	ima = img.pixelData;
     }
     
@@ -168,7 +164,7 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
      * @author Franck Soubès
      */
 
-    let arrayI =[];
+    let img_returned =[];
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
@@ -177,11 +173,11 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
 	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
 	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
 	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? arrayI.push(0) // as a result the image will be croped for abberant coordinates
-	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
+	    ? img_returned.push(0) // as a result the image will be croped for abberant coordinates
+	    : img_returned.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
-    return arrayI; // 1d
+    return img_returned; // 1d
 }
 
 const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
@@ -198,7 +194,6 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      * @author Franck Soubès
      */
     
-    console.log(type);
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let result;
