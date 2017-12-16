@@ -105,9 +105,9 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      * @param {TRaster} img - Input image to process.
      * @param {TRaster} k - Convolution mask represented by a single value (width*height).
      * @return {TRaster} - Padded image with 0.
-     * @param{TRaster} w - width of the image.
-     * @param{TRaster} h - height of the image.
-     * @param{boolean} flag - if true it will take the raster from the img and the pixelData from the raster
+     * @param {TRaster} w - width of the image.
+     * @param {TRaster} h - height of the image.
+     * @param {boolean} flag - if true it will take the raster from the img and the pixelData from the raster
      * if it is false just the pixelData from the raster.
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Padded image with 0 and with computed coordinates.
@@ -181,8 +181,8 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      *
      * @param {TRaster} img1 - Input image to process.
      * @param {TRaster} img2 - Input image to process.
-     * @param{TRaster} w - width of the image.
-     * @param{TRaster} h - height of the image.
+     * @param {TRaster} w - width of the image.
+     * @param {TRaster} h - height of the image.
      * @param {TRaster} type - Return the type of the raster (uint8, uint16, float32  or argb).
      * @param {TRaster} kernel -  Convolution mask represented by a single value
      * width*height of the kernel.
