@@ -48,7 +48,7 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
      *
-     * @author Franck Soubès / Jean-Christophe Taveau 
+     * @author Franck Soubès - Jean-Christophe Taveau 
      */
 
 
@@ -104,7 +104,6 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      *
      * @param {TRaster} img - Input image to process.
      * @param {TRaster} k - Convolution mask represented by a single value (width*height).
-     * @return {TRaster} - Padded image with 0.
      * @param {TRaster} w - width of the image.
      * @param {TRaster} h - height of the image.
      * @param {boolean} flag - if true it will take the raster from the img and the pixelData from the raster
