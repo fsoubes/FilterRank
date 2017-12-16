@@ -58,7 +58,10 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
     let h = img.height;
     let wk = kernel;	
 
-
+     /*
+     	Integral Image proposed by JC.Taveau
+     */
+	
      img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
