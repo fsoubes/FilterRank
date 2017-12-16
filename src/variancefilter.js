@@ -148,7 +148,7 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
 const Getcoord = function (img ,w,h,k,copy_mode=false){
     
     /**
-     * IntegralImage : Compute the four coordinates of the main algorithm.
+     * Getcoord : Compute the four coordinates of the main algorithm and treat the edges.
      *
      * @param {Array} img -  Convolution mask represented by a single value
      * width*height of the kernel.
