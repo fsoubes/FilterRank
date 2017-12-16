@@ -30,19 +30,6 @@
  */
 
 
-/**
- * Variance filter
- *
- * @param {TRaster} kernel - Convolution mask represented by the width wk
- and the height hk
- * @param {TRaster} img - Input image to process
- * @param {boolean} copy - Copy mode to manage memory usage
- * @return {TRaster} - Filtered Image
- *
- * @author Franck Soubès
- */
-
-
 const variance = (kernel,img2) => (img,copy_mode = true) => {
    
     /**
@@ -56,8 +43,8 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
      *
      * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
        with this algorithm the kernel doesn't have to be squared.
-     * @param {TRaster} img - Input image to process
-     * @param {TRaster} img2 - Input image to process 
+     * @param {TRaster} img2 - Input image to process
+     * @param {TRaster} img - Input image to process 
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
      *
@@ -115,11 +102,16 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
-     * @param {TRaster} kernel - Convolution mask represented by a single value
-     * width*height of the kernel.
      * @param {TRaster} img - Input image to process.
+     * @param {TRaster} k - Convolution mask represented by a single value (width*height).
      * @return {TRaster} - Padded image with 0.
-     *
+     * @param{TRaster} w - width of the image.
+     * @param{TRaster} h - height of the image.
+     * @param{boolean} flag - if true it will take the raster from the img and the pixelData from the raster
+     * if it is false just the pixelData from the raster.
+     * @param {boolean} copy - Copy mode to manage memory usage
+     * @return {TRaster} - Padded image with 0 and with computed coordinates.
+     * 
      * @author Franck Soubès
      */
 
@@ -156,10 +148,12 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
      *
-     * @param {TRaster} kernel -  Convolution mask represented by a single value
+     * @param {Array} img -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {TRaster} img - Input image to process.
-     * @return {TRaster} - return an array of pixel wih computed pixels.
+     * @param {hight} w - height of the image.
+     * @param {width} h - width of the image.
+     * @param {kernel} k - Convolution mask represented by a single value.
+     * @return {Array} - return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
@@ -185,10 +179,13 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     /**
      * Variancefilter : simply apply the variance formula. 
      *
+     * @param {TRaster} img1 - Input image to process.
+     * @param {TRaster} img2 - Input image to process.
+     * @param{TRaster} w - width of the image.
+     * @param{TRaster} h - height of the image.
+     * @param {TRaster} type - Return the type of the raster (uint8, uint16, float32  or argb).
      * @param {TRaster} kernel -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {TRaster} img1 - Input image to process.
-     * @param {TRaster} img2 - Input image2 to process.
      * @return {TRaster} - return an array with computed variance.
      *
      * @author Franck Soubès
