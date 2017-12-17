@@ -116,7 +116,7 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      * 
      * @author Franck Soubès
      */
-
+    
     let ima ;
     if (flag){
 	ima = img.getRaster();
@@ -124,7 +124,7 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     }
     else{
 	ima = img.pixelData;
-    }
+	}
     
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
@@ -209,11 +209,10 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    : result>1 && type === "float32"
 	    ? img.pixelData[x+y*w] = 1
             : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
-	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
-	  	    
+	    // when not normalizing it has blue edges and it's more clean, float 32 is ok	  	    
 	});
     });
-
+    
     return img;
 }
 
