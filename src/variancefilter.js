@@ -37,16 +37,16 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
      * all the pixels wihtin the first img and after compute the summed squared area 
      * table of all the pixels within the img2.
      * After this process the two img are then padded with 0 according to
-     * the dimension of the convolution mask. 
+     * the dimension of the convolution mask, using padding().
      * Finally an algorithm based on Integral Image is applied to compute 
-     * the variance.
+     * the variance, using Variancefilter().
      *
      * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
        with this algorithm the kernel doesn't have to be squared.
-     * @param {TRaster} img2 - Input image to process
-     * @param {TRaster} img - Input image to process 
-     * @param {boolean} copy - Copy mode to manage memory usage
-     * @return {TRaster} - Filtered Image
+     * @param {TRaster} img2 - Input image to process with square pixels.
+     * @param {TRaster} img - Input image to process. 
+     * @param {boolean} copy - Copy mode to manage memory usage.
+     * @return {TRaster} - Filtered Image.
      *
      * @author Franck Soubès - Jean-Christophe Taveau 
      */
