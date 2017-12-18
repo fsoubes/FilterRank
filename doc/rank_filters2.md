@@ -57,6 +57,8 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)  
 Repeat for each window. The default variance filter in ImageJ is based on this algorithm. 
 
+Globally this function is subdivised in four part, the first part consisting to compute the integral two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
+
 # 4.Discussion
 # 5.Conclusion
 
