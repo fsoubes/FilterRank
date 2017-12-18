@@ -106,7 +106,7 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
      * @param {TRaster} img - Input image to process.
-     * @param {TRaster} k - Convolution mask represented by a single value (width*height).
+     * @param {Integer} k - Convolution mask represented by a single value (width*height).
      * @param {TRaster} w - width of the image.
      * @param {TRaster} h - height of the image.
      * @param {boolean} flag - if true it will take the raster from the img and the pixelData from the raster
@@ -152,9 +152,9 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
      *
      * @param {Array} img -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {hight} w - height of the image.
-     * @param {width} h - width of the image.
-     * @param {kernel} k - Convolution mask represented by a single value.
+     * @param {Integer} w - height of the image.
+     * @param {Integer} h - width of the image.
+     * @param {Integer} k - Convolution mask represented by a single value.
      * @return {Array} - return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
@@ -186,7 +186,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      * @param {TRaster} w - width of the image.
      * @param {TRaster} h - height of the image.
      * @param {TRaster} type - Return the type of the raster (uint8, uint16, float32  or argb).
-     * @param {TRaster} kernel -  Convolution mask represented by a single value
+     * @param {Integer} kernel -  Convolution mask represented by a single value
      * width*height of the kernel.
      * @return {TRaster} - return an array with computed variance.
      *
