@@ -34,6 +34,7 @@ The method for variance filtering make use of a faster algorithm to compute the 
 
 
 Here is an example[Fig. 2] of what the function should do.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
