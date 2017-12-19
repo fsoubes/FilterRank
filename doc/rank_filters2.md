@@ -71,7 +71,7 @@ Globally the variance function is subdivised in four part, the first part consis
 
 The method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Vio2001][^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included [Fig. 2].
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_integ1.png)
 ### Fig 2. An example of the area pixels between I(0,0) and I(x,y) included. 
 
@@ -79,6 +79,7 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
 
+&nbsp;&nbsp;&nbsp;&nbsp;
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 #### Fig 3. An exemple of a image I and the new computed image I' and I''. 
