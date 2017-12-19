@@ -91,6 +91,28 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
 	});
     });
     */
+	
+    /*
+    non functionnal method:
+    
+    for (let i = 0 ; i < w ; i++){
+      let sum = 0 ; // for each new lines sum =0  
+  	for (let j = 0 ; j < h ; j++){
+    	const ind = (i) +(j*w)        ; // index for 1D 
+    	sum = sum + array[ind] ;
+      if (i === 0) {
+      	array[ind] = sum;
+        arrayout.push(array[ind]);
+       }
+      else{
+      	array[ind] = array[ind-1] + sum;
+        arrayout.push(array[ind]);
+      		}
+      } 
+    }
+    return arrayout; 
+  }	
+  */
     
     padding(img,wk,w,h,false,true);
     padding(img2,wk,w,h,true,true);
