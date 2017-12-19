@@ -24,6 +24,40 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 # 2.Material & Methods
 
 ## Implementation of the median filter
+
+The basic of a median filter is, for each pixel in an image, to center a WxH kernel on this pixel, and compute the median of the pixels in the kernel range, to create an output image with these computed median values.
+
+The first step of this median filter implementation is to extend the border of the image, so that that there is no undefined value in the kernel range for each pixel position of the original image. The new pixels created are given the value of the nearest pixel of the original image.
+
+The implementation of the median filter used here use 2 different algorithm depending on if the image is in the 8 bit format in the first case or in the 16 bit or float 32 format in the other case. 
+
+If the image is a 16 bit or float 32 image a naive implementation of the median filter is used. For each column in the image, the values of the H (height of the kernel) first pixel of each column are stocked in a corresponding array. Then the first W (width of the kernel) arrays are joined together to get an array containing the values of all the pixels that are inside the kernel when it is placed at the top left of the image. These values are sorted and the median values is taken.
+Each time the kernel slid to the right, the values corresponding to the pixels that are not anymore in the kernel are removed from it, while the value of the next column are added, and the new median is computed from these values. This is repeated until the kernel reach the end of the row. Then the process is repeated for the next row, after removing from all the arrays the values that are not anymore in the kernel and adding the new ones, until the lower right corner of the image is reached and the median values for all the pixels of the output image have been computed. 
+
+The algorithm used in the 8 bit image case is based on the algorithm described by XXXXX. This algorithm aim to reduce the number of times a sorting function is called as sorting is time consuming.
+For each column of the image a 256 element array is created, with each element equal to 0 at the start, and those arrays are placed into an array Hist. Then for each pixels of coordinate (X,Y) and value G of the first H (height of the kernel) rows of the image, Hist[Y][G] increase by 1.
+
+The median values for the pixels of the first row of the new image can then be computed from that array Hist. First, the median value for the first pixel in the row is computed by retrieving the pixel values that are inside the kernel when it is placed at the start of the row, stocking them in an array and sorting this this array. The median Mdn is then the central element of the sorted array.
+
+To compute the new median value for the pixel to the right, the following algorithm is used, using Mdn, the already computed median, Ltmdn, equal to the number of element in the sorted array that are strictly lower than Mdn, T equal to ((H*W-1)/2) with H and W the height and Width of the kernel, and Hist. Considering Y0 is the column of pixel that is no longer in the kernel, and Yn the new column that is now in the kernel :
+	For each 0<=G<256
+	if G < Mdn and Hist[Y0][G] > 0
+	then do Ltmdn=Ltmdn-Hist[Y0][G].
+
+	Then if G < Mdn and Hist[Yn][G] > 0
+	do Ltmdn=Ltmdn+Hist[Yn][G]. 
+
+	If Ltmdn > T
+	do Mdn = Mdn-1 and Ltmdn=Ltmdn-(Hist[Y1][Mdn]+...+Hist[Yn][Mdn])
+	until Ltmdn <= T.
+
+	Else if Ltmdn <= T
+	test Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) <= T
+	If true do Ltmdn = Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) and Mdn=Mdn+1 and re-	test
+	If false Mdn is the median of the current kernel position.
+
+This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image.
+
 ## Implementation of the min/max filter
 ## Implementation of the variance filter
 Globally the variance function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a mathematical formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
