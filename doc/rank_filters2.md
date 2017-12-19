@@ -94,9 +94,9 @@ The implementation of this part was first describe by [^BRA2007] with the follow
                   intImg[i, j] ← sum	   
                 else	 
                   intImg[i, j] ← intImg[i − 1, j] + sum
-               end if
-             end for 
-           end for
+                end if
+              end for 
+            end for
 
 
 ## Benchmarking analysis
