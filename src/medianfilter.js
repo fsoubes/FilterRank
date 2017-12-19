@@ -98,23 +98,35 @@ const medianFilter = (kernel) => (image,copy=true) => {
 	while (ltmedian > halfNbPixelKernel){
 	    median--;
 	    let sumMedian = 0;
+	    /*
 	    for (let j=0; j<radiusKernel*2+1; j++){
 		sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
-	    }
+		}*/
+	    Array(radiusKernel*2+1).fill(0).forEach(function(element, index){
+		sumMedian = sumMedian+histogramList[columnIndex+index+1][median];
+	    });
 	    ltmedian = ltmedian-sumMedian;
 	}
 	if (ltmedian <= halfNbPixelKernel){
 	    let sumMedian = 0;
+	    /*
 	    for (let j=0; j<radiusKernel*2+1; j++){
 		sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
-	    }
+		}*/
+	    Array(radiusKernel*2+1).fill(0).forEach(function(element, index){
+		sumMedian = sumMedian+histogramList[columnIndex+index+1][median];
+	    });
 	    while (ltmedian+sumMedian <= halfNbPixelKernel){
 		ltmedian = ltmedian+sumMedian;
 		median++;
 		sumMedian=0;
+		/*
 		for (let j=0; j<radiusKernel*2+1; j++){
 		    sumMedian = sumMedian+histogramList[columnIndex+j+1][median];
-		}
+		    }*/
+		Array(radiusKernel*2+1).fill(0).forEach(function(element, index){
+		    sumMedian = sumMedian+histogramList[columnIndex+index+1][median];
+		});
 	    }
 	}
 	//
