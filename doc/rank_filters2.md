@@ -54,7 +54,7 @@ To compute the new median value for the pixel to the right, the following algori
 
 	Else if Ltmdn <= T
 	test Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) <= T
-	If true do Ltmdn = Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) and Mdn=Mdn+1 and re-	test
+	If true do Ltmdn = Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) and Mdn=Mdn+1 and re-test
 	If false Mdn is the median of the current kernel position.
 
 This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image.
