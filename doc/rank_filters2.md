@@ -40,6 +40,7 @@ For each column of the image a 256 element array is created, with each element e
 The median values for the pixels of the first row of the new image can then be computed from that array Hist. First, the median value for the first pixel in the row is computed by retrieving the pixel values that are inside the kernel when it is placed at the start of the row, stocking them in an array and sorting this this array. The median Mdn is then the central element of the sorted array.
 
 To compute the new median value for the pixel to the right, the following algorithm is used, using Mdn, the already computed median, Ltmdn, equal to the number of element in the sorted array that are strictly lower than Mdn, T equal to ((H*W-1)/2) with H and W the height and Width of the kernel, and Hist. Considering Y0 is the column of pixel that is no longer in the kernel, and Yn the new column that is now in the kernel :
+
 	For each 0<=G<256
 	if G < Mdn and Hist[Y0][G] > 0
 	then do Ltmdn=Ltmdn-Hist[Y0][G].
