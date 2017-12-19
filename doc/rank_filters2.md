@@ -84,7 +84,20 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 #### Fig 3. An exemple of a image I and the new computed image I' and I''. 
 
-The implementation of this part is based on the pseudo code described 
+The implementation of this part was first describe by [^BRA2007] with the following pseudo code.
+
+	    for i=0 to w do
+   	    sum←0
+   	      for j=0 to h do
+      	        sum ← sum + in[i, j]	  
+                if i = 0 then
+                  intImg[i, j] ← sum	   
+                else	 
+                  intImg[i, j] ← intImg[i − 1, j] + sum
+               end if
+             end for 
+           end for
+
 
 ## Benchmarking analysis
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. The second script *memoryall.js* was implemented in javascript, to measure the memory used by the JVM while running the filter in ImageJ until the end of the process. 
