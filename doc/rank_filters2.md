@@ -59,7 +59,8 @@ To compute the new median value for the pixel to the right, the following algori
 
 This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image.
 
-	![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
 #### Fig 1. (a) Moving the histogram down one row by removing a pixel and adding another one. (b) Subtracting one histogram and adding another to move the window to the right.
 
 ## Implementation of the min/max filter
