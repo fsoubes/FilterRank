@@ -141,10 +141,32 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function Variancefilter() takes the return of the previous function and compute the formula[Fig. 5]
+The last function Variancefilter() takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. Variancefilter() method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values for the adaptated type as input.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
-#### Fig 5. 
+#### Fig 5. Where n is the kernel diameter, I" corresponds to the squared pixels image and I' is the principal image without any transformation.
+
+For a better understanding of this method here the pseudo code:
+
+	for x=0 to w do
+	for y=0 to h do 
+	result = (I"[x +y*w]/(kernel*kernel)) - (I'[x+y*w]/(kernel)* I'[x+y*w]/(kernel))
+	if result >255 and type = 8bit then
+	var = 255	   
+	else if result > 65535 and type = 16bit then
+	var = 65535
+	else if result>1 and type = float32 then
+	var = 1
+	else
+	var = result
+	end if
+	end for 
+	end for
+
+
+
+
+
 
 ## Benchmarking analysis
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, two scripts were implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. The second script *memoryall.js* was implemented in javascript, to measure the memory used by the JVM while running the filter in ImageJ until the end of the process. 
