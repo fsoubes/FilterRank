@@ -181,7 +181,7 @@ The image is firstly transformed from a 1d array to a 2d array. In the aim of tr
 	With k = kernel
 	ker = ((k-1)/2) *2
 
-The resulting number will give to the padding function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size compare to the original input. It takes a function padding() whose return value is another function getCoord(). The final result is automatically transform in 1D without the uses of any particular method. 
+The resulting number will give to the padding function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The _padding_ function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size compare to the original input. It takes a function _padding_ whose return value is another function _getCoord_. The final result is automatically transform in 1D without the uses of any particular method. 
 
 This method act as following:
 
@@ -212,12 +212,12 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function Variancefilter() takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. Variancefilter() method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type.
+The last function _Variancefilter_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _Variancefilter_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
-#### Fig 5. Where n is the kernel diameter, I" corresponds to the squared pixels image and I' is without squared pixels.
+#### Fig 5. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
 
-For a better understanding of this method here the pseudo code:
+This formula allows us to compute  the variance of rectangular patch of image. The associated pseudo code is represented down below :
 
 	for x=0 to w do
 	  for y=0 to h do 
@@ -234,7 +234,7 @@ For a better understanding of this method here the pseudo code:
 	  end for 
 	end for
 
-Finally the padding() function and Variancefilter() function are  respectively called 2 and 1 time in the main function variance(). It was not possible to currying due to the fact that this function works with 2 images.
+Finally just Variancefilter() function is called in the main function _variance_ with one _padding_ taking as first argument the sum of all pixels values in the original image and a second argument _padding_ taking as first argument the sum of all squared pixels values in the original image 
 
 
 ## Benchmarking analysis
