@@ -88,17 +88,17 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 
 The implementation of this algorithm was first describe by [^BRA2007] with the following pseudo code.
 
-	    for i=0 to w do
-   	    sum←0
-   	      for j=0 to h do
-      	        sum ← sum + in[i, j]	  
-                if i = 0 then
-                  intImg[i, j] ← sum	   
-                else	 
-                  intImg[i, j] ← intImg[i − 1, j] + sum
-                end if
-   	      end for 
-	    end for
+	for i=0 to w do
+   	sum←0
+   	  for j=0 to h do
+      	    sum ← sum + in[i, j]	  
+            if i = 0 then
+              intImg[i, j] ← sum	   
+            else	 
+              intImg[i, j] ← intImg[i − 1, j] + sum
+            end if
+   	  end for 
+	end for
 	    
 Integral image was first implemented by using nested for loops, it was then transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map.
 Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All these methods are still provided in the variance filter script.
