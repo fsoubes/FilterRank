@@ -64,7 +64,7 @@ const transpose =function (array,copy_mode=true) {
 
 const remplissage =function (im,kernel,filtre,type,copy_mode=true){
   /**
-   * @Author : Guillamaury Debras
+   * @author : Guillamaury Debras
 
    * Create an array with vertical or horizontal padding depending of the paramater filtre and type.
    * It'll push specifics values to help compute the edges without cropping.
