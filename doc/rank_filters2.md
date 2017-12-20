@@ -78,7 +78,8 @@ The method for variance filtering make use of a faster algorithm to compute the 
 
 Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included. Here is an example[Fig. 3] of what the function should do for both input images.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
