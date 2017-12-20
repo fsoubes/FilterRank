@@ -20,7 +20,6 @@
  *
  *
  * Authors:
- * Franck Soubès
  * Jean-Christophe Taveau
  * 
  */
@@ -30,55 +29,49 @@
  */
 
 
-const variance = (kernel,img2) => (img,copy_mode = true) => {
-   
+//const variance = function (img, kernel , copy_mode=true) {  
+const variance = (kernel) => (img,copy_mode= true) => {    
     /**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
      * table of all the pixels within the img2.
      * After this process the two img are then padded with 0 according to
-     * the dimension of the convolution mask, using padding().
+     * the dimension of the convolution mask. 
      * Finally an algorithm based on Integral Image is applied to compute 
-     * the variance, using Variancefilter().
+     * the variance.
      *
      * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
        with this algorithm the kernel doesn't have to be squared.
-     * @param {TRaster} img2 - Input image to process with square pixels.
-     * @param {TRaster} img - Input image to process. 
-     * @param {boolean} copy - Copy mode to manage memory usage.
-     * @return {TRaster} - Filtered Image.
+     * @param {TRaster} img - Input image to process
+     * @param {boolean} copy - Copy mode to manage memory usage
+     * @return {TRaster} - Filtered Image
      *
-     * @author Franck Soubès - Jean-Christophe Taveau 
+     * @author Franck Soubès / Jean-Christophe Taveau 
      */
-
 
     let output = T.Raster.from(img,copy_mode);
-    let imgsqr= T.Raster.from(img2.raster,copy_mode);
-    let w= img.width;
-    let h = img.height;
-    let wk = kernel;	
-
-     /*
-     	Integral Image proposed by JC.Taveau
-     */
-	
-     img.pixelData.reduce((sum1,px,i) => {
+    let w= output.width;
+    let h = output.height;
+    let wk = kernel;
+    let pixels = img.pixelData ;
+    let imgsquare =  pixels.map((x) => x * x );		
+    let integral = [];
+    img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	img.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.pixelData[i-1])
-	 return sum1;},new Float32Array(w).fill(0.0));   
-
-    
-    img2.raster.pixelData.reduce((sum1,px,i) => {
-	let x = i%w;
-	sum1[x] += px;
-	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
+	integral[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
-    
 
-   
+    
+    let integral2 = [];
+    imgsquare.reduce((sum1,px,i) => {
+	let x = i%w;
+	sum1[x] += px;
+	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
+	return sum1;},new Float32Array(w).fill(0.0));
+	
     /* another method not totally functionnal but way more faster with the use of forEach
-    let sum = 0;
+        let sum = 0;
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let height = arr.map((j,y)=> y);
@@ -91,65 +84,32 @@ const variance = (kernel,img2) => (img,copy_mode = true) => {
 	});
     });
     */
-	
-    /*
-    non functionnal method:
-    
-    for (let i = 0 ; i < w ; i++){
-      let sum = 0 ; // for each new lines sum =0  
-  	for (let j = 0 ; j < h ; j++){
-    	const ind = (i) +(j*w)        ; // index for 1D 
-    	sum = sum + array[ind] ;
-      if (i === 0) {
-      	array[ind] = sum;
-        arrayout.push(array[ind]);
-       }
-      else{
-      	array[ind] = array[ind-1] + sum;
-        arrayout.push(array[ind]);
-      		}
-      } 
-    }
-    return arrayout; 
-  }	
-  */
-    
-    padding(img,wk,w,h,false,true);
-    padding(img2,wk,w,h,true,true);
-    Variancefilter(img,img2,img.type,w,h,wk, true);    
-    output.pixelData = img.pixelData;
-    return output;
+
+    let padd = padding(integral,wk,w,h,true);
+    let padd2 = padding(integral2,wk,w,h,true);
+    let filtered= Variancefilter(padd,padd2,img.type,w,h,wk, true);
+    output.pixelData = filtered;
+  
+    return (output);
 }
 
 
-const padding = function(img,k,w,h,flag,copy_mode = true){
-
+const padding = function(img,k,w,h,copy_mode = true){
     /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
-     * @param {TRaster} img - Input image to process.
-     * @param {Integer} k - Convolution mask represented by a single value (width*height).
-     * @param {TRaster} w - width of the image.
-     * @param {TRaster} h - height of the image.
-     * @param {boolean} flag - if true it will take the raster from the img and the pixelData from the raster
-     * if it is false just the pixelData from the raster.
-     * @param {boolean} copy - Copy mode to manage memory usage
-     * @return {TRaster} - Padded image with 0 and with computed coordinates.
-     * 
+     * @param {Array} img - Input image to process.
+     * @param {kernel} k - Convolution mask represented by a single value.
+     * width*height of the kernel.
+     * @param{hight} h - height of the image.
+     * @param{width} w - width of the image.
+     * @return {Array} - Padded image with 0.
+     *
      * @author Franck Soubès
      */
     
-    let ima ;
-    if (flag){
-	ima = img.getRaster();
-	ima = ima.pixelData;
-    }
-    else{
-	ima = img.pixelData;
-	}
-    
     let new_img = [];
-    while(ima.length) new_img.push(ima.splice(0,w));
+    while(img.length) new_img.push(img.splice(0,w));
     let ker = ((k-1)/2) *2;
     let extremity = new Array(ker).fill(0);
     let leftrightpad = new_img => (extremity).concat(new_img).concat(extremity);
@@ -158,31 +118,31 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     let balancedpad = new_img  => new_img.map(new_img => leftrightpad(new_img));
     let imagepadded = new_img => balancedpad(updownpad(new_img));
     let returned_image = imagepadded(new_img);
+    
     for (let i =0 ; i<ker;i++ ){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
     }
-      
-    img.pixelData = Getcoord(returned_image,w,h,k);
-    return img;
+    
+    return IntegralImage(returned_image,w,h,k) ;
 }
 
-const Getcoord = function (img ,w,h,k,copy_mode=false){
+const IntegralImage = function (img ,w,h,k,copy=true){
     
     /**
-     * Getcoord : Compute the four coordinates of the main algorithm and treat the edges.
+     * IntegralImage : Compute the four coordinates of the main algorithm.
      *
      * @param {Array} img -  Convolution mask represented by a single value
      * width*height of the kernel.
-     * @param {Integer} w - height of the image.
-     * @param {Integer} h - width of the image.
-     * @param {Integer} k - Convolution mask represented by a single value.
+     * @param{hight} w - height of the image.
+     * @param{width} h - width of the image.
+     * @param {kernel} k - Convolution mask represented by a single value.
      * @return {Array} - return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
-
-    let img_returned =[];
+    
+    let arrayI =[];
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
@@ -191,11 +151,11 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
 	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
 	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
 	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? img_returned.push(0) // as a result the image will be croped for abberant coordinates
-	    : img_returned.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
+	    ? arrayI.push(0) // as a result the image will be croped for abberant coordinates
+	    : arrayI.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
 	}
     }
-    return img_returned; // 1d
+    return arrayI; // 1d
 }
 
 const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
@@ -203,43 +163,40 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
     /**
      * Variancefilter : simply apply the variance formula. 
      *
-     * @param {TRaster} img1 - Input image to process.
-     * @param {TRaster} img2 - Input image to process.
-     * @param {TRaster} w - width of the image.
-     * @param {TRaster} h - height of the image.
-     * @param {TRaster} type - Return the type of the raster (uint8, uint16, float32  or argb).
-     * @param {Integer} kernel -  Convolution mask represented by a single value
-     * width*height of the kernel.
-     * @return {TRaster} - return an array with computed variance.
+     * @param {Array} img1 - Input image to process.
+     * @param {Array} img2 - Input image2 to process.
+     * @param{TRaster} type - Type of the image (uint8,uint16,float32).
+     * @param {kernel} kernel - Convolution mask represented by a single value.
+     * @return {Array} - return an array with computed variance.
      *
      * @author Franck Soubès
      */
     
+    let filtered=[];
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
     let result;
+    console.log(type);
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
+
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-	    
-	    result =  (img2.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
-	    ? img.pixelData[x+y*w] = 255
-	    :result > 65535 && type === "uint16"
-	    ? img.pixelData[x+y*w] = 65535
+	    ? filtered[x+y*w] = 255
+            : result > 65535 && type === "uint16"
+	    ? filtered[x+y*w] = 65535
 	    : result>1 && type === "float32"
-	    ? img.pixelData[x+y*w] = 1
-            : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
-	    // when not normalizing it has blue edges and it's more clean, float 32 is ok	  	    
+	    ? filtered[x+y*w] = 1
+            :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
+	  
+	    
 	});
     });
+
     
-    return img;
+    return filtered;
 }
-
-
-
-
-
-
