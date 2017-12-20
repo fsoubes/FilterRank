@@ -64,6 +64,77 @@ This process is repeated for each pixels in the row. Then the arrays in Hist are
 #### Fig 1. (a) Moving the histogram down one row by removing a pixel and adding another one. (b) Subtracting one histogram and adding another to move the window to the right.
 
 ## Implementation of the min/max filter
+
+In the priveous report, we discussed about a min_max filter function whichs operate with consecutiv 1D filters, first in row then in colomns. In this report we describe the implementation of such a function.
+Our algorithm is based on 2 differents things, first we take care of the edges with the addition of values on the edges depending on the filter(rows or coloms)so the last computation won't crop the image and seconds, the computation itself of the min or max values of the new padded image. Those operation'll be apply twice in a row in order to obtain a fully filtered image.
+According to our Teacher Mr.Jean Cristophe Taveau demand, our implementation of the algorithm works on the images types 8-bit, 16-bit and float32. Our algorithm takes care of either min or max filters like the previeous algorithm suggested, and is fully operational on kernel with a size of either 3x3,5x5,7x7,9x9,11x11,13x13.
+
+### Filling edges 
+The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image. The associated pseudo code is represented down below :
+	
+	if type == line
+           for each colomn
+              for each line+kernelsize/2
+	    
+	               if filtre = max 
+		         	then do liste.push(-1)
+			 
+		       if filtre = min & type = uint8
+				then do  liste.push(255)
+			  
+		       if filtre = min & type = uint16
+		      		then do liste.push(65535)
+			  
+		        if filtre = min & type = float32
+			  	then do liste.push(1)         
+	      for each line 
+	          do listepixel.push(pixel index)
+		  do liste.splice(0,width,...listepixel)
+	
+        if type =column
+	  if height <= width
+	     if filter = min
+	        while i < width*(width-height+kernelsize-1)
+		    if type = uint8
+		        do listepixels.push(255)
+		    if type = uint16
+		        do listepixels.push(65535)
+		    if type = float
+		        do listepixels.push(1)
+		    if filter = max
+		       while i < width*(width-height+kernelsize-1)
+		       listepixels.push(-1)
+
+### 1D Filter 
+The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ function respectively for the lines and columns.The functions works as follow, the function takes colmun after column, and for each column it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
+
+	for each column
+	  for each line 
+	     do liste.push(index values)
+	       for each values in liste-kernelsize+1 
+		    do finalimage.push(kernelsizefunction)
+
+
+The same kind of operation applies for the line filter, the computation of the min or max function is then calculate with the _kernelsize_ function where the pseudo code is down below :
+    
+    	if filter = max 
+		if kernel = 3
+	  		do Math.max(image[i],image2[i+1],image[i+2]
+		if kernel = 5 
+	  		do Math.max(image[i],image[i+1],image[i+2],image[i+3],image[i+4])
+		...
+		...
+
+	if filter = min 
+		if kernel = 3
+	  		do Math.min(image[i],image2[i+1],image[i+2]
+		if kernel = 5 
+	  		do Math.min(image[i],image[i+1],image[i+2],image[i+3],image[i+4])
+		...
+		...
+For the line filter we do not need to apply any other transformations in our image but for the column filter we need to transpose the final filtered image because by pushing our values we rotated the values in the array, finally we apply a function on this array that will makes the two Dimensional array into one. 
+The _min_max function is the main function where the whole process is applied(rows padding into line filtering into columns padding with finally column filtering).
+
 ## Implementation of the variance filter
 Globally the variance function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a mathematical formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
 
