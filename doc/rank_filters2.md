@@ -91,7 +91,7 @@ The implementation of this algorithm was first describe by [^BRA2007] with the f
 	for i=0 to w do
    	sum←0
    	  for j=0 to h do
-      	    sum ← sum + in[i, j]	  
+   	    sum ← sum + in[i, j]	  
             if i = 0 then
               intImg[i, j] ← sum	   
             else	 
