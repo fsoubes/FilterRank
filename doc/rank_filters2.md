@@ -65,7 +65,7 @@ This process is repeated for each pixels in the row. Then the arrays in Hist are
 
 ## Implementation of the min/max filter
 
-In the priveous report, we discussed about a min_max filter function whichs operate with consecutiv 1D filters, first in row then in colomns. In this report we describe the implementation of such a function.
+In the priveous report, we discussed about a min_max filter function whichs operate with consecutiv 1D filters, first in row then in colomns[^Gil1993]. In this report we describe the implementation of such a function.
 Our algorithm is based on 2 differents things, first we take care of the edges with the addition of values on the edges depending on the filter(rows or coloms)so the last computation won't crop the image and seconds, the computation itself of the min or max values of the new padded image. Those operation'll be apply twice in a row in order to obtain a fully filtered image.
 According to our Teacher Mr.Jean Cristophe Taveau demand, our implementation of the algorithm works on the images types 8-bit, 16-bit and float32. Our algorithm takes care of either min or max filters like the previeous algorithm suggested, and is fully operational on kernel with a size of either 3x3,5x5,7x7,9x9,11x11,13x13.
 
@@ -105,7 +105,7 @@ The first part of the algorithm is the _remplissage_ function which allow to obt
 		       while i < width*(width-height+kernelsize-1)
 		       listepixels.push(-1)
 
-### 1D Filter 
+### 1D Filters
 The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ function respectively for the lines and columns.The functions works as follow, the function takes colmun after column, and for each column it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
 
 	for each column
