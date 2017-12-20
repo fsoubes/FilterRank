@@ -114,7 +114,7 @@ This method act as following:
 
 BLABLA pseudo code
 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
 
 
 
