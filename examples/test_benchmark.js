@@ -6,7 +6,8 @@
 
 //2880*2304
 
-let kernel_size = 2;
+let kernel = new T.Raster('uint8',2,2);
+let kernel_size = kernel.width;
 let width_size = 360;
 let height_size = 288;
 
@@ -45,7 +46,7 @@ let test = img2.getRaster();
 
 var t0 = performance.now();
 for (let i=0; i<100;i++){
-    variance(2)(test);
+    variance(kernel)(test);
 }
 var t1 = performance.now();
 console.log("L'appel à variance 8 bit a pris " + ((t1 - t0)/100).toFixed(4) + " millisecondes.")
@@ -68,7 +69,7 @@ let test1 = img02.getRaster();
 var t00 = performance.now();
 for (let i=0; i<100;i++){
 
-    variance(2)(test1);
+    variance(kernel)(test1);
 }
 var t11 = performance.now();
 console.log("L'appel à variance 16bit a pris " + ((t11 - t00)/100).toFixed(4) + " millisecondes.")
@@ -103,7 +104,7 @@ let test2 = img002.getRaster();
 var t000 = performance.now();
 for (let i=0; i<100;i++){
     //console.log(img111);
-    variance(2)(test2);
+    variance(kernel)(test2);
 }
 var t111 = performance.now();
 console.log("L'appel à variance float  a pris " + ((t111 - t000)/100).toFixed(4) + " millisecondes.")
