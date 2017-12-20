@@ -204,7 +204,7 @@ This method act as following:
 	  end for 
 	end for
 
-In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available Crop method in the times api.
+In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available Crop method in the times API.
 
 For a better understanding of this pseudo code here an example of how it is working[Fig. 4.]
 
