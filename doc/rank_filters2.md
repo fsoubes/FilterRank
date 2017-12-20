@@ -67,7 +67,7 @@ This process is repeated for each pixels in the row. Then the arrays in Hist are
 ## Implementation of the variance filter
 Globally the variance function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a mathematical formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
 
-### pseudo-code for the integral image
+### implementation and pseudo-code for the integral image
 
 The method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Vio2001][^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included [Fig. 2].
 
@@ -98,8 +98,13 @@ The implementation of this part was first describe by [^BRA2007] with the follow
    	      end for 
 	    end for
 	    
-Integral image was first implemented by using nested for loops, then it was transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map.
+Integral image was first implemented by using nested for loops, it was then transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map.
 Afterwards a better functionnal method was proposed by J.C Taveau using a reduce by using an accumulator for computing the summed-area table, this method is used in the implementation of the variance filter. The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce.
+
+### implementation of the padding.
+
+
+
 
 
 ## Benchmarking analysis
