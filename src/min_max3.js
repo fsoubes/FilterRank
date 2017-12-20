@@ -1,5 +1,3 @@
-
-
 /*
  *  TIMES: Tiny Image ECMAScript Application
  *  Copyright (C) 2017  Jean-Christophe Taveau.
@@ -30,138 +28,9 @@
  */
 
 
-const remplissage =function (im,kernel,filtre,type,copy_mode=true){
-  /**
-   * Author : Guillamaury Debras
-
-   * Create an array with vertical or horizontal padding depending of the paramater filtre and type.
-   * It'll push specifics values to help compute the edges without cropping.
- 
-   
-   * @param {Raster} im - an image ( can be 8bit,16bit or float 32)
-   * @param {number} kernel - kernel size can be from 3 to 13
-   * @param {String} filtre - type of filter ( either min or max )
-   * @param {String} type - - type of padding ( either line or column)
-
-   * @ return {Array} output - Array 
-   */
-    
-    
-    let finalim=[];
-    let listedligne0=[];
-    let listedim=[];
-    let newsize = (kernel-1)*2;
-    let kernelmod=kernel-1;
-    let ima=  new T.Raster(im.type, im.width, im.height);
-    
-    let output = T.Raster.from(im.raster,copy_mode);
-    
-    let realtype = im.type;
-   
-    let pixels = im.raster.pixelData;
-    let wim = ima.width;
-    let h = wim + newsize/2;
-    let haut = ima.height;
-    let hautc = haut+kernel-1;
-    let w = haut + newsize/2;
-  
-    if ( type == 'lin'){
-    
-    for (let i=0; i<haut; i++){
-        for (let i =0 ; i<h; i++){
-	
-       if (filtre == 'max'){
-        listedligne0.push(-1);
-	     }
-	
-            if (filtre == 'min'){
-		if (realtype == 'uint8'){
-       listedligne0.push(255);
-                            }
-       if (realtype == 'uint16'){
-       listedligne0.push(65535);
-                            }
-       if (realtype == 'float32'){
-            
-	    listedligne0.push(1);
-                            }
-
-	        }
-
-
-
-	 //   filtre =='max' ? listedligne0.push(-1);
-	//	: filtre=="min" && realtype =="uint8"
-	//	?listedligne0.push(255);
-	//	:filtre=='min' && realtype =='uint16'
-	//	?listedligne0.push(65535);
-	//	:filtre=='min' && realtype =='float32'
-	//	?listedligne0.push(1);
-		
-		
-
-	    
-        }
-        
-		for (let j=0; j<wim; j++){
-	  	let ind = (j)+(i*wim);
- 	    // création d'une liste pour la colonne désiré
-	    listedim.push(pixels[ind]);
-      
-		}
-
-    listedligne0.splice(0, wim, ...listedim);
-    
-     finalim.push(listedligne0);
-     
-     listedligne0=[];
-     listedim=[];
-    }
-	let oneliste =Two_One(finalim);
-	
-	
-        let output = oneliste;
-	//output = setPixels(oneliste);
-     
-      return output;
-    }
-    // rajout de valeurs pour avoir une image carre
-    
-    if ( type =='col'){
-	if ( haut <= wim ) {
-
-	    if (filtre=='min'){
-		
-		for ( let i=0 ; i < wim*(wim-haut+kernelmod); i++){
-			if (realtype =='uint8'){
-		          pixels.push(255);
-                                   }
-                         if (realtype =='uint16'){
-		           pixels.push(65535);
-                                   } 
-                         if (realtype == 'float32'){
-                             //pixels.push(4294967296);
-			      pixels.push(1);
-                             }
-               
-		}
-
-	    }
-	    if (filtre =='max'){
-		for ( let i=0 ; i < wim*(wim-haut+kernelmod); i++){
-		    pixels.push(-1);
-		}}}
-
-    }
-
-    return pixels;
-}
-
-
-
 const Two_One =function (array,copy_mode=true){
       /**
-   * Author : Guillamaury Debras
+   * @author : Guillamaury Debras
 
    * Transform a 2D array into 1D array
    * @param {array} array - a 2D array
@@ -177,10 +46,104 @@ for(var i = 0; i < array.length; i++)
 }
 
 
+const transpose =function (array,copy_mode=true) {
+
+          /**
+   * @author : Guillamaury Debras
+
+   * Transpose an array.
+   * @param {array} array - an array
+   * @ return {array} array - transposed array 
+   */
+    return array.reduce((prev, next) => next.map((item, i) =>
+        (prev[i] || []).concat(next[i])
+    ), []);
+}
+
+
+
+const remplissage =function (im,kernel,filtre,type,copy_mode=true){
+  /**
+   * @Author : Guillamaury Debras
+
+   * Create an array with vertical or horizontal padding depending of the paramater filtre and type.
+   * It'll push specifics values to help compute the edges without cropping.
+ 
+   
+   * @param {Raster} im - an image ( can be 8bit,16bit or float 32)
+   * @param {number} kernel - kernel size can be from 3 to 13
+   * @param {String} filtre - type of filter ( either min or max )
+   * @param {String} type - - type of padding ( either line or column)
+
+   * @ return {Array} output - Array 
+   */
+      
+    let finalim=[];
+    let listedligne0=[];
+    let listedim=[];
+    let newsize = (kernel-1)*2;
+    let kernelmod=kernel-1;
+    let ima=  new T.Raster(im.type, im.width, im.height);   
+    let output = T.Raster.from(im.raster,copy_mode);   
+    let realtype = im.type;   
+    let pixels = im.raster.pixelData;
+    let wim = ima.width;
+    let h = wim + newsize/2;
+    let haut = ima.height;
+    let hautc = haut+kernel-1;
+    let w = haut + newsize/2;
+  
+    if ( type == 'lin'){
+    
+    for (let i=0; i<haut; i++){
+        for (let i =0 ; i<h; i++){
+	    
+	( filtre =='max') ? listedligne0.push(-1):listedligne0=listedligne0;
+	(( filtre=="min") && (realtype =="uint8")) ? listedligne0.push(255):listedligne0=listedligne0;
+	((filtre=='min') && (realtype =='uint16')) ? listedligne0.push(65535):listedligne0=listedligne0;
+	((filtre=='min') && (realtype =='float32')) ? listedligne0.push(1):listedligne0=listedligne0;
+			    
+        }
+        
+		for (let j=0; j<wim; j++){ 
+	  	let ind = (j)+(i*wim);
+ 	    // création d'une liste pour la colonne désiré
+		    listedim.push(pixels[ind]);}
+	
+    listedligne0.splice(0, wim, ...listedim);    
+     finalim.push(listedligne0);
+     
+     listedligne0=[];
+     listedim=[];
+    }
+	let oneliste =Two_One(finalim);	
+        let output = oneliste;
+	//output = setPixels(oneliste);    
+      return output;
+    }
+    // rajout de valeurs pour avoir une image carre
+    
+    if ( type =='col'){
+	if ( haut <= wim ) {
+	    if (filtre=='min'){
+		
+		for ( let i=0 ; i < wim*(wim-haut+kernelmod); i++){
+		    (realtype =='uint8')? pixels.push(255):pixels=pixels;
+		    (realtype =='uint16')?pixels.push(65535):pixels=pixels;
+		    (realtype == 'float32')?pixels.push(1):pixels=pixels;}}
+	    
+	    if (filtre =='max'){
+		for ( let i=0 ; i < wim*(wim-haut+kernelmod); i++){
+		    pixels.push(-1);
+		}}}}
+    return pixels;
+}
+
+
 
 const filtreligne =function (largeur,hauteur,array,kernel,filtr,copy_mode=true){
   /**
-   * Author : Guillamaury Debras
+   * @author : Guillamaury Debras
 
    * This is the first part of the filter. It takes a padded array and compute the min or max
    * of this image depending of the kernel size. This functions only compute the min_max for each line.
@@ -195,50 +158,40 @@ const filtreligne =function (largeur,hauteur,array,kernel,filtr,copy_mode=true){
    */
     var output=[];
     let image2=[];
-    let newsize = (kernel-1);
-    
+    let newsize = (kernel-1);  
     let h = hauteur;
     let w1 = largeur+newsize;
     let w = largeur;
     let h1 = hauteur+newsize;
-
     
 	for (let i=0; i<h; i++){
 		for (let j=0; j<w1; j++){
 	  	let ind = (j)+(i*w1);
  	    // création d'une liste pour la colonne désiré
-	    image2.push(array[ind]);
-      
+	    image2.push(array[ind]);      
 		}	      
-	    
-      
+	          
      	for( let i=0; i<image2.length-kernel+1; i++){
       let maxi = 0;
       
-      if (i<image2.length-kernel+1){
-	  if ( filtr=='max'){
-	       maxi = kernelsize(filtr,i,image2,kernel);
-      
-      output.push(maxi);
-      }
-      if (filtr=='min'){
-            maxi = kernelsize(filtr,i,image2,kernel);
-            output.push(maxi);
-      }}}
+	    if (i<image2.length-kernel+1){
+		(filtr=='max') ? output.push( kernelsize(filtr,i,image2,kernel)):output=output;
+		(filtr=='min') ? output.push(kernelsize(filtr,i,image2,kernel)):output=output;
+	    }
+	}
       // reinitialisation de la liste dynamique
       image2 = [];      
 	}
-      // retours de la nouvelle liste avc valeur max pour kernel de taille 3 en 1D
+      // retours de la nouvelle liste avc valeur max pour kernel de taille 
      return output;
 }
-
 
 
 
 const filtrecol =function (largeur,hauteur,array,kernel,filtr,copy_mode=true){
 
   /**
-   * Author : Guillamaury Debras
+   * @author : Guillamaury Debras
 
    * This is the second part of the filter. It takes a padded array and compute the min or max
    * of this image depending of the kernel size. This functions only compute the min_max for each column.
@@ -263,58 +216,33 @@ const filtrecol =function (largeur,hauteur,array,kernel,filtr,copy_mode=true){
 
 	for (let i=0; i<w; i++){
 	    for (let j=0; j<h1+(w-h); j++){
-	  	var ind = (i)+(j*w);
- 	   
-	    image2.push(array[ind]);
-      	    }
+	  	var ind = (i)+(j*w);	   
+	    image2.push(array[ind]);}
 	    
      	for( let p=0; p<image2.length-kernel+1; p++){
       let maxi = 0;
-	   
-      if (p<image2.length-kernel+1){
-	  maxi = kernelsize(filtr,p,image2,kernel);
-	 onearray.push(maxi);           
-	     }
-	    
-		
-	  
-	}
 
+	    (p<image2.length-kernel+1) ? onearray.push(kernelsize(filtr,p,image2,kernel)):onearray=onearray;
+	    
+	}
 	    finalarray.push(onearray);
 	    onearray=[];
 	    image2 = [];     
-	}
-    
+	}    
     let output1 = transpose(finalarray);
     let output2 = Two_One(output1);
     
      return output2;
 }
 
-const transpose =function (array,copy_mode=true) {
-
-          /**
-   * Author : Guillamaury Debras
-
-   * Transpose an array.
-   * @param {array} array - an array
-   * @ return {array} array - transposed array 
-   */
-    return array.reduce((prev, next) => next.map((item, i) =>
-        (prev[i] || []).concat(next[i])
-    ), []);
-}
-
-
 
 const kernelsize =function (filtre,i,image2,kernel,copy_mode=true){
      /**
-   * Author : Guillamaury Debras
+   * @author : Guillamaury Debras
 
    * This function is curryed into the linefilter and columnfilter to compute the min or the max 
    * depending of the kernelsize. 
- 
-   
+    
    * @param {String} filtre - the type of the filter ( min or max)
    * @param {number} i - the current index of the loop in the filterline or filtercol function.
    * @param {Array} image2 - the image containing the values + the padded values 
@@ -324,64 +252,28 @@ const kernelsize =function (filtre,i,image2,kernel,copy_mode=true){
    */
     let output = 0 ;
     
-    if (filtre=="max"){
-	if (kernel ==3 ) {
-	   output = Math.max(image2[i],image2[i+1],image2[i+2])
-	}		   
-	if (kernel ==5 ) {
-	    output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4])	
-	}
-	if (kernel ==7 ) {
-	    output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6])	
-	}
-	if (kernel ==9 ) {
-	    output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8])	
-	}
-	if (kernel ==11 ) {
-	    output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10])	
-	}
-	if (kernel ==13 ) {
-	    output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10],image2[i+11],image2[i+12])	
-	}}
+    if (filtre=="max"){	
+	(kernel == 3) ?  output = Math.max(image2[i],image2[i+1],image2[i+2]):output=output;
+	(kernel == 5) ?  output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4]):output=output;
+	(kernel == 7) ?  output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6]):output=output;
+	(kernel == 9) ?  output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8]):output=output;
+        (kernel == 11) ?  output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10]):output=output;
+	(kernel == 13) ?  output = Math.max(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10],image2[i+11],image2[i+12]):output=output;}
 
-    
-
-    
-
-	
-    
     if (filtre=="min"){
-	if (kernel ==3 ) {
-	   output = Math.min(image2[i],image2[i+1],image2[i+2])
-	}		   
-	if (kernel ==5 ) {
-	    output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4])	
-	}
-	if (kernel ==7 ) {
-	    output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6])	
-	}
-	if (kernel ==9 ) {
-	    output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8])	
-	}
-	if (kernel ==11 ) {
-	    output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10])	
-	}
-	if (kernel ==13 ) {
-	    output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10],image2[i+11],image2[i+12])	
-	}}
-    
+	(kernel == 3) ?  output = Math.min(image2[i],image2[i+1],image2[i+2]):output=output;
+	(kernel == 5) ?  output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4]):output=output;
+	(kernel == 7) ?  output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6]):output=output;
+	(kernel == 9) ?  output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8]):output=output;
+        (kernel == 11) ?  output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10]):output=output;
+	(kernel == 13) ?  output = Math.min(image2[i],image2[i+1],image2[i+2],image2[i+3],image2[i+4],image2[i+5],image2[i+6],image2[i+7],image2[i+8],image2[i+9],image2[i+10],image2[i+11],image2[i+12]):output=output;}  
     return output;
 }
 
 
-
-
-
-
-
 const min_max =function (im,kernel,filter,copy_mode=true){
       /**
-   * Author : Guillamaury Debras
+   * @author : Guillamaury Debras
    
    * This is the main function using all the other functions.
    * First, we obtain the image values into an array and padd in line this array.
@@ -415,6 +307,8 @@ const min_max =function (im,kernel,filter,copy_mode=true){
     imginter.setPixels(filtrel);
     let rempli2 = remplissage(imginter,kernel,filter,col);
     let filtre2 = filtrecol(wim,hei,rempli2,kernel,filter);  
+
+
     
     return filtre2;
     
