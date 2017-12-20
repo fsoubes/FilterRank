@@ -141,7 +141,7 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function Variancefilter() takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. Variancefilter() method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values for the adaptated type as input.
+The last function Variancefilter() takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. Variancefilter() method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 5. Where n is the kernel diameter, I" corresponds to the squared pixels image and I' is the principal image without any transformation.
