@@ -123,13 +123,14 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     
     let ima ;
     if (flag){
+	
 	ima = img.getRaster();
 	ima = ima.pixelData;
     }
     else{
 	ima = img.pixelData;
     }
-    
+
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
     let ker = ((k-1)/2) *2;
