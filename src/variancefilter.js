@@ -97,7 +97,7 @@ const variance = (kernel) => (img,copy_mode = true) => {
     });
     */
     
-    Variancefilter(padding(img,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
+    getvar(padding(img,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
     output.pixelData = img.pixelData;
     return output;
 }
@@ -180,7 +180,7 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
     return img_returned; // 1d
 }
 
-const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
+const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
     /**
      * Variancefilter : simply apply the variance formula. 
