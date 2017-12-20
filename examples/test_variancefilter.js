@@ -47,7 +47,11 @@ let img2 = new T.Image('uint8',256,254);
 //let ImgI = variance(img0,img111,kernel_size);
 img2.setPixels(blobs_pixels);
 let win2 = new T.Window('Blob 8bit cropped');
+<<<<<<< HEAD
 let workflow = T.pipe(variance(kernel),T.view);
+=======
+let workflow = T.pipe(variance(2),T.view);
+>>>>>>> b7f44205f1579a677dc64ef35d632c4b12b505c7
 let view2 = workflow(img2.getRaster());
 let crop8 = T.pipe(T.crop(1,2,view2.width - kernel_size, view2.height - kernel_size), T.view);
 let view3 = crop8(img2.getRaster());
@@ -74,7 +78,11 @@ win01.addToDOM('workspace');
 let img02 = new T.Image('uint16',256,254);
 img02.setPixels(uint16_blobs);
 let win02 = new T.Window('Blobs uint16');
+<<<<<<< HEAD
 let workflow1 = T.pipe(variance(kernel),T.view);
+=======
+let workflow1 = T.pipe(variance(2),T.view);
+>>>>>>> b7f44205f1579a677dc64ef35d632c4b12b505c7
 let view02 = workflow1(img02.getRaster());
 let cropp16 = T.pipe(T.crop(1,2,view02.width - kernel_size, view02.height - kernel_size), T.view);
 let view03 = cropp16(img02.getRaster());
@@ -106,7 +114,11 @@ win001.addToDOM('workspace');
 let img002 = new T.Image('float32',256,254);
 img002.setPixels(float_blobs);
 let win002 = new T.Window('Blobs float32');
+<<<<<<< HEAD
 let workflow2 = T.pipe(variance(kernel),T.view);
+=======
+let workflow2 = T.pipe(variance(2),T.view);
+>>>>>>> b7f44205f1579a677dc64ef35d632c4b12b505c7
 let view002 = workflow2(img002.getRaster());
 //let croppfloat = T.pipe(T.crop(1,2,view002.width - kernel_size, view002.height - kernel_size), T.view);
 //let view003 = croppfloat(img002.getRaster());
