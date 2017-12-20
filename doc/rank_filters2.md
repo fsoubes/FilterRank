@@ -249,20 +249,6 @@ For this project the benchmark was performed with the operating system Linux (4.
 ### Median filter
 ### Min/Max filter
 ### Variance filter
-
-
-To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
-
-![EqVar2_1](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_1.gif)  
-and  
-
-![EqVar2_23](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_2.gif),  
-where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusive and I''(x,y) is the sum of all squared pixels values between I(0,0) and I(x,y) inclusive. The variance of the pixels value in the window B is :  
-
-![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)  
-Repeat for each window. The default variance filter in ImageJ is based on this algorithm. 
-
-
 # 4.Discussion
 # 5.Conclusion
 
