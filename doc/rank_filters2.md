@@ -204,6 +204,7 @@ This method act as following:
 	  end for 
 	end for
 
+In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available Crop method in the times api.
 
 For a better understanding of this pseudo code here an example of how it is working[Fig. 4.]
 
@@ -234,7 +235,7 @@ This formula allows us to compute  the variance of rectangular patch of image. T
 	  end for 
 	end for
 
-Finally _getvar_ function is called in the main function _variancefilter_ with one _padding_ taking as first argument the sum of all pixels values in the original image and a second argument _padding_ taking as first argument the sum of all squared pixels values in the original image 
+Finally _getvar_ function is called in the main function _variance_ with one _padding_ taking as first argument the sum of all pixels values in the original image and a second argument _padding_ taking as first argument the sum of all squared pixels values in the original image 
 
 
 ## Benchmarking analysis
