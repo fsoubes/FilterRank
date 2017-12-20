@@ -106,10 +106,10 @@ Afterwards a better functionnal method was proposed by J.C Taveau using a reduce
 
 In the aim of treating the borders, we defined a constant ker obtained by the following formula:
 
+	With k = kernel
 	ker = ((k-1)/2) *2
-	
 
-
+The resulting number will give to the padding function the number of rows and columns that has to be added. For example for a kernel of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of the same size by using the Getcoord() function.
 
 
 ## Benchmarking analysis
