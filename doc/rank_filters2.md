@@ -111,8 +111,8 @@ The image is firstly transformed from a 1d array to a 2d array. In the aim of tr
 	ker = ((k-1)/2) *2
 
 The resulting number will give to the padding function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size from the original input. It takes a function padding() whose return value is another function getCoord(). The final result is automatically transform in 1D without the uses of any particular method. 
-This method act as following:
 
+This method act as following:
 
 	img_returned = liste	
 	for x= k-1 to h+(k-2) do
@@ -132,6 +132,9 @@ This method act as following:
 	end if
 	end for 
 	end for
+
+
+For a better understanding of this pseudo code here an example of how it is working[Fig. 4.]
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
 #### Fig 4. The four shaded coordinates are used in order to compute the sum of the delineated rectangular (kernel) region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations, M represented by the diameter of the kernel, W and H by the width and the height of the array and finally yc and xc is the treated pixel by A,B,C and D. 
