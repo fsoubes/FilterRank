@@ -46,7 +46,7 @@ const variance = (kernel) => (img,copy_mode= true) => {
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
      *
-     * @author Franck Soubès / Jean-Christophe Taveau 
+     * @author Franck Soubès - Jean-Christophe Taveau 
      */
 
     let output = T.Raster.from(img,copy_mode);
@@ -57,6 +57,10 @@ const variance = (kernel) => (img,copy_mode= true) => {
     let imgsquare =  pixels.map((x) => x * x );		
     let integral = [];
 	
+    /*
+      Proposed by J.C Taveau
+    */
+    
     img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
@@ -71,7 +75,7 @@ const variance = (kernel) => (img,copy_mode= true) => {
 	integral2[i] = sum1[x] + ((x == 0 ) ? 0.0 : integral2[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
 	
-    /* another method not totally functionnal but way more faster with the use of forEach
+    /* another method not entirelly functionnal but way more faster with the use of forEach
         let sum = 0;
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
