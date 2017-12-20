@@ -113,14 +113,14 @@ The image is firstly transformed from a 1d array to a 2d array. In the aim of tr
 The resulting number will give to the padding function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size from the original input. It takes a function padding() whose return value is another function getCoord(). The final result is automatically transform in 1D without the uses of any particular method. 
 This method act as following:
 
+
             img_returned = liste		
 	    for x= k-1 to h+(k-2) do
    	      for y= k-1 to w+(k-2) do     		  
-                if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 
-		or img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0  
-		or img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 
-		or img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0
-		then
+                if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
+		img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
+		img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
+		img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
                   img_returned = 0	   
                 else	
 	          A = img[x-1][y-1]
