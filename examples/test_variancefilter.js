@@ -12,7 +12,7 @@ let pixels = blobs_pixels;
 let sqrt_uint_8_blobs = blobs_pixels.map((x) => x * x );
 let uint16_blobs = blobs_pixels.map ((px) => px * 256);
 let float_blobs = blobs_pixels.map( (px) => px/128 - 1.0);
-let kernel = new T.Raster('uint8',2,2);
+let kernel = new T.Raster('uint8',3,3);
 let kernel_size = kernel.width;
 
 
@@ -31,7 +31,7 @@ let win2 = new T.Window('Blob 8bit cropped');
 let workflow = T.pipe(variance(kernel),T.view);
 let view2 = workflow(img2.getRaster());
 let crop8 = T.pipe(T.crop(1,2,view2.width - kernel_size, view2.height - kernel_size), T.view);
-let view3 = crop8(img2.getRaster());
+crop8(img2.getRaster());
 win2.addView(view2);
 win2.addToDOM('workspace');
 
@@ -54,8 +54,8 @@ let win02 = new T.Window('Blobs uint16');
 let workflow1 = T.pipe(variance(kernel),T.view);
 let view02 = workflow1(img02.getRaster());
 let cropp16 = T.pipe(T.crop(1,2,view02.width - kernel_size, view02.height - kernel_size), T.view);
-let view03 = cropp16(img02.getRaster());
-win02.addView(view03);
+cropp16(img02.getRaster());
+win02.addView(view02);
 win02.addToDOM('workspace');
 
  

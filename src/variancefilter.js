@@ -99,6 +99,8 @@ const variance = (kernel) => (img,copy_mode = true) => {
     
     getvar(padding(img,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
     output.pixelData = img.pixelData;
+    //let crop8 = T.crop(1,2,img.width -wk, img.height - wk);
+    //return crop8(output);
     return output;
 }
 
@@ -208,12 +210,16 @@ const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    result =  (img2.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
 	    ? img.pixelData[x+y*w] = 255
-	    :result > 65535 && type === "uint16"
+	    : result < 255 && type === "uint8"
+	    ? img.pixelData[x+y*w] = 0
+	    :result < 20000000 && type === "uint16"
+	    ? img.pixelData[x+y*w] = 0
+	    : result > 20000000 && type === "uint16"
 	    ? img.pixelData[x+y*w] = 65535
 	    : result>1 && type === "float32"
 	    ? img.pixelData[x+y*w] = 1
             : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
-	    // when not normalizing it has blue edges and it's more clean, float 32 is ok	  	    
+	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	});
     });
     
