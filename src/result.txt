@@ -42,3 +42,8 @@ L'appel à variance float  a pris 6337.2940 millisecondes.
 
 2880*2304
 
+L'appel à variance 8 bit a pris 26516.5085 millisecondes.
+
+L'appel à variance 16bit a pris 26660.3165 millisecondes. 
+
+L'appel à variance float  a pris 26692.0415 millisecondes.
