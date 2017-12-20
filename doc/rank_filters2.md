@@ -64,8 +64,11 @@ This process is repeated for each pixels in the row. Then the arrays in Hist are
 #### Fig 1. (a) Moving the histogram down one row by removing a pixel and adding another one. (b) Subtracting one histogram and adding another to move the window to the right.
 
 ## Implementation of the min/max filter
+
+The min_max function developped here is a test to check if it is chelou
+
 ## Implementation of the variance filter
-Globally the variance function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a mathematical formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
+Globally the variance  function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinnates for each pixels in order to return a value through a mathematical formula. Finally, it will compute the variance by substracting the values obtained from the precendent formula for the second image (square) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
 
 ### implementation and pseudo-code for the integral image
 
