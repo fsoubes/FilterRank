@@ -100,9 +100,9 @@ const padding = function(img,k,w,h,copy_mode = true){
      * Padding : Fill with 0 an image in function of the kernel diameter.
      *
      * @param {Array} img - Input image to process.
-     * @param {Integer} k - Convolution mask represented by the kernel diameter (width)
-     * @param {Integer} w - Width of the image.
-     * @param {Integer} h - Height of the image.
+     * @param {number} k - Convolution mask represented by the kernel diameter (width)
+     * @param {number} w - Width of the image.
+     * @param {number} h - Height of the image.
      * @return {Array} - Return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
@@ -133,9 +133,9 @@ const IntegralImage = function (img ,w,h,k,copy=true){
      * IntegralImage : Compute the four coordinates of the main algorithm.
      *
      * @param {Array} img -  Convolution mask represented by the kernel diameter
-     * @param {Integer} w - Height of the image.
-     * @param {Integer} h - Width of the image.
-     * @param {Integer} k - Convolution mask represented by the kernel diameter (width)
+     * @param {number} w - Height of the image.
+     * @param {number} h - Width of the image.
+     * @param {number} k - Convolution mask represented by the kernel diameter (width)
      * @return {Array} - Return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
@@ -165,9 +165,9 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      * @param {Array} img1 - Input image to process.
      * @param {Array} img2 - Input image2 to process.
      * @param {TRaster} type - Type of the image (uint8,uint16,float32).
-     * @param {Integer} w - Height of the image.
-     * @param {Integer} h - Width of the image.
-     * @param {Integer} k - Convolution mask represented by the kernel diameter (width).
+     * @param {number} w - Height of the image.
+     * @param {number} h - Width of the image.
+     * @param {number} k - Convolution mask represented by the kernel diameter (width).
      * @return {Array} - Return an array with computed variance.
      *
      * @author Franck Soubès
