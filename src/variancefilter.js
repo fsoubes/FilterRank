@@ -56,6 +56,7 @@ const variance = (kernel) => (img,copy_mode= true) => {
     let pixels = img.pixelData ;
     let imgsquare =  pixels.map((x) => x * x );		
     let integral = [];
+	
     img.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
@@ -182,7 +183,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
     let compute_variance =width.map(x =>{
 	height.map(y =>{
-	    //filtered[x+y*w] =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
+		
 	    result =  (img2[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img[x+y*w]/Math.pow(kernel,2.00),2.00) ;
 	    result > 255 && type === "uint8"
 	    ? filtered[x+y*w] = 255
@@ -192,8 +193,7 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    ? filtered[x+y*w] = 1
             :filtered[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
-	  
-	    
+	  	    
 	});
     });
 
