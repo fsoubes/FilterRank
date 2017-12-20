@@ -104,18 +104,19 @@ Afterwards a better functionnal method was proposed by J.C Taveau using a reduce
 
 ### Implementation of the padding and currying computational.
 
-In the aim of treating the borders, we defined a constant ker obtained by the following formula:
+The image is firstly transformed from a 1d array to a 2d array. In the aim of treating the borders, we defined a constant ker obtained by the following formula:
 
 	With k = kernel
 	ker = ((k-1)/2) *2
 
-The resulting number will give to the padding function the number of rows and columns that has to be added. For example for a kernel of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size from the original input. It takes a function padding() whose return value is another function getCoord().
+The resulting number will give to the padding function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size from the original input. It takes a function padding() whose return value is another function getCoord(). The final result is automatically transform in 1D without the uses of any particular method. 
 This method act as following:
 
 BLABLA pseudo code
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
-#### Fig 4. The four shaded coordinates are used in order to compute the sum of the delineated rectangular region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations. 
+#### Fig 4. The four shaded coordinates are used in order to compute the sum of the delineated rectangular (kernel) region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations with M represented by the diameter of the kernel, W and H by the width and the height of the array and finally yc and xc is the treated pixel by A,B,C and D. 
+
 
 
 ## Benchmarking analysis
