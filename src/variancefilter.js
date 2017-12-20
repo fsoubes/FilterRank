@@ -43,7 +43,6 @@ const variance = (kernel) => (img,copy_mode = true) => {
      *
      * @param {TRaster} kernel - Convolution mask represented here by a defalt value = 2
        with this algorithm the kernel doesn't have to be squared.
-     * @param {TRaster} img2 - Input image to process
      * @param {TRaster} img - Input image to process 
      * @param {boolean} copy - Copy mode to manage memory usage
      * @return {TRaster} - Filtered Image
