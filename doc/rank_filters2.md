@@ -69,6 +69,7 @@ Globally the variance function is subdivised in four part, the first part consis
 
 ### implementation and pseudo-code for the integral image
 
+The Integral Image is used as a quick and effective way of calculating the sum of values (pixel values) in a given image – or a rectangular subset of a grid[^SHI2017].
 The method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Vio2001][^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included [Fig. 2].
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -103,7 +104,10 @@ Afterwards a better functionnal method was proposed by J.C Taveau using a reduce
 
 ### Implementation of the padding and currying computational.
 
-Our main algorithm ...
+In the aim of treating the borders, we defined a constant ker obtained by the following formula:
+
+	ker = ((k-1)/2) *2
+	
 
 
 
@@ -172,3 +176,6 @@ Acm Transactions on Graphics (TOG).
 [^Fle1896] Philip J. Fleming and John J. Wallace. 1986. How not to lie with statistics: the correct way to summarize benchmark results. Commun. ACM 29, 3 (March 1986), 218-221.
 
 [^BRA2007] Bradley D, Roth G. Adaptive thresholding using integral image. Journal of Graphics Tools. Volume 12, Issue 2. pp. 13-21. 2007. NRC 48816.
+
+[^SHI2017] Shivani Km, A Fast Integral Image Computing Methods: A Review Design Engineer, Associated Electronics Research
+Foundation, C-53, Phase-II, Noida (India)
