@@ -84,7 +84,7 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
 #### Fig 3. An exemple of a image I and the new computed image I' and I''. 
 
-The implementation of this part was first describe by [^BRA2007] with the following pseudo code.
+The implementation of this algorithm was first describe by [^BRA2007] with the following pseudo code.
 
 	    for i=0 to w do
    	    sum←0
