@@ -114,24 +114,24 @@ The resulting number will give to the padding function the number of rows and co
 This method act as following:
 
 
-            img_returned = liste		
-	    for x= k-1 to h+(k-2) do
-   	      for y= k-1 to w+(k-2) do     		  
-                if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
-		img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
-		img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
-		img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
-                  img_returned = 0	   
-                else	
-	          A = img[x-1][y-1]
-		  B = img[x+k-1][y-1]
-		  C = img[x-1][y+k-1]
-		  D = img[x+k-1][y+k-1]
-		  I = A-B-C+D
-                  img_returned = I
-                end if
-   	      end for 
-	    end for
+	img_returned = liste	
+	for x= k-1 to h+(k-2) do
+	for y= k-1 to w+(k-2) do     		  
+	if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
+	img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
+	img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
+	img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
+	img_returned = 0	   
+	else	
+	A = img[x-1][y-1]
+	B = img[x+k-1][y-1]
+	C = img[x-1][y+k-1]
+	D = img[x+k-1][y+k-1]
+	I = A-B-C+D
+	img_returned = I
+	end if
+	end for 
+	end for
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
 #### Fig 4. The four shaded coordinates are used in order to compute the sum of the delineated rectangular (kernel) region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations, M represented by the diameter of the kernel, W and H by the width and the height of the array and finally yc and xc is the treated pixel by A,B,C and D. 
