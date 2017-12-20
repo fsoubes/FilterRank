@@ -115,7 +115,7 @@ This method act as following:
 BLABLA pseudo code
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
-
+#### Fig 4. The four shaded coordinates are used in order to compute the sum of the delineated rectangular region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations. 
 
 
 ## Benchmarking analysis
