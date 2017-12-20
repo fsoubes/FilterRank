@@ -97,6 +97,9 @@ The implementation of this part was first describe by [^BRA2007] with the follow
                 end if
    	      end for 
 	    end for
+	    
+Integral image was first implemented by using nested for loops, then it was transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map.
+Afterwards a better functionnal method was proposed by J.C Taveau using a reduce by using an accumulator for computing the summed-area table, this method is used in the implementation of the variance filter. The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce.
 
 
 ## Benchmarking analysis
