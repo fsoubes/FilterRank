@@ -109,7 +109,13 @@ In the aim of treating the borders, we defined a constant ker obtained by the fo
 	With k = kernel
 	ker = ((k-1)/2) *2
 
-The resulting number will give to the padding function the number of rows and columns that has to be added. For example for a kernel of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of the same size by using the Getcoord() function.
+The resulting number will give to the padding function the number of rows and columns that has to be added. For example for a kernel of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The padding() function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size from the original input. It takes a function padding() whose return value is another function getCoord().
+This method act as following:
+
+BLABLA pseudo code
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/)  
+
 
 
 ## Benchmarking analysis
