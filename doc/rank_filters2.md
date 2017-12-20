@@ -149,18 +149,18 @@ The last function Variancefilter() takes the return of the previous function and
 For a better understanding of this method here the pseudo code:
 
 	for x=0 to w do
-	for y=0 to h do 
-	result = (I"[x +y*w]/(kernel*kernel)) - (I'[x+y*w]/(kernel)* I'[x+y*w]/(kernel))
-	if result > 255 and type = 8bit then
-	var = 255	   
-	else if result > 65535 and type = 16bit then
-	var = 65535
-	else if result > 1 and type = float32 then
-	var = 1
-	else
-	var = result
-	end if
-	end for 
+	  for y=0 to h do 
+	    result = (I"[x +y*w]/(kernel*kernel)) - (I'[x+y*w]/(kernel)* I'[x+y*w]/(kernel))
+	    if result > 255 and type = 8bit then
+	      var = 255	   
+	    else if result > 65535 and type = 16bit then
+	      var = 65535
+	    else if result > 1 and type = float32 then
+	      var = 1
+	    else
+	      var = result
+	    end if
+	  end for 
 	end for
 
 Finally the padding() function and Variancefilter() function are  respectively called 2 and 1 time in the main function variance(). It was not possible to currying due to the fact that this function works with 2 images.
