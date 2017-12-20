@@ -96,14 +96,13 @@ const variance = (kernel) => (img,copy_mode= true) => {
 
 const padding = function(img,k,w,h,copy_mode = true){
     /**
-     * Padding : Fill with 0 an image in function of the kernel radius.
+     * Padding : Fill with 0 an image in function of the kernel diameter.
      *
      * @param {Array} img - Input image to process.
-     * @param {kernel} k - Convolution mask represented by a single value.
-     * width*height of the kernel.
-     * @param{hight} h - height of the image.
-     * @param{width} w - width of the image.
-     * @return {Array} - Padded image with 0.
+     * @param {Integer} k - Convolution mask represented by the kernel diameter (width)
+     * @param {Integer} w - Width of the image.
+     * @param {Integer} h - Height of the image.
+     * @return {Array} - Return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
@@ -132,12 +131,11 @@ const IntegralImage = function (img ,w,h,k,copy=true){
     /**
      * IntegralImage : Compute the four coordinates of the main algorithm.
      *
-     * @param {Array} img -  Convolution mask represented by a single value
-     * width*height of the kernel.
-     * @param{hight} w - height of the image.
-     * @param{width} h - width of the image.
-     * @param {kernel} k - Convolution mask represented by a single value.
-     * @return {Array} - return an array of pixel wih computed pixels.
+     * @param {Array} img -  Convolution mask represented by the kernel diameter
+     * @param {Integer} w - Height of the image.
+     * @param {Integer} h - Width of the image.
+     * @param {Integer} k - Convolution mask represented by the kernel diameter (width)
+     * @return {Array} - Return an array of pixel wih computed pixels.
      *
      * @author Franck Soubès
      */
@@ -165,9 +163,11 @@ const Variancefilter = function (img, img2,type, w, h,kernel,copy_mode=true) {
      *
      * @param {Array} img1 - Input image to process.
      * @param {Array} img2 - Input image2 to process.
-     * @param{TRaster} type - Type of the image (uint8,uint16,float32).
-     * @param {kernel} kernel - Convolution mask represented by a single value.
-     * @return {Array} - return an array with computed variance.
+     * @param {TRaster} type - Type of the image (uint8,uint16,float32).
+     * @param {Integer} w - Height of the image.
+     * @param {Integer} h - Width of the image.
+     * @param {Integer} k - Convolution mask represented by the kernel diameter (width).
+     * @return {Array} - Return an array with computed variance.
      *
      * @author Franck Soubès
      */
