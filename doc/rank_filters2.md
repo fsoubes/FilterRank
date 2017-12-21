@@ -213,7 +213,7 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type.
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 20000000 the values beneath that thresholds are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 5. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
@@ -224,8 +224,12 @@ This formula allows us to compute  the variance of rectangular patch of image. T
 	  for y=0 to h do 
 	    result = (I"[x +y*w]/(kernel*kernel)) - (I'[x+y*w]/(kernel)* I'[x+y*w]/(kernel))
 	    if result > 255 and type = 8bit then
-	      var = 255	   
-	    else if result > 65535 and type = 16bit then
+	      var = 255	 
+	    else
+	      var = 0
+	    else if result < 20000000 and type = 16bit then 
+	      var = 0
+	    else  
 	      var = 65535
 	    else if result > 1 and type = float32 then
 	      var = 1
