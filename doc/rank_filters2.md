@@ -189,7 +189,7 @@ This method act as following:
 	for x= k-1 to h+(k-2) do
 	  for y= k-1 to w+(k-2) do     		  
 	    if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
-Rplot	    img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
+	    img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
 	    img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
 	    img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
 	      img_returned = 0	   
