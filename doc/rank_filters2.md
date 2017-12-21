@@ -256,9 +256,9 @@ For this project the benchmark was performed with the operating system Linux (4.
 ### Variance filter
 
 
-## Benchmark comparison between ImageJ and our implementation
-
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/merge_from_ofoct.png)
+
+## Benchmark comparison between ImageJ and our implementation
 
 ### Median filter
 ### Min-Max filter
