@@ -253,6 +253,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 ### Median filter
 ### Min/Max filter
+![](https://github.com/fsoubes/FilterRank/blob/master/images/MERGE.jpg)
 ### Variance filter
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/merge_from_ofoct.png)
 
