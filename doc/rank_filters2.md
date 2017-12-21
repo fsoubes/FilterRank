@@ -225,12 +225,14 @@ For this project the benchmark was performed with the operating system Linux (4.
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot2.png)
 #### Fig 7. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
+On the figure 7, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 5 resolutions we can see an increase of the execution time from 80ms in general up to 8000 ms. At a resolution of 1440x1140 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot.png) 
 #### Fig 8. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
+On the figure 8, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
+
 
 ### Variance filter.
-
 
 To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
 
