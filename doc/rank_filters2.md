@@ -265,6 +265,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 ## Image results
 
 ### Median filter
+![](https://github.com/fsoubes/FilterRank/blob/master/images/MontageMedianBoats.png)
 ### Min/Max filter
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MERGE.jpg)
 This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ, C the result of our own function with a kernel size of 3.
