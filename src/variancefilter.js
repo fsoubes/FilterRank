@@ -50,13 +50,13 @@ const variance = (kernel) => (img,copy_mode = true) => {
      * @author Franck Soubès - Jean-Christophe Taveau 
      */
 
+    
 
     let output = T.Raster.from(img,copy_mode);
     let w= img.width;
     let h = img.height;
     let wk = kernel.width;
     let img2 = new T.Image(img.type,w,h);
-    
     let squared = img.pixelData.map((x) => x * x );
     img2.setPixels(squared);
     let imgsqr= T.Raster.from(img2.raster,copy_mode);
@@ -66,11 +66,12 @@ const variance = (kernel) => (img,copy_mode = true) => {
      /*
      	Integral Image proposed by JC.Taveau
      */
-	
-     img.pixelData.reduce((sum1,px,i) => {
+
+    
+     output.pixelData.reduce((sum1,px,i) => {
 	let x = i%w;
 	sum1[x] += px;
-	img.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img.pixelData[i-1])
+	  output.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : output.pixelData[i-1])
 	 return sum1;},new Float32Array(w).fill(0.0));   
 
     
@@ -81,24 +82,32 @@ const variance = (kernel) => (img,copy_mode = true) => {
 	return sum1;},new Float32Array(w).fill(0.0));
     
 
-   
-    /* another method not totally functionnal but way more faster with the use of forEach
+    /*
+    // another method not totally functionnal but way more faster with the use of forEach however it dsnt seem faster than the reduce
     let sum = 0;
-    let arr= Array.from(Array(w), () => NaN);
+     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
-    let height = arr.map((j,y)=> y);
+    let arr1 = Array.from(Array(h), () => NaN);
+    let height = arr1.map((j,y)=>y);
     
     let firstintegral = width.forEach(x =>{
 	sum = 0;
 	height.forEach(y =>{
 	    sum += pixels[x + y*w];
-	    (x==0) ? img_copy[x+y*w] = sum:img_copy[x+y*w] = img_copy[(x-1)+y*w] + sum;
+	    (x==0) ? img.pixelData[x+y*w] = sum:img.pixelData[x+y*w] = img.pixelData[(x-1)+y*w] + sum;
 	});
     });
-    */
+
+    let firstintegral2 = width.forEach(x =>{
+	sum = 0;
+	height.forEach(y =>{
+	    sum += pixels[x + y*w];
+	    (x==0) ? img2.raster.pixelData[x+y*w] = sum:img2.raster.pixelData[x+y*w] = img2.raster.pixelData[(x-1)+y*w] + sum;
+	});
+    });
+   */
     
-    getvar(padding(img,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
-    output.pixelData = img.pixelData;
+    getvar(padding(output,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
     //let crop8 = T.crop(1,2,img.width -wk, img.height - wk);
     //return crop8(output);
     return output;
@@ -142,6 +151,7 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     let balancedpad = new_img  => new_img.map(new_img => leftrightpad(new_img));
     let imagepadded = new_img => balancedpad(updownpad(new_img));
     let returned_image = imagepadded(new_img);
+    
     for (let i =0 ; i<ker;i++ ){
 	returned_image.push(returned_image[0]);
 	returned_image.unshift(returned_image[0]);
@@ -170,13 +180,14 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
     
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
+	    
 	    // push black pixel for abberant coordinnates that'll falsify the results
-	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 // left
-	    ||img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 // down
-	    ||img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
-	    ||img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? img_returned.push(0) // as a result the image will be croped for abberant coordinates
-	    : img_returned.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]); 
+	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 ||// left
+	    img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 || // down
+	    img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 ||// up
+	    img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
+	    ? img_returned.push(0): img_returned.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]);
+
 	}
     }
     return img_returned; // 1d
@@ -204,21 +215,17 @@ const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
     let result;
     let arr1 = Array.from(Array(h), () => NaN);
     let height = arr1.map((j,y)=>y);
-    let compute_variance =width.map(x =>{
-	height.map(y =>{
+    let compute_variance =width.forEach(x =>{
+	height.forEach(y =>{
 	    
 	    result =  (img2.pixelData[x +y*w]/Math.pow(kernel,2.00)) - Math.pow(img.pixelData[x+y*w]/Math.pow(kernel,2.00),2.00) ;
-	    result > 255 && type === "uint8"
-	    ? img.pixelData[x+y*w] = 255
-	    : result < 255 && type === "uint8"
-	    ? img.pixelData[x+y*w] = 0
-	    :result < 20000000 && type === "uint16" //arbitrary value seems good for boats and blob
-	    ? img.pixelData[x+y*w] = 0
-	    : result > 20000000 && type === "uint16"
-	    ? img.pixelData[x+y*w] = 65535
-	    : result>1 && type === "float32"
-	    ? img.pixelData[x+y*w] = 1
-            : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
+	    
+	    result > 255 && type === "uint8"	    
+	    ? img.pixelData[x+y*w] = 255 : result < 255 && type === "uint8"
+	    ? img.pixelData[x+y*w] = 0 :result < 20000000 && type === "uint16" //arbitrary value seems good for boats and blob
+	    ? img.pixelData[x+y*w] = 0 : result > 20000000 && type === "uint16"
+	    ? img.pixelData[x+y*w] = 65535 : result>1 && type === "float32"
+	    ? img.pixelData[x+y*w] = 1 : img.pixelData[x+y*w] = result; // because of the noise the uint16 display is not quiet good, maybe also because of the main algorithm ?
 	    // when not normalizing it has blue edges and it's more clean, float 32 is ok
 	});
     });
