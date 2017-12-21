@@ -171,7 +171,7 @@ The implementation of this algorithm was first describe by [^BRA2007] with the f
    	  end for 
 	end for
 	    
-Integral image was first implemented by using nested for loops, it was then transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map represented below this method is simply based on the previous pseudo code.
+Integral image was first implemented by using nested for loops, it was then transformed in functional programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map represented below this method is simply based on the previous pseudo code.
 
 
   	  let firstintegral = width.forEach(x =>{
@@ -180,12 +180,12 @@ Integral image was first implemented by using nested for loops, it was then tran
 	    sum += pixels[x + y*w];
 	    (x==0) ? output.pixelData[x+y*w] = sum:output.pixelData[x+y*w] = output.pixelData[(x-1)+y*w] + sum;
 	    
-Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
+Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
 #### Fig x. Simplified Smith–Waterman algorithm when linear gap penalty function is used
 
-The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
+The main advantages of this method is that it is 100% functional whereas the previous method even if faster was not totally functional because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
 
 ### Implementation of the padding and currying computational.
 
@@ -312,6 +312,7 @@ For the variance filter we obtained the same results as presented in the previou
 ## Overall performance comparison between imageJ and our algorithms
  For the median filter ..
  For the min_max filter the execution time of imageJ compared to our algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running of mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. 
+ 
  For the variance filter the execution time of ImageJ compared to our algorithm is way more better due to the fact that the algorithms are not similar. Indeed, ImageJ plugin is using convolve function to compute the variance and the mean. Moreover for loops are way more faster than map, reduce or forEach. As said before the benchmark may not be that relevant caused by the web-browser (Firefox) used to perform the benchmark if the version is not up to date. Another explanation for the slowness of our algorithm can be related to the number of times that we iterate through our image. Indeed the _convolve_ function of ImageJ iterates only one time through the image pixels whereas our algorithm has to iterate multiple times multiply. Hence, the complexity will not be the same between both algorithms
  
 # 5.Conclusion
