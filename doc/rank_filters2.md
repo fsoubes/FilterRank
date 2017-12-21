@@ -178,7 +178,7 @@ Integral image was first implemented by using nested for loops, it was then tran
 	  sum = 0;
 	  height.forEach(y =>{
 	    sum += pixels[x + y*w];
-	    (x==0) ? img.pixelData[x+y*w] = sum:img.pixelData[x+y*w] = img.pixelData[(x-1)+y*w] + sum;
+	    (x==0) ? output.pixelData[x+y*w] = sum:output.pixelData[x+y*w] = output.pixelData[(x-1)+y*w] + sum;
 	    
 Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
 
