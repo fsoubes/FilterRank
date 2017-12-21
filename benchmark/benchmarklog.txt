@@ -77,46 +77,70 @@ Implementation perso V2 (5x5filter)
 180x144
 
 8 bit
-Took 410.7620 milliseconds to generate
+Took 186.6589 milliseconds to generate 
 16 bit
-Took 406.1716 milliseconds to generate
+Took 185.6395 milliseconds to generate
 float 32
-Took 405.7363 milliseconds to generate
+Took 185.8345 milliseconds to generate
 
 
 360x288
 
-8 bitTook 2810.8517 milliseconds to generate
+8 bit
+Took 1282.4858 milliseconds to generate
 16 bit
-Took 2832.3030 milliseconds to generate
+Took 1278.9570 milliseconds to generate
 float 32
-Took 2857.1026 milliseconds to generate
+Took 1271.5486 milliseconds to generate
 
 
 540x432
 
 8 bit
-Took 2810.8517 milliseconds to generate
+Took 3971.1095 milliseconds to generate
 16 bit
-Took 2832.3030 milliseconds to generate
+Took 4020.8805 milliseconds to generate
 float 32
-Took 2857.1026 milliseconds to generate
+Took 3973.1665 milliseconds to generate
 
 
 720x576
 
-
+8 bit
+Took 9711.8755 milliseconds to generate
+16 bit
+Took 9940.8195 milliseconds to generate
+float 32
+Took 9606.3905 milliseconds to generate
 
 900x720
+
+8 bit
+Took 18677.1450 milliseconds to generate
+16 bit
+Took 20323.1450 milliseconds to generate
+float 32
+Took 20756.4600 milliseconds to generate
 
 
 1080x864
 
-
+8 bi
+Took 31713.4750 milliseconds to generate 
+16 bit
+Took 33209.8400 milliseconds to generate
+float 32 
+Took 33724.5650 milliseconds to generate
 
 
 1440x1152
 
+8 bit
+Took 81183.9850 milliseconds to generate
+16 bit
+Took 86806.3850 milliseconds to generate
+float 32
+Took 89014.6150 milliseconds to generate
 
 
 1800x1440
@@ -136,6 +160,11 @@ Took 6.453 milliseconds to generate
 Took 10.168 milliseconds to generate
 900x720
 Took 15.212 milliseconds to generate
+1080x864
+Took 18.76 milliseconds to generate
+1440x1152
+Took 28.815 milliseconds to generate
+
 
 16-bit
 180x144
@@ -148,6 +177,11 @@ Took 6.871 milliseconds to generate
 Took 11.73 milliseconds to generate
 900x720
 Took 16.348 milliseconds to generate
+1080x864
+Took 21.614 milliseconds to generate
+1440x1152
+Took 34.331 milliseconds to generate
+
 
 32-bit
 180x144
@@ -160,6 +194,10 @@ Took 8.131 milliseconds to generate
 Took 14.073 milliseconds to generate
 900x720
 Took 20.406 milliseconds to generate
+1080x864
+Took 30.252 milliseconds to generate
+1440x1152
+Took 49.817 milliseconds to generate
 
 _______________________________
 
