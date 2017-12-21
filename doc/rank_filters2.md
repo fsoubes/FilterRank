@@ -286,6 +286,14 @@ On the figure 8, the execution time from the first resolution to the sixth doesn
 
 
 # 4.Discussion
+## Comparison of quality between imageJ and our algorithms
+ For the median filter ..
+ For the min_max filter we do obtain the same results than the imageJ functions, with a same kernelsize even if the processing is different the output remains the same for any tipe of kernel or type of images.
+For the variance filter ..
+## Comparison of performance between imageJ and our algorithms
+ For the median filter ..
+ For the min_max filter the execution time of imageJ compared to our algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running of mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. 
+ For the variance filter ..
 # 5.Conclusion
 
 ## References
