@@ -285,8 +285,13 @@ The following figure shows the result of our _variance_ function for a boat of 7
 
 ### Median filter
 
-#### Fig. X Execution time benchmark analysis for the implemented median algorithm for a kernel size 5x5.
+![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianPerso_Rplot.png)
+#### Fig. X Execution time benchmark analysis for the implemented median algorithm for a kernel of size 5x5.
 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianAltAlgo_Rplot.png)
+#### Fig. X Execution time benchmark analysis for an alternative algorithm for a kernel of size 5x5.
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianPerso_ImageJRplot.png)
 #### Fig. X Execution time benchmark analysis for the ImageJ median algorithm for a kernel of radius 2.
 
 ### Min-Max filter
