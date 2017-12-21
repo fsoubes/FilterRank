@@ -255,8 +255,10 @@ For this project the benchmark was performed with the operating system Linux (4.
 ### Min/Max filter
 ### Variance filter
 
+The following figure shows the result of our _variance_ function for a boat of 720x576 pixels taking as parameter a kernel of diameter = 2 compared to the variance filter of ImageJ with a kernel radius =0.5. The results doesn't seem to change between the two images.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/merge_from_ofoct.png)
+#### Fig X. Result of a variance processing with (1) representing the original image and (2) and (3) are respectively corresponding to the ImageJ _variance_ and our _variance_ function
 
 ## Benchmark comparison between ImageJ and our implementation
 
