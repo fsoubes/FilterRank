@@ -183,6 +183,7 @@ Integral image was first implemented by using nested for loops, it was then tran
 Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
+#### Fig x. Simplified Smith–Waterman algorithm when linear gap penalty function is used
 
 The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
 
