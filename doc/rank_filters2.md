@@ -265,6 +265,8 @@ For this project the benchmark was performed with the operating system Linux (4.
 ## Image results
 
 ### Median filter
+
+The Fig X. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images X. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image. This is probably caused by the difference of the shape of the kernels used in the algorithms : square for our implmentation and circle for ImageJ.
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MontageMedianBoats.png)
 #### Fig X. (A) Original image, (B) image obtained using ImageJ median filter, (C) image obtained using our implementation and (D) difference between B and C.
 ### Min/Max filter
