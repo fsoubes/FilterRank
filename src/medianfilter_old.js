@@ -1,8 +1,4 @@
 const medianFilter = (kernel) => (image,copy=true) => {
-    console.log("cpucpu");
-    let outputRaster = T.Raster.from(image);
-
-    
     let radiusKernel = Math.floor(kernel.width/2);
     const flatten = (array) => {
 	return array.reduce((acc, element) => {
@@ -11,7 +7,7 @@ const medianFilter = (kernel) => (image,copy=true) => {
     };
     //// Algorithme utilisé par les images 16bit et float32
     const median1632bit = function median1332bit(){
-	outputRaster.pixelData = Array(image.height).fill(0).reduce((acc4, element4, index4) => {
+	let result = Array(image.height).fill(0).reduce((acc4, element4, index4) => {
 	    let histogramList = Array(image.width+(radiusKernel)*2).fill(0).reduce((acc,element) => { return acc.concat([Array(radiusKernel*2+1).fill(0)]); },[]);
 	    paddedImage.filter((element, index) => {
 		return index < (index4+radiusKernel*2+1)*(image.width+(radiusKernel)*2) && index >= index4*(image.width+(radiusKernel)*2);
@@ -30,11 +26,12 @@ const medianFilter = (kernel) => (image,copy=true) => {
 		},[]);
 	    return acc4.concat(rowMedian);
 	},[]);
-	return outputRaster
+	return result
     }
     ////    
     //// Algorithme optimisé pour 8 bit
     const median8bit = function median8bit(){
+	let result = [];
 	// creation d'un histogramme de niveau de gris (contenant les valeurs des r premier pixels de la colonne, r etant la hauteur du kernel) pour chaque colonne de l'image
 	let histSize = 256;
 	let histogramList = Array(image.width+(radiusKernel)*2).fill(0).reduce((acc,element) => { return acc.concat([Array(histSize).fill(0)]); },[]);
@@ -43,7 +40,7 @@ const medianFilter = (kernel) => (image,copy=true) => {
 	}).forEach((element2, index2) => {
 	    histogramList[index2%(image.width+(radiusKernel)*2)][element2] = histogramList[index2%(image.width+(radiusKernel)*2)][element2]+1;
 	});
-	computeRowMedian(image, radiusKernel, histogramList, outputRaster, histSize, 0);
+	computeRowMedian(image, radiusKernel, histogramList, result, histSize);
 	//
 	
 	Array((image.height+(radiusKernel)*2)-radiusKernel*2-1).fill(0).reduce((acc,element,index) => {
@@ -55,14 +52,14 @@ const medianFilter = (kernel) => (image,copy=true) => {
 		return acc2.concat([newKernelHistogram]);
 	    }, []);
 	    //
-	    computeRowMedian(image, radiusKernel, newHistogramList, outputRaster, histSize, index+1);
+	    computeRowMedian(image, radiusKernel, newHistogramList, result, histSize);
 	    return acc = newHistogramList;
 	}, histogramList);
-	return outputRaster;
+	return result;
     }
     ////
     //// 8bit : calcul des médiane pour la ligne de l'image à partir des histogramme
-    const computeRowMedian = (image, radiusKernel, histogramList, outputRaster, histSize, indexRow) =>  {
+    const computeRowMedian = (image, radiusKernel, histogramList, result, histSize) =>  {
 	let kernelHistogram = [];
 	let ltmedian = 0;    
 	let sortedKernelPixels = histogramList.filter((element, index) => { return index<radiusKernel*2+1; })
@@ -77,12 +74,12 @@ const medianFilter = (kernel) => (image,copy=true) => {
 	    (sortedKernelPixels[index] < median) ? acc++ : acc;
 	    return acc;
 	},ltmedian);
-	//
-	outputRaster.pixelData[indexRow*image.width]=median;
+	//    
+	result.push(median);
 	// TO DO
 	Array(Math.floor((image.width+(radiusKernel)*2)-radiusKernel*2-1)).fill(0).forEach((element, index) => {	
 	    [median, ltmedian] = computeRightMedian(image, radiusKernel, histogramList, median, ltmedian, index, histSize);
-	    outputRaster.pixelData[indexRow*image.width+index]=median
+	    result.push(median);
 	});
 	//    
 	return [median, ltmedian];
@@ -130,7 +127,8 @@ const medianFilter = (kernel) => (image,copy=true) => {
     let paddedImage = flatten(startPaddedImage).concat(flatten(tmpArray), flatten(endPaddedImage));
     ////
     // Déteminer le type
-    median1632bit();
-    //(image.type === 'uint8') ? median8bit(): median1632bit();
-    return outputRaster;
+    let result2 = (image.type === 'uint8') ? median8bit(): median1632bit();    
+    let resultRaster = T.Raster.from(image);
+    resultRaster.pixelData = result2;
+    return resultRaster;
 }
