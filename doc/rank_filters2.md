@@ -318,6 +318,11 @@ For the variance filter we obtained the same results as presented in the previou
 # 5.Conclusion
 
 From the results of the benchmark tests it can be concluded that the median filter .... The minimum and maximum filters can be treated with the same functions but unlike the default implementation in ImageJ the execution time is too slow for high resolution images, however we did try to functionalize as much as we could, and curried our functions delivering a fonctional algorithm which work with 8 bit,16bit and float32 images.Finally the _min_max_ algorithm respects the process of 1D filter after 1D filter described in the first markdown.
+
+
+Functional programming is a programming paradigm that'll allow us to process in parallel ... 
+
+
 ## References
 
 [^Hua1979] Huang T, Yang G, Tang G. A fast two-dimensional median filtering algorithm. IEEE Transactions on Acoustics, Speech, and Signal Processing. 1979;27(1):13–18.  
