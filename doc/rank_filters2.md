@@ -171,8 +171,20 @@ The implementation of this algorithm was first describe by [^BRA2007] with the f
    	  end for 
 	end for
 	    
-Integral image was first implemented by using nested for loops, it was then transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map.
-Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
+Integral image was first implemented by using nested for loops, it was then transformed in functionnal programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map represented below this method is simply based on the previous pseudo code.
+
+
+  	  let firstintegral = width.forEach(x =>{
+	  sum = 0;
+	  height.forEach(y =>{
+	    sum += pixels[x + y*w];
+	    (x==0) ? img.pixelData[x+y*w] = sum:img.pixelData[x+y*w] = img.pixelData[(x-1)+y*w] + sum;
+	    
+Afterwards a better functionnal method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
+
+The main advantages of this method is that it is 100% functionnal whereas the previous method even if faster was not totally functionnal because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
 
 ### Implementation of the padding and currying computational.
 
@@ -213,7 +225,7 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1.
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 5. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
