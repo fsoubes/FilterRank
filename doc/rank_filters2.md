@@ -189,7 +189,7 @@ This method act as following:
 	for x= k-1 to h+(k-2) do
 	  for y= k-1 to w+(k-2) do     		  
 	    if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
-Rplot	    img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
+	    img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
 	    img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
 	    img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
 	      img_returned = 0	   
@@ -213,7 +213,7 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 20000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1.
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 5. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
@@ -227,7 +227,7 @@ This formula allows us to compute  the variance of rectangular patch of image. T
 	      var = 255	 
 	    else
 	      var = 0
-	    else if result < 20000000 and type = 16bit then 
+	    else if result < 10000000 and type = 16bit then 
 	      var = 0
 	    else  
 	      var = 65535
