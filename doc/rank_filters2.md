@@ -220,6 +220,10 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 
 ## Image results
+An example of the min_max function for a 360x288 float32 image, the a image represents the default image, the b image is the output after filtering.
+![](https://github.com/fsoubes/FilterRank/blob/master/images/boats_float32.png)
+#### Fig 7. Example of the min_max algorithm against a float32 360x288 image
+
 ### Median filter
 ### Min/Max filter
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
