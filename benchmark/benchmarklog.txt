@@ -1,4 +1,129 @@
-median
+Implementation perso (3x3filter)
+
+
+180x144
+
+8 bit
+Took 390.3930 milliseconds to generate
+16 bit
+Took 393.7235 milliseconds to generate
+float 32
+Took 394.2490 milliseconds to generate
+
+
+360x288
+
+8 bit
+Took 1989.5845 milliseconds to generate
+16 bit
+Took 2675.4465 milliseconds to generate
+float 32
+Took 2629.8830 milliseconds to generate
+
+
+540x432
+
+8 bit
+Took 5839.9960 milliseconds to generate
+16 bit
+Took 9427.0735 milliseconds to generate
+float 32
+Took 9521.9450 milliseconds to generate
+
+720x576
+
+8 bit
+Took 12971.5015 milliseconds to generate
+16 bit
+Took 22708.1225 milliseconds to generate
+float 32
+Took 22689.1795 milliseconds to generate
+
+
+900x720
+
+8 bit
+Took 22890.6130 milliseconds to generate
+16 bit
+Took 41733.1015 milliseconds to generate
+float 32
+Took 41895.7620 milliseconds to generate
+
+1080x864
+
+8 bit
+Took 38266.9590 milliseconds to generate
+16 bit
+Took 75548.7810 milliseconds to generate
+float 32
+Took 76318.5580 milliseconds to generate
+
+
+1440x1152
+
+8 bit
+Took 93167.6370 milliseconds to generate
+16 bit
+Took 191604.5080 milliseconds to generate
+
+1800x1440
+______________________________________________________________________________________________
+
+
+
+Implementation perso V2 (5x5filter)
+
+
+180x144
+
+8 bit
+Took 410.7620 milliseconds to generate
+16 bit
+Took 406.1716 milliseconds to generate
+float 32
+Took 405.7363 milliseconds to generate
+
+
+360x288
+
+8 bitTook 2810.8517 milliseconds to generate
+16 bit
+Took 2832.3030 milliseconds to generate
+float 32
+Took 2857.1026 milliseconds to generate
+
+
+540x432
+
+8 bit
+Took 2810.8517 milliseconds to generate
+16 bit
+Took 2832.3030 milliseconds to generate
+float 32
+Took 2857.1026 milliseconds to generate
+
+
+720x576
+
+
+
+900x720
+
+
+1080x864
+
+
+
+
+1440x1152
+
+
+
+1800x1440
+
+________________________________
+
+ImageJ
 
 8-bit
 180x144
@@ -36,11 +161,7 @@ Took 14.073 milliseconds to generate
 900x720
 Took 20.406 milliseconds to generate
 
-
-
-
-_________________________________________
-
+_______________________________
 
 8bit 360x288
 248663280
