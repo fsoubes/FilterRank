@@ -106,7 +106,7 @@ The first part of the algorithm is the _remplissage_ function which allow to obt
 		       listepixels.push(-1)
 
 ### 1D Filters
-The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ function respectively for the lines and columns.The functions works as follow, the function takes colmun after column, and for each column it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
+The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ function respectively for the lines and columns.The functions works as follow, the function takes colmun after column, and for each pixel of each column it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
 
 	for each column
 	  for each line 
