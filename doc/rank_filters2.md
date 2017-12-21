@@ -256,7 +256,11 @@ For this project the benchmark was performed with the operating system Linux (4.
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MERGE.jpg)
 This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ, C the result of our own function with a kernel size of 3.
 ### Variance filter
+
+The following figure shows the result of our _variance_ function for a boat of 720x576 pixels taking as parameter a kernel of diameter = 2 compared to the variance filter of ImageJ with a kernel radius =0.5. The results doesn't seem to change between the two images.
+
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/merge_from_ofoct.png)
+#### Fig X. Result of a variance processing with (1) representing the original image and (2) and (3) are respectively corresponding to the ImageJ _variance_ and our _variance_ function
 
 ## Benchmark comparison between ImageJ and our implementation
 
@@ -274,16 +278,16 @@ On the figure 7, the execution time for either 8bit,16bit or float32 for an imag
 On the figure 8, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
 
 ### Variance filter
-A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
+A comparative benchmark for our own  Variance filter against the Variance filter from imageJ has been done with a set of 24 images bewteen seven different resolution  360x288, 720x576, 900x720, 1080x864, 1440x1152, 1880x1440 and 2880x2304. Each set of 3 images have the same resolution but with a different type, either 8bit, 16bit or float32. The benchmark representation is represented down below :
+	
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotplot.png)
-#### Fig 7. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
-On the figure 7, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 5 resolutions we can see an increase of the execution time from 80ms in general up to 8000 ms. At a resolution of 1440x1140 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
+#### Fig 9. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = Variance. 
+On the figure 9, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 6 resolutions we can see an increase of the execution time from 50ms in general up to 4500 ms. At a resolution of 1880x1440 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
-#### Fig 8. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
-On the figure 8, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
-
+#### Fig 10. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = Variance. 
+On the figure 10, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function.
 
 # 4.Discussion
 ## Comparison of quality between imageJ and our algorithms
