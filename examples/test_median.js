@@ -1,8 +1,8 @@
 "use strict";
 
-let sizeWidth = 900;
-let sizeHeight = 720;
-let sampleName = boats_900x720;
+let sizeWidth = 180;
+let sizeHeight = 144;
+let sampleName = boats_180x144;
 //let img0 = new T.Image('uint8',256,254);
 let img0 = new T.Image('uint8',sizeWidth,sizeHeight);
 //img0.setPixels(blobs_pixels);
@@ -31,7 +31,7 @@ console.log(img02.raster.pixelData);
 //let kernelSize = 11;
 let kernel = new T.Raster('uint8',2,2);
 
-let nbTest=1;
+let nbTest=10;
 
 var t0 = performance.now();
 for (var i = 0; i < nbTest; i++) {
@@ -41,6 +41,7 @@ var t1 = performance.now();
 console.log('8 bit');
 console.log('Took', ((t1 - t0) / nbTest).toFixed(4), 'milliseconds to generate');
 
+/*
 var t0 = performance.now();
 for (var i = 0; i < nbTest; i++) {
     medianFilter(kernel)(raster01);
@@ -55,7 +56,7 @@ for (var i = 0; i < nbTest; i++) {
 }
 var t1 = performance.now();
 console.log('float 32');
-console.log('Took', ((t1 - t0) / nbTest).toFixed(4), 'milliseconds to generate');
+console.log('Took', ((t1 - t0) / nbTest).toFixed(4), 'milliseconds to generate');*/
 
 
 let medianFilteredImg0 = medianFilter(kernel)(raster0);
