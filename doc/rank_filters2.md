@@ -261,7 +261,7 @@ On the figure 7, the execution time for either 8bit,16bit or float32 for an imag
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot.png) 
 #### Fig 8. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
 On the figure 8, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
-### Variance filter
+### Variance filter.
 ## Benchmark results
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/bench_var_integralfil.png)
