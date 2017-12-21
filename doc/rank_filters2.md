@@ -251,7 +251,7 @@ Repeat for each window. The default variance filter in ImageJ is based on this a
 
 
 # 4.Discussion
-# 5.Conclusion
+# 5.Conclusion.
 
 ## References
 
