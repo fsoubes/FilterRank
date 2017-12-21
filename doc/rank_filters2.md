@@ -70,7 +70,7 @@ Our algorithm is based on 2 differents things, first we take care of the edges w
 According to our Teacher Mr.Jean Cristophe Taveau demand, our implementation of the algorithm works on the images types 8-bit, 16-bit and float32. Our algorithm takes care of either min or max filters like the previeous algorithm suggested, and is fully operational on kernel with a size of either 3x3,5x5,7x7,9x9,11x11,13x13.
 
 ### Filling edges 
-The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image. The associated pseudo code is represented down below :
+The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image. The associated pseudo code is represented below :
 	
 	if type == line
            for each colomn
@@ -91,7 +91,7 @@ The first part of the algorithm is the _remplissage_ function which allow to obt
 	          do listepixel.push(pixel index)
 		  do liste.splice(0,width,...listepixel)
 	
-        if type =column
+      if type =column
 	  if height <= width
 	     if filter = min
 	        while i < width*(width-height+kernelsize-1)
