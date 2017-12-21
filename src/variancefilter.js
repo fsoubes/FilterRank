@@ -212,7 +212,7 @@ const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
 	    ? img.pixelData[x+y*w] = 255
 	    : result < 255 && type === "uint8"
 	    ? img.pixelData[x+y*w] = 0
-	    :result < 20000000 && type === "uint16"
+	    :result < 20000000 && type === "uint16" //arbitrary value seems good for boats and blob
 	    ? img.pixelData[x+y*w] = 0
 	    : result > 20000000 && type === "uint16"
 	    ? img.pixelData[x+y*w] = 65535
