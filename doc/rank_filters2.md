@@ -285,7 +285,9 @@ The following figure shows the result of our _variance_ function for a boat of 7
 
 ### Median filter
 
-#### Fig. X Execution time benchmark analysis against the implemented median algorithm for a kernel size 5x5.
+#### Fig. X Execution time benchmark analysis for the implemented median algorithm for a kernel size 5x5.
+
+#### Fig. X Execution time benchmark analysis for the ImageJ median algorithm for a kernel of radius 2.
 
 ### Min-Max filter
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
