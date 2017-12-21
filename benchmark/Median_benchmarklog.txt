@@ -1,0 +1,252 @@
+Implementation perso (3x3filter)
+
+
+180x144
+
+8 bit
+Took 390.3930 milliseconds to generate
+16 bit
+Took 393.7235 milliseconds to generate
+float 32
+Took 394.2490 milliseconds to generate
+
+
+360x288
+
+8 bit
+Took 1989.5845 milliseconds to generate
+16 bit
+Took 2675.4465 milliseconds to generate
+float 32
+Took 2629.8830 milliseconds to generate
+
+
+540x432
+
+8 bit
+Took 5839.9960 milliseconds to generate
+16 bit
+Took 9427.0735 milliseconds to generate
+float 32
+Took 9521.9450 milliseconds to generate
+
+720x576
+
+8 bit
+Took 12971.5015 milliseconds to generate
+16 bit
+Took 22708.1225 milliseconds to generate
+float 32
+Took 22689.1795 milliseconds to generate
+
+
+900x720
+
+8 bit
+Took 22890.6130 milliseconds to generate
+16 bit
+Took 41733.1015 milliseconds to generate
+float 32
+Took 41895.7620 milliseconds to generate
+
+1080x864
+
+8 bit
+Took 38266.9590 milliseconds to generate
+16 bit
+Took 75548.7810 milliseconds to generate
+float 32
+Took 76318.5580 milliseconds to generate
+
+
+1440x1152
+
+8 bit
+Took 93167.6370 milliseconds to generate
+16 bit
+Took 191604.5080 milliseconds to generate
+
+1800x1440
+______________________________________________________________________________________________
+
+
+
+Implementation perso V2 (5x5filter)
+
+
+180x144
+
+8 bit
+Took 186.6589 milliseconds to generate 
+16 bit
+Took 185.6395 milliseconds to generate
+float 32
+Took 185.8345 milliseconds to generate
+
+
+360x288
+
+8 bit
+Took 1282.4858 milliseconds to generate
+16 bit
+Took 1278.9570 milliseconds to generate
+float 32
+Took 1271.5486 milliseconds to generate
+
+
+540x432
+
+8 bit
+Took 3971.1095 milliseconds to generate
+16 bit
+Took 4020.8805 milliseconds to generate
+float 32
+Took 3973.1665 milliseconds to generate
+
+
+720x576
+
+8 bit
+Took 9711.8755 milliseconds to generate
+16 bit
+Took 9940.8195 milliseconds to generate
+float 32
+Took 9606.3905 milliseconds to generate
+
+900x720
+
+8 bit
+Took 18677.1450 milliseconds to generate
+16 bit
+Took 20323.1450 milliseconds to generate
+float 32
+Took 20756.4600 milliseconds to generate
+
+
+1080x864
+
+8 bi
+Took 31713.4750 milliseconds to generate 
+16 bit
+Took 33209.8400 milliseconds to generate
+float 32 
+Took 33724.5650 milliseconds to generate
+
+
+1440x1152
+
+8 bit
+Took 81183.9850 milliseconds to generate
+16 bit
+Took 86806.3850 milliseconds to generate
+float 32
+Took 89014.6150 milliseconds to generate
+
+
+1800x1440
+
+________________________________
+
+ImageJ
+
+8-bit
+180x144
+Took 1.896 milliseconds to generate
+360x288
+Took 3.253 milliseconds to generate
+540x432
+Took 6.453 milliseconds to generate
+720x576
+Took 10.168 milliseconds to generate
+900x720
+Took 15.212 milliseconds to generate
+1080x864
+Took 18.76 milliseconds to generate
+1440x1152
+Took 28.815 milliseconds to generate
+
+
+16-bit
+180x144
+Took 1.719 milliseconds to generate
+360x288
+Took 3.353 milliseconds to generate
+540x432
+Took 6.871 milliseconds to generate
+720x576
+Took 11.73 milliseconds to generate
+900x720
+Took 16.348 milliseconds to generate
+1080x864
+Took 21.614 milliseconds to generate
+1440x1152
+Took 34.331 milliseconds to generate
+
+
+32-bit
+180x144
+Took 1.197 milliseconds to generate
+360x288
+Took 3.825 milliseconds to generate
+540x432
+Took 8.131 milliseconds to generate
+720x576
+Took 14.073 milliseconds to generate
+900x720
+Took 20.406 milliseconds to generate
+1080x864
+Took 30.252 milliseconds to generate
+1440x1152
+Took 49.817 milliseconds to generate
+
+_______________________________
+
+8bit 360x288
+248663280
+average memory is :0.23714378356933594MB.
+1356688512
+average memory is :1.2938389892578126MB.
+1440363760
+average memory is :1.373637924194336MB.
+254370528
+average memory is :0.24258663940429687MB.
+
+
+8bit 720x576
+average memory is :0.4408384094238281MB.
+649469024
+average memory is :0.6193819274902344MB.
+265680416
+average memory is :0.25337258911132815MB.
+751409392
+average memory is :0.7165998382568359MB.
+
+8bit 1080x864
+364654240
+average memory is :0.3477613830566406MB.
+329836720
+average memory is :0.31455680847167966MB.
+479077600
+average memory is :0.45688400268554685MB.
+597167264
+average memory is :0.5695030822753906MB.
+
+8bit 1440x1152
+214546496
+average memory is :0.20460748291015626MB.
+209868064
+average memory is :0.20014578247070314MB.
+217177968
+average memory is :0.20711705017089843MB.
+319816976
+average memory is :0.3050012359619141MB.
+
+8bit 1800x1440
+149666784
+average memory is :0.1427333679199219MB.
+299556512
+average memory is :0.2856793518066406MB.
+499888208
+average memory is :0.4767305450439453MB.
+445963424
+average memory is :0.4253038635253906MB.
