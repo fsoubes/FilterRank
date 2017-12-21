@@ -254,6 +254,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 ### Min/Max filter
 
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot2.png)
 #### Fig 7. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
 On the figure 7, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 5 resolutions we can see an increase of the execution time from 80ms in general up to 8000 ms. At a resolution of 1440x1140 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
