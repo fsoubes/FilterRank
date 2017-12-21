@@ -248,11 +248,16 @@ The operation process is ran 1100 times for both measurements to provide robust 
 
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
 # 3.Results
-## Benchmark comparison between ImageJ and our implementation
+
 ## Image results
 ### Median filter
 ### Min/Max filter
+### Variance filter
 
+## Benchmark comparison between ImageJ and our implementation
+
+### Median filter
+### Min-Max filter
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
@@ -262,9 +267,8 @@ On the figure 7, the execution time for either 8bit,16bit or float32 for an imag
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot3.png) 
 #### Fig 8. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
 On the figure 8, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
-### Variance filter.
-## Benchmark results
 
+### Variance filter
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotplot.png)
