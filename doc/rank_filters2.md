@@ -229,7 +229,7 @@ A comparative benchmark for our own  Min/Max filter against the Min/Max filter f
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot.png) 
 #### Fig 8. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
 
-### Variance filter
+### Variance filter.
 
 
 To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
