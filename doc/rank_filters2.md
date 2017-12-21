@@ -249,6 +249,11 @@ For this project the benchmark was performed with the operating system Linux (4.
 ### Median filter
 ### Min/Max filter
 ### Variance filter
+## Benchmark results
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/bench_var_integralfil.png)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/bench_var_ij.png)
+
 # 4.Discussion
 # 5.Conclusion
 
