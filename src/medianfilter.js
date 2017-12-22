@@ -40,6 +40,7 @@
 const medianFilter = (kernel) => (image,copy=true) => {
     let outputRaster = T.Raster.from(image);    
     let radiusKernel = Math.floor(kernel.width/2);
+    let diameterKernelnoCenter = radiusKernel*2;
     const flatten = (array) => {
 	return array.reduce((acc, element) => {
 	    return acc.concat(element);
@@ -60,14 +61,14 @@ const medianFilter = (kernel) => (image,copy=true) => {
     ////
     //// Traitement de l'image
     outputRaster.pixelData = Array(image.height).fill(0).reduce((acc4, element4, index4) => {
-	let histogramList = Array(image.width+(radiusKernel)*2).fill(0).reduce((acc,element) => { return acc.concat([Array(radiusKernel*2+1).fill(0)]); },[]);
-	paddedImage.slice(index4*(image.width+(radiusKernel)*2),(index4+radiusKernel*2+1)*(image.width+(radiusKernel)*2))
+	let histogramList = Array(image.width+diameterKernelnoCenter).fill(0).reduce((acc,element) => { return acc.concat([Array(diameterKernelnoCenter+1).fill(0)]); },[]);
+	paddedImage.slice(index4*(image.width+diameterKernelnoCenter),(index4+radiusKernel*2+1)*(image.width+diameterKernelnoCenter))
 	    .forEach((element2, index2) => {
-		histogramList[index2%(image.width+(radiusKernel)*2)][Math.floor(index2/(image.width+(radiusKernel)*2))] = element2;
+		histogramList[index2%(image.width+(radiusKernel)*2)][Math.floor(index2/(image.width+diameterKernelnoCenter))] = element2;
 	    });
 	let rowMedian = histogramList.slice(0,image.width)
 	    .reduce((acc, element, index) => {
-		let kernelHistogram = histogramList.slice(index,index+radiusKernel*2+1)
+		let kernelHistogram = histogramList.slice(index,index+diameterKernelnoCenter+1)
 		    .reduce((acc2, element2) => {
 			return acc2.concat(element2);
 		    },[]).slice().sort((a, b) => a - b);
