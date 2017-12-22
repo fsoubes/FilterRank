@@ -279,7 +279,7 @@ The Fig X. show the results obtained using our median filter implementation comp
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MontageMedianBoats.png)
 #### Fig X. (A) Original image, (B) image obtained using ImageJ median filter (kernel radius equal 2), (C) image obtained using our implementation (5x5 kernel) and (D) difference between B and C.
 ### Min/Max filter
-![](https://github.com/fsoubes/FilterRank/blob/master/images/MERGE.jpg)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/min_max_fusion.png)
 This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ, C the result of our own function with a kernel size of 3.
 ### Variance filter
 
