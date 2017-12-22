@@ -8,10 +8,10 @@
 
 let kernel = new T.Raster('uint8',2,2);
 let kernel_size = kernel.width;
-let width_size = 720;
-let height_size = 576;
+let width_size = 360;
+let height_size = 288;
 
-let pixels = boats_720x576;
+let pixels = boats_pixels;
 let uint16_blobs = pixels.map ((px) => px * 256);
 let float_blobs = pixels.map( (px) => px/128 - 1.0);
 

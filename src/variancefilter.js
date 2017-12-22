@@ -108,8 +108,7 @@ const variance = (kernel) => (img,copy_mode = true) => {
    */
     
     getvar(padding(output,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
-    //let crop8 = T.crop(1,2,img.width -wk, img.height - wk);
-    //return crop8(output);
+ 
     return output;
 }
 

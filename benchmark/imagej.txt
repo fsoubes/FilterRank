@@ -1,0 +1,24 @@
+8bit
+Took 1.398 milliseconds to generate
+Took 3.582 milliseconds to generate
+Took 7.804 milliseconds to generate
+Took 12.479 milliseconds to generate
+Took 19.298 milliseconds to generate
+Took 44.48 milliseconds to generate
+
+16-bit
+Took 2.213 milliseconds to generate
+Took 6.248 milliseconds to generate
+Took 12.641 milliseconds to generate
+Took 21.968 milliseconds to generate
+Took 34.09 milliseconds to generate
+Took 78.39 milliseconds to generate
+
+
+32-bit
+Took 1.595 milliseconds to generate
+Took 5.709 milliseconds to generate
+Took 12.296 milliseconds to generate
+Took 21.262 milliseconds to generate
+Took 33.613 milliseconds to generate
+Took 80.982 milliseconds to generate
