@@ -8,20 +8,13 @@
 
 let kernel = new T.Raster('uint8',2,2);
 let kernel_size = kernel.width;
-let width_size = 360;
-let height_size = 288;
+let width_size = 720;
+let height_size = 576;
 
-let pixels = boats_pixels;
-
-
-
-let  uint16_blobs = pixels.map ((px) => px * 256);
-let uint16_blobss = pixels.map ((px) => px * 256);
-
-
-
+let pixels = boats_720x576;
+let uint16_blobs = pixels.map ((px) => px * 256);
 let float_blobs = pixels.map( (px) => px/128 - 1.0);
-let float_blobss = pixels.map( (px) => px/128 - 1.0);
+
 
 
 
@@ -45,11 +38,11 @@ img2.setPixels(pixels);
 let test = img2.getRaster();
 
 var t0 = performance.now();
-for (let i=0; i<100;i++){
+for (let i=0; i<10;i++){
     variance(kernel)(test);
 }
 var t1 = performance.now();
-console.log("L'appel à variance 8 bit a pris " + ((t1 - t0)/100).toFixed(4) + " millisecondes.")
+console.log("L'appel à variance 8 bit a pris " + ((t1 - t0)/10).toFixed(4) + " millisecondes.")
 
 
 let img01 = new T.Image('uint16',width_size,height_size);
@@ -67,12 +60,12 @@ img02.setPixels(uint16_blobs);
 let test1 = img02.getRaster();
 
 var t00 = performance.now();
-for (let i=0; i<100;i++){
+for (let i=1; i<=10;i++){
 
     variance(kernel)(test1);
 }
 var t11 = performance.now();
-console.log("L'appel à variance 16bit a pris " + ((t11 - t00)/100).toFixed(4) + " millisecondes.")
+console.log("L'appel à variance 16bit a pris " + ((t11 - t00)/10).toFixed(4) + " millisecondes.")
 
 
 
@@ -102,11 +95,11 @@ img002.setPixels(float_blobs);
 let test2 = img002.getRaster();
 
 var t000 = performance.now();
-for (let i=0; i<100;i++){
+for (let i=0; i<10;i++){
     //console.log(img111);
     variance(kernel)(test2);
 }
 var t111 = performance.now();
-console.log("L'appel à variance float  a pris " + ((t111 - t000)/100).toFixed(4) + " millisecondes.")
+console.log("L'appel à variance float  a pris " + ((t111 - t000)/10).toFixed(4) + " millisecondes.")
 
 
