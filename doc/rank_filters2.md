@@ -27,6 +27,12 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 The basic of a median filter is, for each pixel in an image, to center a WxH kernel on this pixel, and compute the median of the pixels in the kernel range, to create an output image with these computed median values.
 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_1.png)  
+![](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_2.png)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/alg_med_3.png)
+
 The first step of this median filter implementation is to extend the border of the image, so that that there is no undefined value in the kernel range for each pixel position of the original image. The new pixels created are given the value of the nearest pixel of the original image. To do that, the one dimensional array of pixels is transformed in a 2 dimensional one. The first element of each row is added a number equal to R (the radius of the kernel) to the start of this row, and the same is done at the end of the row using the last element of the list. Then the first row of the image is added R times at the start of the 2D image Array and the same is don with the last row at the end of the image array.
 
 Considering an image of width X and height Y and a kernel of width W and height H, for each row y of the image, one array is created for each column x. Each of these array the value of the pixel of coordinate (x,y) as well as the next H-1 pixels in the column x. Then for each column x, the corresponding array as well as the next W-1 array are concatenated to obtain all the values that correspond to a certain position of the kernel. These values are sorted, and the median is retrieved for this position of the kernel. The process is then repeated for the column x+1 until all the median have been computed for the row, and this is repeated for the next y+1 row until reaching the end of the image.
