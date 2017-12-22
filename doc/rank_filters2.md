@@ -281,7 +281,7 @@ The Fig X. show the results obtained using our median filter implementation comp
 ### Min/Max filter
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/min_max_fusion.png)
 
-This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ with a radius of 1, C the result of our own function with a kernel size of 3, D the difference between the imageJ and our own filter.
+This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ with a radius of 1, C the result of our own function with a kernel size of 3, D the difference between the imageJ and our own filter. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own which is represented in the figure D.
 ### Variance filter
 
 The following figure shows the result of our _variance_ function for a boat of 720x576 pixels taking as parameter a kernel of diameter = 2 compared to the variance filter of ImageJ with a kernel radius =0.5. The results doesn't seem to change between the two images.
@@ -338,7 +338,7 @@ On the figure 10, the execution time from the first resolution to the sixth does
 ## Overall quality comparison between imageJ and our algorithms
  For the median filter ..
  
- For the min_max filter we do obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains the same for any type of kernel or type of images.
+ For the min_max filter we do obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains almost the same for any type of kernel or type of images.
  
 For the variance filter we obtained the same results as presented in the previous part. Developing this script in ECMAScript 6 tends to gain in term of visibility comparing to the java plugin with nested loops and conditional statements. However it's not totally functional the _Getcoord_ function was not written in functional mainly because the iteration is starting and ending for various size depending on the padding. Moreover _padding_ function add extra rows for the upper and left part of the pixel-matrix.
 
