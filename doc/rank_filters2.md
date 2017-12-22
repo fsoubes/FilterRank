@@ -136,7 +136,7 @@ For the line filter we do not need to apply any other transformations in our ima
 The _min_max function is the main function where the whole process is applied(rows padding into line filtering into columns padding with finally column filtering).
 
 ## Implementation of the variance filter
-Globally the variance function is subdivised in four part, the first part consisting to compute the integral of two images (sum of all the pixels values and the sum of all squared pixels values). Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinates for each pixels in order to compute the sum of value of pixels in the rectangular region. Finally, compute the variance by substracting the values obtained through the precendent formula for the second image (squared) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
+Globally the variance function is subdivised in four part, the first part consist to compute the integral of two images for one the sum of all the pixels values and for the other the sum of all squared pixels values. Then treating the bundaries issues by adding black pixels at the edges of the image. Thirdly, get the four coordinates for each pixels in order to compute the sum of value of pixels in the rectangular region. Finally, compute the variance by substracting the values obtained through the precendent formula for the second image (squared) divised by the size of the kernel (h*w) with the square values obtained from the first image divised by the size of the kernel squared.
 
 ### implementation and pseudo-code for the integral image
 
@@ -180,12 +180,12 @@ Integral image was first implemented by using nested for loops, it was then tran
 	    sum += pixels[x + y*w];
 	    (x==0) ? output.pixelData[x+y*w] = sum:output.pixelData[x+y*w] = output.pixelData[(x-1)+y*w] + sum;
 	    
-Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator (width size) and the previous computed integral to compute the integral. 
+Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator for a size equal to the width and the previous computed integral to compute the integral. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
 #### Fig x. Simplified Smith–Waterman algorithm when linear gap penalty function is used
 
-The main advantages of this method is that it is 100% functional whereas the previous method even if faster was not totally functional because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce. All of these methods are still provided in the variance filter script.
+The main advantages of this method is that it is 100% functional whereas the previous method even if faster was not totally functional because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce (depending on the web-browser). All of these methods are still provided in the variance filter script.
 
 ### Implementation of the padding and currying computational.
 
@@ -194,7 +194,7 @@ The image is firstly transformed from a 1d array to a 2d array. In the aim of tr
 	With k = kernel
 	ker = ((k-1)/2) *2
 
-The resulting number will give to the _padding_ function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel (0) or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The _padding_ function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size compare to the original input. It takes a function _padding_ whose return value is another function _getCoord_. The final result is automatically transform in 1D without the uses of any particular method. 
+The resulting number will give to the _padding_ function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The _padding_ function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size compare to the original input. It takes a function _padding_ whose return value is another function _getCoord_. The final result is automatically transform in 1D without the uses of any particular method. 
 
 This method act as following:
 
@@ -217,7 +217,7 @@ This method act as following:
 	  end for 
 	end for
 
-In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available Crop method in the times API.
+In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available crop method in the times API.
 
 For a better understanding of this pseudo code here an example of how it is working[Fig. 4.]
 
@@ -226,7 +226,7 @@ For a better understanding of this pseudo code here an example of how it is work
 
 ### Implementation of the Variancefilter() function.
 
-The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values was purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values is purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 5. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
@@ -251,6 +251,7 @@ This formula allows us to compute  the variance of rectangular patch of image. T
 	    end if
 	  end for 
 	end for
+	
 
 Finally _getvar_ function is called in the main function _variance_ with one _padding_ taking as first argument the sum of all pixels values in the original image and a second argument _padding_ taking as first argument the sum of all squared pixels values in the original image. The return raster is then cropped according to the size of the kernel in the aim of avoiding black bars in the output image.
 
