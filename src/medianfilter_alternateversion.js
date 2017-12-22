@@ -37,7 +37,7 @@
  *
  * @author Adrien Rohan
  */
-const medianFilter_alternate = (kernel) => (image,copy=true) => {
+const medianFilter_alternateversion = (kernel) => (image,copy=true) => {
     let outputRaster = T.Raster.from(image);    
     let radiusKernel = Math.floor(kernel.width/2);
     let DiameternoCenter = radiusKernel*2;
