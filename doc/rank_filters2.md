@@ -75,7 +75,7 @@ Our algorithm is based on 2 differents things, first we take care of the edges w
 According to our Teacher Mr.Jean Cristophe Taveau demand, our implementation of the algorithm works on the images types 8-bit, 16-bit and float32. Our algorithm takes care of either min or max filters like the previeous algorithm suggested, and is fully operational on kernel with a size of either 3x3,5x5,7x7,9x9,11x11,13x13.
 
 ### Filling edges 
-The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter filtre_ paramter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image. The associated pseudo code is represented down below :
+The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter filtre_ paramter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image without interfering with the computations. The associated pseudo code is represented down below :
 	
 	if type == line
            for each colomn
@@ -309,7 +309,7 @@ The execution time for the attempted implementation increase even more rapidly t
 The ImageJ algorithm execution time also increase exponentially. The difference in execution time between the 8-bit, 16-bit and 32-bit is noticeable and increase with time with 8-bit the fastest and 32-bit the slowest.
 
 ### Min-Max filter
-A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+A comparative benchmark of 50 iterations for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
 #### Fig 7. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
