@@ -38,6 +38,8 @@ The first step of this median filter implementation is to extend the border of t
 Considering an image of width X and height Y and a kernel of width W and height H, for each row y of the image, one array is created for each column x. Each of these array the value of the pixel of coordinate (x,y) as well as the next H-1 pixels in the column x. Then for each column x, the corresponding array as well as the next W-1 array are concatenated to obtain all the values that correspond to a certain position of the kernel. These values are sorted, and the median is retrieved for this position of the kernel. The process is then repeated for the column x+1 until all the median have been computed for the row, and this is repeated for the next y+1 row until reaching the end of the image.
 
 
+### Attempted implementation of the Huang algoritm
+
 The implementation of the median filter used here is a naive algorithm. Another implementation has been attempted that is base on the algorithm described by Huang [^Hua1979][^Hua1981].  This algorithm aim to reduce the number of times a sorting function is called as sorting is time consuming, but our implementation ended being even longer than the naive algorithm. While this algorithm is not in the final function provided, a benchmark analysis of this other  implementation has been done.
 
 Considering an image of width X and height Y and a kernel of width W and height H, for each column of the image a 256 element array is created, with each element equal to 0 at the start, and those arrays are placed into an array Hist. Then for each pixels of coordinate (x,y) and value G of the first H rows of the image, Hist[y][G] increase by 1.
@@ -82,7 +84,7 @@ The first part of the algorithm is the _remplissage_ function which allow to obt
               for each line+kernelsize/2
 	    
 	               if filtre = max 
-		         	then do liste.push(-1)
+		         	then do liste.push(-1)man outline black transparent background
 			 
 		       if filtre = min & type = uint8
 				then do  liste.push(255)
