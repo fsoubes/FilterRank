@@ -37,7 +37,7 @@
  *
  * @author Adrien Rohan
  */
-const medianFilter = (kernel) => (image,copy=true) => {
+const medianFilter_alternate = (kernel) => (image,copy=true) => {
     let outputRaster = T.Raster.from(image);    
     let radiusKernel = Math.floor(kernel.width/2);
     let DiameternoCenter = radiusKernel*2;
@@ -164,7 +164,7 @@ const medianFilter = (kernel) => (image,copy=true) => {
     let endPaddedImage = Array(radiusKernel).fill(tmpArray[image.height-1]);
     let paddedImage = flatten(startPaddedImage).concat(flatten(tmpArray), flatten(endPaddedImage));
     ////
-    // Déteminer le type
+    // Déterminer le type
     (image.type === 'uint8') ? median8bit(): median1632bit();
     return outputRaster;
 }
