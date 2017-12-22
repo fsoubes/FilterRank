@@ -27,7 +27,7 @@ win1.addToDOM('workspace');
 
 let img2 = new T.Image('uint8',width_size,height_size);
 img2.setPixels(pixels);
-let win2 = new T.Window('Boats 8bit with variance filter not cropped');
+let win2 = new T.Window('Boats 8bit with variance filter ');
 let workflow = T.pipe(variance(kernel),T.view);
 let view2 = workflow(img2.getRaster());
 //let crop8 = T.pipe(T.crop(1,2,view2.width - kernel_size, view2.height - kernel_size), T.view);
@@ -50,7 +50,7 @@ win01.addToDOM('workspace');
 
 let img02 = new T.Image('uint16',width_size,height_size);
 img02.setPixels(uint16_blobs);
-let win02 = new T.Window('Boats uint16  with variance filter not cropped');
+let win02 = new T.Window('Boats uint16  with variance filter ');
 let workflow1 = T.pipe(variance(kernel),T.view);
 let view02 = workflow1(img02.getRaster());
 //let cropp16 = T.pipe(T.crop(1,2,view02.width - kernel_size, view02.height - kernel_size), T.view);
