@@ -274,7 +274,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 ### Median filter
 
-The Fig 7. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images 7. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image. This is probably caused by the difference of the shape of the kernels used in the algorithms : square for our implmentation and circle for ImageJ.
+The Fig 7. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images 7. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MontageMedianBoats.png)
 #### Fig 7. (A) Original image, (B) image obtained using ImageJ median filter (kernel radius equal 2), (C) image obtained using our implementation (5x5 kernel) and (D) difference between B and C.
@@ -304,7 +304,7 @@ The execution time of the algorithm increase exponentially has the resolution of
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianAltAlgo_Rplot.png)
 #### Fig. 11 Execution time benchmark analysis for an alternative algorithm for a kernel of size 5x5.
 
-The execution time for the attempted implementation increase even more rapidly than the basic implementation. The execution time is always longer than 1s, and the 1080x864 and  1440x1152 pixels images have a more than1minute execution time.
+The execution time for the attempted implementation also increase erapidly in an exponential manner. The execution time is always longer than 1s, and the 1080x864 and  1440x1152 pixels images have a more than1minute execution time.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Median_ImageJRplot.png)
 #### Fig. 12 Execution time benchmark analysis for the ImageJ median algorithm for a kernel of radius 2.
