@@ -64,7 +64,7 @@ To compute the new median value for the pixel to the right, the following algori
 	If true do Ltmdn = Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) and Mdn=Mdn+1 and re-test
 	If false Mdn is the median of the current kernel position.
 
-This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image.
+This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image. The process of sliding the kernel is presented in the Fig. A.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/median_algo3.png)  
@@ -274,7 +274,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 ### Median filter
 
-The Fig X. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images X. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image. This is probably caused by the difference of the shape of the kernels used in the algorithms : square for our implmentation and circle for ImageJ.
+The Fig 7. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images 7. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image. This is probably caused by the difference of the shape of the kernels used in the algorithms : square for our implmentation and circle for ImageJ.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MontageMedianBoats.png)
 #### Fig 7. (A) Original image, (B) image obtained using ImageJ median filter (kernel radius equal 2), (C) image obtained using our implementation (5x5 kernel) and (D) difference between B and C.
@@ -294,7 +294,7 @@ The following figure shows the result of our _variance_ function for a boat of 7
 
 ### Median filter
 
-A comparative benchmark for our own median filter against the median filter from ImageJ has been done with a set of 21 images between seven different resolution :  180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, and 1440x1152. Each set of 3 images have the same resolution but are of a different type, either 8-bit ,16-bit or float32 (or 32-bit for ImageJ). Additionally a benchmark analysis has also been done on the attempted implementation of the Huang algorithm only for 8-bit images. The benchmark results is represented down below :
+A comparative benchmark for our own median filter against the median filter from ImageJ has been done with a set of 21 images between seven different resolution :  180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, and 1440x1152. Each set of 3 images have the same resolution but are of a different type, either 8-bit ,16-bit or float32 (or 32-bit for ImageJ). Additionally a benchmark analysis has also been done on the attempted implementation of the Huang algorithm only for 8-bit images. The benchmark results is represented on the Fig 10. 11. and 12 down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianPerso_Rplot.png)
 #### Fig. 10 Execution time benchmark analysis for the implemented median algorithm for a kernel of size 5x5.
