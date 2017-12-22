@@ -285,14 +285,22 @@ The following figure shows the result of our _variance_ function for a boat of 7
 
 ### Median filter
 
+A comparative benchmark for our own median filter against the median filter from ImageJ has been done with a set of 21 images between seven different resolution :  180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, and 1440x1152. Each set of 3 images have the same resolution but are of a different type, either 8-bit ,16-bit or float32 (or 32-bit for ImageJ). Additionally a benchmark analysis has also been done on the attempted implementation of the Huang algorithm only for 8-bit images. The benchmark results is represented down below :
+
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianPerso_Rplot.png)
 #### Fig. X Execution time benchmark analysis for the implemented median algorithm for a kernel of size 5x5.
+
+The execution time of the algorithm increase exponentially has the resolution of the image increase. Up until the 720x576 pixels image there is not a noticeable difference in time between the 8-bit, 16-bit and float 32 execution time, while for higher resolution image the 8-bit image become slightly faster. Only the 180x144 pixels image as an execution time below 1s, and the image bigger than the 720x576 have an execution time of more than 10s.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/MedianAltAlgo_Rplot.png)
 #### Fig. X Execution time benchmark analysis for an alternative algorithm for a kernel of size 5x5.
 
+The execution time for the attempted implementation increase even more rapidly than the basic implementation. The execution time is always longer than 1s, and the 1080x864 and  1440x1152 pixels images have a more than1minute execution time.
+
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Median_ImageJRplot.png)
 #### Fig. X Execution time benchmark analysis for the ImageJ median algorithm for a kernel of radius 2.
+
+The ImageJ algorithm execution time also increase exponentially. The difference in execution time between the 8-bit, 16-bit and 32-bit is noticeable and increase with time with 8-bit the fastest and 32-bit the slowest.
 
 ### Min-Max filter
 A comparative benchmark for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
