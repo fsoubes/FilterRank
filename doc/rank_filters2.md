@@ -77,7 +77,7 @@ Our algorithm is based on 2 differents things, first we take care of the edges w
 According to our Teacher Mr.Jean Cristophe Taveau demand, our implementation of the algorithm works on the images types 8-bit, 16-bit and float32. Our algorithm takes care of either min or max filters like the previeous algorithm suggested, and is fully operational on kernel with a size of either 3x3,5x5,7x7,9x9,11x11,13x13.
 
 ### Filling edges 
-The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter filtre_ paramter we want to apply this function'll add extra values on the edges to help compute the min_max values of the image without interfering with the computations. The associated pseudo code is represented down below :
+The first part of the algorithm is the _remplissage_ function which allow to obtain a padded image around the edges. This function can work either for the row filter or colomns filter with the paramater _type_. Depending of the type of the images and the filter filtre_ paramater we want to apply, this function will add extra values on the edges to help compute the min_max values of the image without interfering with the computations. The associated pseudo code is represented down below :
 	
 	if type == line
            for each colomn
@@ -113,7 +113,7 @@ The first part of the algorithm is the _remplissage_ function which allow to obt
 		       listepixels.push(-1)
 
 ### 1D Filters
-The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ functions respectively for the lines and columns.The functions works as follow, for the column function, it takes colmun after column, and for each pixel of each column it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
+The second and last part of the algorithm is to compute each row or each columns after the image is padded. Two function have been developped _filtreligne_ and the  _filtrecol_ functions respectively for the lines and columns.The functions works as follow, for the column function, it takes colmun after column, and for each pixel of each column plus the added values it computes either the min or the max values according to the kernel size. The associated pseudo code for the column filter is down below : 
 
 	for each column
 	  for each line 
