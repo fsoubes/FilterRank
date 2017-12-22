@@ -337,12 +337,14 @@ On the figure 10, the execution time from the first resolution to the sixth does
 # 4.Discussion
 ## Overall quality comparison between imageJ and our algorithms
  For the median filter ..
- For the min_max filter we do obtain the same results than the imageJ functions, with a same kernelsize even if the processing is different the output remains the same for any tipe of kernel or type of images.
+ 
+ For the min_max filter we do obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains the same for any type of kernel or type of images.
  
 For the variance filter we obtained the same results as presented in the previous part. Developing this script in ECMAScript 6 tends to gain in term of visibility comparing to the java plugin with nested loops and conditional statements. However it's not totally functional the _Getcoord_ function was not written in functional mainly because the iteration is starting and ending for various size depending on the padding. Moreover _padding_ function add extra rows for the upper and left part of the pixel-matrix.
 
 ## Overall performance comparison between imageJ and our algorithms
  For the median filter ..
+ 
  For the min_max filter the execution time of imageJ compared to our algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. 
  
  For the variance filter the execution time of ImageJ compared to our algorithm is way more better due to the fact that the algorithms are not similar. Indeed, ImageJ plugin is using convolve function to compute the variance and the mean. Moreover for loops are way more faster than map, reduce or forEach. As said before the benchmark may not be that relevant caused by the web-browser (Firefox) used to perform the benchmark if the version is not up to date. Another explanation for the slowness of our algorithm can be related to the number of times that we iterate through our image. Indeed the _convolve_ function of ImageJ iterates only one time through the image pixels whereas our algorithm has to iterate multiple times multiply. Hence, the complexity will not be the same between both algorithms
