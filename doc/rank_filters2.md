@@ -1,6 +1,6 @@
+# Filters 2D (rank filters)
 # AUTHORS : *Adrien Rohan, Franck Soubès, Guillamaury Debras
 # Link to <img src="https://github.com/fsoubes/FilterRank " alt="our project GitHub" />
-# Filters 2D (rank filters)
 # 1.Introduction
 
 &nbsp;&nbsp;Since image have been digitized on a computer's memory, it has been possible to interact in new ways with those images that were otherwise impossible. This is called image proccessing, and it consist of methods used to perform operations on a digital image. Those methods are described with various algorithms that can be used for various purposes in multiple fields. Those applications are used for noise filtering and other image enhancement as well as extracting information from images. In this project, will be examined the algorithms used for three types of 2D rank filters : median, min&max and variance.  
@@ -187,7 +187,7 @@ Integral image was first implemented by using nested for loops, it was then tran
 	    sum += pixels[x + y*w];
 	    (x==0) ? output.pixelData[x+y*w] = sum:output.pixelData[x+y*w] = output.pixelData[(x-1)+y*w] + sum;
 	    
-Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. x] using the accumulator for a size equal to the width and the previous computed integral to compute the integral. 
+Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. 4] using the accumulator for a size equal to the width and the previous computed integral to compute the integral. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
 #### Fig 4. Simplified Smith–Waterman algorithm when linear gap penalty function is used
@@ -226,14 +226,14 @@ This method act as following:
 
 In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. In order to avoid black pixel in the output we're using the available crop method in the times API.
 
-For a better understanding of this pseudo code here an example of how it is working[Fig. 4.]
+For a better understanding of this pseudo code here an example of how it is working[Fig. 5.]
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
 #### Fig 5. The four shaded coordinates are used in order to compute the sum of the delineated rectangular (kernel) region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations, M represented by the diameter of the kernel, W and H by the width and the height of the array and finally yc and xc is the treated pixel by A,B,C and D. 
 
 ### Implementation of the Variancefilter() function.
 
-The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 5] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values is purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 6] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values is purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
 #### Fig 6. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
@@ -328,11 +328,11 @@ A comparative benchmark for our own  Variance filter against the Variance filter
 	
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotplot.png)
 #### Fig 15. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = Variance. 
-On the figure 9, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 6 resolutions we can see an increase of the execution time from 50ms in general up to 4500 ms. At a resolution of 1880x1440 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
+On the figure 15, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 6 resolutions we can see an increase of the execution time from 50ms in general up to 4500 ms. At a resolution of 1880x1440 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
 #### Fig 16. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = Variance. 
-On the figure 10, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function. Moreover 8bit filter is way more faster than for the two other types mainly because of the low complexity values [0...256].
+On the figure 16, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function. Moreover 8bit filter is way more faster than for the two other types mainly because of the low complexity values [0...256].
 
 # 4.Discussion
 ## Overall quality comparison between imageJ and our algorithms
