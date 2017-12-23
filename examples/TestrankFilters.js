@@ -172,14 +172,14 @@ win2222.addToDOM('workspace');
 
 // Display uint16 images
  
-
+/*
 let img1111 = new T.Image('uint16',width_size,height_size);
 img1111.setPixels(uint16_boats);
 let win01111 = new T.Window('Boats uint16 ');
 let view01111 = T.view(img1111.getRaster());
 win01111.addView(view01111);
 win01111.addToDOM('workspace');
-
+*/
 
 let img02 = new T.Image('uint16',width_size,height_size);
 img02.setPixels(uint16_boats);
@@ -195,7 +195,7 @@ win02222.addToDOM('workspace');
 
 
 // Display float32 images.
-
+/*
 
 let img001 = new T.Image('float32',width_size,height_size);
 img001.setPixels(float_boats);
@@ -203,7 +203,7 @@ let win001 = new T.Window('Blobs float32');
 let view001 = T.view(img001.getRaster());
 win001.addView(view001);
 win001.addToDOM('workspace');
-
+*/
 
 // can't crop float32
 
