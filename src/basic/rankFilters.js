@@ -376,6 +376,7 @@ const variance = (kernel) => (img,copy_mode = true) => {
     
 
     let output = T.Raster.from(img,copy_mode);
+    console.log(output.pixelData);
     let w= img.width;
     let h = img.height;
     let wk = kernel.width;
@@ -403,8 +404,8 @@ const variance = (kernel) => (img,copy_mode = true) => {
 	sum1[x] += px;
 	img2.raster.pixelData[i] = sum1[x] + ((x == 0 ) ? 0.0 : img2.raster.pixelData[i-1])
 	return sum1;},new Float32Array(w).fill(0.0));
+    console.log(img2.pixelData);
     
-
     /*
     // another method not totally functionnal but way more faster with the use of forEach however it dsnt seem faster than the reduce
     let sum = 0;
@@ -428,7 +429,9 @@ const variance = (kernel) => (img,copy_mode = true) => {
 	});
     });
    */
-    
+    console.log(output);
+    console.log(img2);
+    console.log(img2);
     getvar(padding(output,wk,w,h,false,true),padding(img2,wk,w,h,true,true),img.type,w,h,wk, true); 
  
     return output;
@@ -460,8 +463,9 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     }
     else{
 	ima = img.pixelData;
+	console.log("ok");
     }
-
+    console.log(ima);
     let new_img = [];
     while(ima.length) new_img.push(ima.splice(0,w));
     let ker = ((k-1)/2) *2;
@@ -496,9 +500,27 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
      *
      * @author Franck Soubès
      */
-
-    let img_returned =[];
+    //let img_returned =[];
     
+    let img_returned = img.reduce(function(acc,elem,x){
+	if( x > k-1 && x<h + (k-2)){
+	    computed = elem.reduce(function(acc2,elem2,y){
+		if(y > k-1 && y < w + (k-2)){
+		    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 ||// left
+		    img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 || // down
+		    img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 ||// up
+		    img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
+		    ? acc2.push(0): acc2.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]);
+		}
+		return acc2;    
+	    },[]);
+	    acc.push(computed)
+	}
+	print(acc)
+	return acc;
+    },[]);
+    
+    /*
     for (let x = k-1  ;  x <= h + (k-2) ; x++){
 	for(  let y = k-1  ; y <= w+(k-2) ; y++){
 	    
@@ -511,7 +533,17 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
 
 	}
     }
-    return img_returned; // 1d
+    */
+    
+    const flatten = (array) => {
+	return array.reduce((acc, element) => {
+	    return acc.concat(element);
+	},[]);
+    };
+    img_returned2=flatten(img_returned)
+    console.log(img_returned2)
+    return img_returned2; // 1d
+
 }
 
 const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
