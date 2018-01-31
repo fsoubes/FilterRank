@@ -75,13 +75,22 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     precision mediump float;
     
 	in vec2 v_texCoord;
-    uniform sampler2D u_image;    
-    uniform float verticalKernel[5];
-    uniform float horizontalKernel[5];
+    uniform sampler2D u_image;
+    uniform float u_horizontalOffset[13];
+    uniform float u_verticalOffset[13];
 
     out vec4 outColor;
     
     void main() {
+	//float varTest = length(u_horizontalOffset);
+	int i;
+	vec3 kernelContent[13];
+	float kernelGrey[13];
+	for (i=0;i<13;i+1){
+	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i], v_texCoord.y + u_verticalOffset[i])).rgb;
+	    kernelGrey[i] = kernelContent[i].r + kernelContent[i].g + kernelContent[i].b;
+	}
+	//outColor = vec4(kernelGrey[6]/3.0, kernelGrey[6]/3.0, kernelGrey[6]/3.0, 1.0); 
 	outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
     }`;
     
@@ -103,6 +112,8 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
+	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
+	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.run();
 
     
