@@ -3,7 +3,7 @@
  *
  * @author Jean-Christophe Taveau
  */
- 
+
 // Create an Image containing boats (from ImageJ))
 
 
@@ -18,14 +18,15 @@ img2.setPixels(new Uint16Array(uint16_boats));
 
 
 // Run CPU mean 5x5 
-let size = 3;
+let size = 5;
 let radius = size / 2.0 - 0.5;
 let kernel5x5 = cpu.convolutionKernel(
-  cpu.CPU_HARDWARE,                            // For cpu.convolve
-  cpu.KERNEL_CIRCLE,                           // Circular kernel
-  size,                                        // Circle contained in a squared kernel 5 x 5
-  radius,                                      // Radius
-  Array.from({length: size * size}).fill(1.0)  // Weights 1 for every cells (unused for rank filters but mandatory for creating kernel)
+    //cpu.CPU_HARDWARE,                            // For cpu.convolve
+    cpu.KERNEL_CIRCLE,                           // Circular kernel
+    size,                                        // Circle contained in a squared kernel 5 x 5
+    radius,                                      // Radius
+    new Array(size * size)
+    //Array.from({length: size * size}).fill(1.0)  // Weights 1 for every cells (unused for rank filters but mandatory for creating kernel)
 );
 console.log("kernel : ",kernel5x5);
 
