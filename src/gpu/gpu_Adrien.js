@@ -24,8 +24,10 @@
 
 'use script';
 /* Source
-https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
-https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html#toc
+   https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
+   https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html#toc
+   http://learnwebgl.brown37.net/rendering/buffer_object_primer.html
+   http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
 */
 /**
  * Invert colors
@@ -34,8 +36,23 @@ https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html#toc
  */
 
 const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
-    
-    let varTest=0.5;
+
+    //Create GPU kernel
+    let sizeKernel = kernel.length;
+    let horizontalOffset = new Float32Array(sizeKernel);
+    let verticalOffset = new Float32Array(sizeKernel);
+    for (let i=0; i<sizeKernel; i++){
+	horizontalOffset[i]=kernel[i].offsetX;
+	verticalOffset[i]=kernel[i].offsetY;
+    }
+    console.log(sizeKernel);
+    console.log(horizontalOffset);
+    console.log(verticalOffset);
+    /*/ Buffer
+    var buffer1 = gl.createBuffer();
+    glBindBuffer(gl.ARRAY_BUFFER, buffer);
+    glBufferData(gl.ARRAY_BUFFER, horizontalOffset, gl.STATIC_DRAW);
+    /*/
 
     let id='Adrien';
     
@@ -58,7 +75,9 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     precision mediump float;
     
 	in vec2 v_texCoord;
-    uniform sampler2D u_image;
+    uniform sampler2D u_image;    
+    uniform float verticalKernel[5];
+    uniform float horizontalKernel[5];
 
     out vec4 outColor;
     
