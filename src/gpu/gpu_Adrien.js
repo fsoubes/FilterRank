@@ -25,6 +25,7 @@
 'use script';
 /* Source
 https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
+https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html#toc
 */
 /**
  * Invert colors
