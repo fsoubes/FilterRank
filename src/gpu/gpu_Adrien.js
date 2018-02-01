@@ -82,16 +82,15 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     out vec4 outColor;
     
     void main() {
-	//float varTest = length(u_horizontalOffset);
-	int i;
+	// Second essai
+	float testArray[13];
 	vec3 kernelContent[13];
-	float kernelGrey[13];
-	for (i=0;i<13;i+1){
+	for (int i = 0; i < 13 ; i=i+1){
 	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i], v_texCoord.y + u_verticalOffset[i])).rgb;
-	    kernelGrey[i] = kernelContent[i].r + kernelContent[i].g + kernelContent[i].b;
 	}
-	//outColor = vec4(kernelGrey[6]/3.0, kernelGrey[6]/3.0, kernelGrey[6]/3.0, 1.0); 
-	outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
+	vec3 testVec = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[5], v_texCoord.y + u_verticalOffset[5])).rgb;
+	outColor = vec4(testVec, 1.0); 
+	//outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
     }`;
     
 
@@ -115,7 +114,7 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.run();
-
+    console.log(horizontalOffset);
     
     return raster;
 }
