@@ -28,6 +28,7 @@
    https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html#toc
    http://learnwebgl.brown37.net/rendering/buffer_object_primer.html
    http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
+   https://www.john-smith.me/hassles-with-array-access-in-webgl-and-a-couple-of-workarounds.html
 */
 /**
  * Invert colors
@@ -38,21 +39,15 @@
 const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 
     //Create GPU kernel
-    let sizeKernel = kernel.length;
-    let horizontalOffset = new Float32Array(sizeKernel);
-    let verticalOffset = new Float32Array(sizeKernel);
-    for (let i=0; i<sizeKernel; i++){
+    let horizontalOffset = new Float32Array(kernel.length);
+    let verticalOffset = new Float32Array(kernel.length);
+    for (let i=0; i<kernel.length; i++){
 	horizontalOffset[i]=kernel[i].offsetX;
 	verticalOffset[i]=kernel[i].offsetY;
     }
-    console.log(sizeKernel);
-    console.log(horizontalOffset);
-    console.log(verticalOffset);
-    /*/ Buffer
-    var buffer1 = gl.createBuffer();
-    glBindBuffer(gl.ARRAY_BUFFER, buffer);
-    glBufferData(gl.ARRAY_BUFFER, horizontalOffset, gl.STATIC_DRAW);
-    /*/
+    console.log("horizontalOffset : ",horizontalOffset);
+    console.log("verticalOffset : ",verticalOffset);
+    //
 
     let id='Adrien';
     
@@ -76,20 +71,47 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     
 	in vec2 v_texCoord;
     uniform sampler2D u_image;
-    uniform float u_horizontalOffset[13];
-    uniform float u_verticalOffset[13];
+    uniform int u_sizeKernel;
+    uniform float u_horizontalOffset[1000];
+    uniform float u_verticalOffset[1000];
+    uniform float u_height;
+    uniform float u_width;    
 
     out vec4 outColor;
+
+    /*/Create sort function - To complete
+    void bubbleSort(vec3 kernelContent[13]){
+	bool swapped = true;
+	int j = 0;
+	float tmp;
+	for (int c = 0; c < 3; c--){
+	    if (!swapped)
+		break;
+	    swapped = false;
+	    j++;
+	    for (int i = 0; i < 3; i++){
+		if (i >= 3 - j)
+		    break;
+		if (kernelContent[i] > kernelContent[i + 1]){
+		    tmp = kernelContent[i];
+		    kernelContent[i] = kernelContent[i + 1];
+		    kernelContent[i + 1] = tmp;
+		    swapped = true;
+		}
+	    }
+	}
+    }
+    /*/
     
     void main() {
 	// Second essai
 	float testArray[13];
 	vec3 kernelContent[13];
 	for (int i = 0; i < 13 ; i=i+1){
-	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i], v_texCoord.y + u_verticalOffset[i])).rgb;
+	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
 	}
-	vec3 testVec = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[5], v_texCoord.y + u_verticalOffset[5])).rgb;
-	outColor = vec4(testVec, 1.0); 
+	//bubbleSort(kernelContent);
+	outColor = vec4(kernelContent[6].rgb, 1.0); 
 	//outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
     }`;
     
@@ -111,8 +133,11 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
+	.uniform('u_sizeKernel', kernel.length)
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
+	.uniform('u_height', raster.height) //Ajout
+	.uniform('u_width', raster.width) //Ajout
 	.run();
     console.log(horizontalOffset);
     
