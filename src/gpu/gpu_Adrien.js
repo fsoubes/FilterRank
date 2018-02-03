@@ -107,21 +107,18 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     
     void main() {
 	// Second essai
-	float testArray[13];
-	vec3 kernelContent[13];
-	for (int i = 0; i < 13 ; i=i+1){
+	int median = u_sizeKernel/2;
+	float testArray[75];
+	vec3 kernelContent[75];
+	for (int i = 0; i < u_sizeKernel; i=i+1){
 	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
 	}
-	//bubbleSort#2
+	//bubbleSort
 	int i, j;
-	vec3 temp;
-	
-	for (i = 0; i < 13; i++)
-	{
-            for (j = 0; j < 13 - 1; j++)
-            {
-		if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b)
-		{
+	vec3 temp;	
+	for (i = 0; i < u_sizeKernel; i++){
+            for (j = 0; j < u_sizeKernel - 1; j++){
+		if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
                     temp = kernelContent[j].rgb;
                     kernelContent[j].rgb = kernelContent[j + 1].rgb;
                     kernelContent[j + 1].rgb = temp;
@@ -129,8 +126,8 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
             }
 	}
 	//
-	outColor = vec4(kernelContent[6].rgb, 1.0); 
-	//outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
+	outColor = vec4(kernelContent[median].rgb, 1.0);
+	//outColor = vec4(texture(u_image, v_texCoord).rgb, 1.0);
     }`;
     
 
