@@ -29,6 +29,8 @@
    http://learnwebgl.brown37.net/rendering/buffer_object_primer.html
    http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
    https://www.john-smith.me/hassles-with-array-access-in-webgl-and-a-couple-of-workarounds.html
+// implementation du bubblesort
+   https://en.wikibooks.org/wiki/Algorithm_Implementation/Sorting/Bubble_sort#Why_is_it_called_a_bubble_sort?
 */
 /**
  * Invert colors
@@ -110,7 +112,23 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	for (int i = 0; i < 13 ; i=i+1){
 	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
 	}
-	//bubbleSort(kernelContent);
+	//bubbleSort#2
+	int i, j;
+	vec3 temp;
+	
+	for (i = 0; i < 13; i++)
+	{
+            for (j = 0; j < 13 - 1; j++)
+            {
+		if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b)
+		{
+                    temp = kernelContent[j].rgb;
+                    kernelContent[j].rgb = kernelContent[j + 1].rgb;
+                    kernelContent[j + 1].rgb = temp;
+		}
+            }
+	}
+	//
 	outColor = vec4(kernelContent[6].rgb, 1.0); 
 	//outColor = vec4(1.0 - texture(u_image, v_texCoord).rgb, 1.0); 
     }`;
