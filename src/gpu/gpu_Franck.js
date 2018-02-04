@@ -64,6 +64,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 
     let src_fs = `#version 300 es
     precision mediump float;
+    //precision highp float;
     
     in vec2 v_texCoord;
     uniform sampler2D u_image;
@@ -85,17 +86,17 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	vec3 kernelContent[75];
 	vec3 sum = vec3(0.0);
 	vec3 sum2 = vec3(0.0);
+	
 	for (int i = 0; i < u_sizeKernel; i += 1){
-	    
 	    kernelContent[i] =  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
 	    sum += kernelContent[i];
-	    sum2 += pow(kernelContent[i], kernelContent[i]);
-	    //kernelContent[i] = sum/29.0 ;
-	    kernelContent[i] = (sum2 - (pow(sum,sum))/u_kernelsize)/(u_kernelsize - 1.0);
-	    
+	    sum2 += kernelContent[i] * kernelContent[i];
+	    kernelContent[i] = sum / u_kernelsize ;
+	    //kernelContent[i] = (sum2 - (sum*sum))/u_kernelsize)/(u_kernelsize - 1.0);
 	}
+
+	outColor = vec4(kernelContent[centralpixel].rgb * 2.0, 1.0);
 	
-	outColor = vec4(kernelContent[centralpixel].rgb, 1.0);
     }`;
 
 
