@@ -9,6 +9,14 @@
 let img = new T.Image('uint8',360,288);
 img.setPixels(new Uint8Array(boats_pixels));
 
+let img2 = new T.Image('uint16',360,288);
+let uint16_boats = boats_pixels.map ( (px) => px * 256);
+img2.setPixels(new Uint16Array(uint16_boats));
+
+let img3 = new T.Image('float32',360,288);
+let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
+img3.setPixels(float_boats);
+
 // Run CPU mean 5x5 
 let size = 5;
 let radius = size / 2.0 - 0.5;
