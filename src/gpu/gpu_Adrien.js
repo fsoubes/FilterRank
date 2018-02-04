@@ -29,6 +29,7 @@
    http://learnwebgl.brown37.net/rendering/buffer_object_primer.html
    http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
    https://www.john-smith.me/hassles-with-array-access-in-webgl-and-a-couple-of-workarounds.html
+   https://stackoverflow.com/questions/9046643/webgl-create-texture
 // implementation du bubblesort
    https://en.wikibooks.org/wiki/Algorithm_Implementation/Sorting/Bubble_sort#Why_is_it_called_a_bubble_sort?
 */
@@ -72,6 +73,7 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     precision mediump float;
     
 	in vec2 v_texCoord;
+	in vec2 v_kernelOffset; //Ajout
     uniform sampler2D u_image;
     uniform int u_sizeKernel;
     uniform float u_horizontalOffset[1000];
@@ -118,8 +120,9 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.geometry(gpu.rectangle(raster.width,raster.height))
 	.attribute('a_vertex',2,'float', 16,0)      // X, Y
 	.attribute('a_texCoord',2, 'float', 16, 8)  // S, T
+	//.attribute('a_kernelOffset',2, 'float', 16,0) // Ajout
 	.texture(raster,0)
-	//.redirectTo('raster','float32',0)///
+	//.redirectTo('raster','float32',0) / Ajout
 	.packWith(the_shader) // VAO
 	.clearCanvas([0.0,1.0,1.0,1.0])
 	.preprocess()
@@ -131,7 +134,6 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
 	.run();
-    console.log(horizontalOffset);
     
     return raster;
 }
