@@ -67,38 +67,34 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     
     in vec2 v_texCoord;
     uniform sampler2D u_image;
+    uniform float u_kernelsize;
     uniform int u_sizeKernel;
     uniform float u_horizontalOffset[1000];
     uniform float u_verticalOffset[1000];
     uniform float u_height;
-    uniform float u_width;    
+    uniform float u_width;
+    
 
     out vec4 outColor;
     
     void main() {
+
 	// Second essai
 	int centralpixel = u_sizeKernel/2;
 	float testArray[75];
 	vec3 kernelContent[75];
-	vec4 sum = vec4(0.0);
-	
-	for (int i = 0; i < u_sizeKernel; i=i+1){
+	vec3 sum = vec3(0.0);
+	vec3 sum2 = vec3(0.0);
+	for (int i = 0; i < u_sizeKernel; i += 1){
 	    
 	    kernelContent[i] =  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    sum += kernelContent[i];
+	    sum2 += pow(kernelContent[i], kernelContent[i]);
+	    //kernelContent[i] = sum/29.0 ;
+	    kernelContent[i] = (sum2 - (pow(sum,sum))/u_kernelsize)/(u_kernelsize - 1.0);
 	    
 	}
 	
-	
-	int i, j;
-	vec3 temp  ;
-	float sum1;
-	//vec4 sum = vec4(0.0);
-	for (i = 0; i < u_sizeKernel; i++){
-	    temp = kernelContent[i].rgb ;
-            kernelContent[i].rgb = temp;
-	}
-	
-	//
 	outColor = vec4(kernelContent[centralpixel].rgb, 1.0);
     }`;
 
@@ -121,14 +117,14 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
+	.uniform('u_kernelsize', kernel.length)
 	.uniform('u_sizeKernel', kernel.length)
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
 	.run();
-    console.log(horizontalOffset);
-    console.log(kernel.length);
+    console.log(raster);
     
     return raster;
 }
