@@ -80,36 +80,12 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     uniform float u_width;    
 
     out vec4 outColor;
-
-    /*/Create sort function - To complete
-    void bubbleSort(vec3 kernelContent[13]){
-	bool swapped = true;
-	int j = 0;
-	float tmp;
-	for (int c = 0; c < 3; c--){
-	    if (!swapped)
-		break;
-	    swapped = false;
-	    j++;
-	    for (int i = 0; i < 3; i++){
-		if (i >= 3 - j)
-		    break;
-		if (kernelContent[i] > kernelContent[i + 1]){
-		    tmp = kernelContent[i];
-		    kernelContent[i] = kernelContent[i + 1];
-		    kernelContent[i + 1] = tmp;
-		    swapped = true;
-		}
-	    }
-	}
-    }
-    /*/
     
     void main() {
 	// Second essai
 	int median = u_sizeKernel/2;
-	float testArray[75];
-	vec3 kernelContent[75];
+	float testArray[50];
+	vec3 kernelContent[50];
 	for (int i = 0; i < u_sizeKernel; i=i+1){
 	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
 	}
@@ -143,12 +119,13 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.attribute('a_vertex',2,'float', 16,0)      // X, Y
 	.attribute('a_texCoord',2, 'float', 16, 8)  // S, T
 	.texture(raster,0)
+	//.redirectTo('raster','float32',0)///
 	.packWith(the_shader) // VAO
 	.clearCanvas([0.0,1.0,1.0,1.0])
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
-	.uniform('u_sizeKernel', kernel.length)
+	.uniform('u_sizeKernel', kernel.length) //Ajout
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
