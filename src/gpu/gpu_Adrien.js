@@ -42,6 +42,7 @@
 const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 
     //Create GPU kernel
+    const kernelSize = kernel.length;
     let horizontalOffset = new Float32Array(kernel.length);
     let verticalOffset = new Float32Array(kernel.length);
     for (let i=0; i<kernel.length; i++){
@@ -118,15 +119,15 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     let gproc = gpu.createGPU(graphContext)
 	.size(raster.width,raster.height)
 	.geometry(gpu.rectangle(raster.width,raster.height))
-	.attribute('a_vertex',2,'float', 16,0)      // X, Y
-	.attribute('a_texCoord',2, 'float', 16, 8)  // S, T
-	.texture(raster,0)
+	.attribute('a_vertex', 2, 'float', 16, 0)      // X, Y
+	.attribute('a_texCoord', 2, 'float', 16, 8)  // S, T
+	.texture(raster, 0)
 	.packWith(the_shader) // VAO
 	.clearCanvas([0.0,1.0,1.0,1.0])
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
-	.uniform('u_sizeKernel', kernel.length) //Ajout
+	.uniform('u_sizeKernel', kernelSize) //Ajout
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout

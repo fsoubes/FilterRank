@@ -12,10 +12,12 @@ img.setPixels(new Uint8Array(boats_pixels));
 let img2 = new T.Image('uint16',360,288);
 let uint16_boats = boats_pixels.map ( (px) => px * 256);
 img2.setPixels(new Uint16Array(uint16_boats));
+console.log(img2.getRaster());
 
 let img3 = new T.Image('float32',360,288);
 let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
-img3.setPixels(float_boats);
+img3.setPixels(new Float32Array(float_boats));
+console.log(img3.getRaster());
 
 // Run CPU mean 5x5 
 let size = 5;
