@@ -30,6 +30,7 @@
    http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
    https://www.john-smith.me/hassles-with-array-access-in-webgl-and-a-couple-of-workarounds.html
    https://stackoverflow.com/questions/9046643/webgl-create-texture
+   https://github.com/Sophia-Gold/WebGL-Convolution-Shaders/blob/master/index.html
 // implementation du bubblesort
    https://en.wikibooks.org/wiki/Algorithm_Implementation/Sorting/Bubble_sort#Why_is_it_called_a_bubble_sort?
 */
@@ -51,7 +52,10 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     }
     console.log("horizontalOffset : ",horizontalOffset);
     console.log("verticalOffset : ",verticalOffset);
-    //
+    /*/ New raster ?
+    let kernelRaster = new T.Raster('float32',kernel.length,1);
+    kernelRaster.pixelData = horizontalOffset;
+    /*/
 
     let id='Adrien';
     
@@ -80,14 +84,13 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     uniform float u_horizontalOffset[500];
     uniform float u_verticalOffset[500];
     uniform float u_height;
-    uniform float u_width;    
+    uniform float u_width;
 
     out vec4 outColor;
     
     void main() {
-	// Second essai
+	// Actual
 	int median = u_sizeKernel/2;
-	float testArray[50];
 	vec3 kernelContent[50];
 	for (int i = 0; i < u_sizeKernel; i=i+1){
 	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
@@ -132,7 +135,10 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
-	.run();
+	//.texture(kernelRaster);
+	//.uniform('u_horizontalOffset2', );
+    
+    gproc.run();
     
     return raster;
 }
