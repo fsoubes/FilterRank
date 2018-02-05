@@ -76,8 +76,8 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	in vec2 v_kernelOffset; //Ajout
     uniform sampler2D u_image;
     uniform int u_sizeKernel;
-    uniform float u_horizontalOffset[1000];
-    uniform float u_verticalOffset[1000];
+    uniform float u_horizontalOffset[500];
+    uniform float u_verticalOffset[500];
     uniform float u_height;
     uniform float u_width;    
 
@@ -120,9 +120,7 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.geometry(gpu.rectangle(raster.width,raster.height))
 	.attribute('a_vertex',2,'float', 16,0)      // X, Y
 	.attribute('a_texCoord',2, 'float', 16, 8)  // S, T
-	//.attribute('a_kernelOffset',2, 'float', 16,0) // Ajout
 	.texture(raster,0)
-	//.redirectTo('raster','float32',0) / Ajout
 	.packWith(the_shader) // VAO
 	.clearCanvas([0.0,1.0,1.0,1.0])
 	.preprocess()
