@@ -155,7 +155,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
 	.run();
-  
+    console.log(raster);
 
     return raster;
 }
