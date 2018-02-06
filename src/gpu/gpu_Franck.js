@@ -65,7 +65,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     let src_fs = `#version 300 es
     precision mediump float;
     //precision highp float;
-    
+
     in vec2 v_texCoord;
     uniform sampler2D u_image;
     uniform float u_kernelsize;
@@ -74,29 +74,59 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     uniform float u_verticalOffset[1000];
     uniform float u_height;
     uniform float u_width;
-    
+
 
     out vec4 outColor;
-    
-    void main() {
 
-	// Second essai
-	int centralpixel = u_sizeKernel/2;
-	float testArray[75];
-	vec3 kernelContent[75];
+
+
+    void main() {
+      /*
+	float variance(vec3 kernelContent,float u_kernelsize)
+	{
 	vec3 sum = vec3(0.0);
 	vec3 sum2 = vec3(0.0);
-	
-	for (int i = 0; i < u_sizeKernel; i += 1){
-	    kernelContent[i] =  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	    sum += kernelContent[i];
-	    sum2 += kernelContent[i] * kernelContent[i];
-	    kernelContent[i] = sum / u_kernelsize ;
-	    //kernelContent[i] = (sum2 - (sum*sum))/u_kernelsize)/(u_kernelsize - 1.0);
+	float mean ;
+	for (int i =0 <u_sizeKernel; i+=1)
+	{
+	    sum += kernelContent[i].rgb;
 	}
 
-	outColor = vec4(kernelContent[centralpixel].rgb * 2.0, 1.0);
-	
+	mean = sum/u_kernelsize ;
+
+	for (int j = 0 < u_sizeKernel; j+=1)
+	{
+	    sum2 += (kernelContent[j].rgb - mean)*(kernelContent[j] - mean);
+	}
+
+	variance = sum2/(u_kernelsize -1.0);
+
+	return variance;
+	}
+    */
+
+	// Second essai
+
+	vec3 kernelContent[75];
+
+	vec3 sum  = vec3(0.0);
+	vec3 sum2 = vec3(0.0);
+	vec3 mean = vec3(0.0);
+	vec3 variance = vec3(0.0);;
+	vec3 normal ;
+
+	for (int i = 0; i < u_sizeKernel; i += 1){
+
+	    //normal=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    sum +=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    //mean = sum/u_kernelsize ;
+	    sum2 +=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb ;
+	    variance = (sum2 - (sum * sum)/ u_kernelsize)*255.00;
+
+	}
+	//outColor = vec4(normal,1.0);
+	//outColor = vec4(mean, 1.0);
+	outColor = vec4(variance/(u_kernelsize - 1.0),1.0);
     }`;
 
 
@@ -105,7 +135,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     let the_shader = gpu.createProgram(graphContext,src_vs,src_fs);
 
     console.log('programs done...');
-    
+
     // Step #2: Create a gpu.Processor, and define geometry, attributes, texture, VAO, .., and run
     let gproc = gpu.createGPU(graphContext)
 	.size(raster.width,raster.height)
@@ -115,7 +145,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	.texture(raster,0)
 	.packWith(the_shader) // VAO
 	.clearCanvas([0.0,1.0,1.0,1.0])
-	.preprocess()
+        .preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
 	.uniform('u_kernelsize', kernel.length)
@@ -126,8 +156,6 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_width', raster.width) //Ajout
 	.run();
     console.log(raster);
-    
+
     return raster;
 }
-
-
