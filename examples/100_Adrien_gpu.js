@@ -8,8 +8,8 @@
 // Create an Image containing boats (from ImageJ))
 let img = new T.Image('uint8',360,288);
 img.setPixels(new Uint8Array(boats_pixels));
-let img = new T.Image('uint8',1080,864);
-img.setPixels(new Uint8Array(boats_1080x864));
+//let img = new T.Image('uint8',1080,864);
+//img.setPixels(new Uint8Array(boats_1080x864));
 
 let img2 = new T.Image('uint16',360,288);
 let uint16_boats = boats_pixels.map ( (px) => px * 256);
