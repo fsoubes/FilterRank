@@ -50,12 +50,6 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	horizontalOffset[i]=kernel[i].offsetX;
 	verticalOffset[i]=kernel[i].offsetY;
     }
-    console.log("horizontalOffset : ",horizontalOffset);
-    console.log("verticalOffset : ",verticalOffset);
-    /*/ New raster ?
-    let kernelRaster = new T.Raster('float32',kernel.length,1);
-    kernelRaster.pixelData = horizontalOffset;
-    /*/
 
     let id='Adrien';
     
@@ -73,7 +67,7 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	vec2 clipSpace = a_vertex * u_resolution * 2.0 - 1.0;
 	gl_Position = vec4( clipSpace * vec2(1,-1), 0.0, 1.0);
     }`;
-
+/*
     let src_fs = `#version 300 es
     precision mediump float;
     
@@ -110,7 +104,59 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	//
 	outColor = vec4(kernelContent[median].rgb, 1.0);
 	//outColor = vec4(texture(u_image, v_texCoord).rgb, 1.0);
-    }`;
+    }`;*/
+
+
+    //Essai 2
+    function parse() {
+	let args=kernel.length;
+	// Build the code
+	let arg_horizontalOffset= `uniform float u_horizontalOffset[${args}];`;
+	let arg_verticalOffset= `uniform float u_verticalOffset[${args}];`;
+	let func_code = `vec4 funcMedian() {
+	    int median = u_sizeKernel/2;
+	    vec3 kernelContent[${args}];
+	    for (int i = 0; i < u_sizeKernel; i=i+1){
+		kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    }
+	    int i, j;
+	    vec3 temp;	
+	    for (i = 0; i < u_sizeKernel; i++){
+		for (j = 0; j < u_sizeKernel - 1; j++){
+		    if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
+			temp = kernelContent[j].rgb;
+			kernelContent[j].rgb = kernelContent[j + 1].rgb;
+			kernelContent[j + 1].rgb = temp;
+		    }
+		}
+	    }
+	    return vec4(kernelContent[median].rgb, 1.0);	    
+	}`;
+
+	let template = `#version 300 es
+	precision mediump float;
+	
+	    in vec2 v_texCoord;
+	    in vec2 v_kernelOffset;
+	uniform sampler2D u_image;
+	uniform int u_sizeKernel;
+	${arg_horizontalOffset}
+	${arg_verticalOffset}
+	uniform float u_height;
+	uniform float u_width;
+
+	out vec4 outColor;
+
+	${func_code}
+	
+	void main() {
+            outColor = vec4(funcMedian()); 
+	}`;
+
+	return template;
+    }
+    let src_fs = parse();
+    //
     
 
     // Step #1: Create - compile + link - shader program
@@ -135,8 +181,6 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
-	//.texture(kernelRaster);
-	//.uniform('u_horizontalOffset2', );
     
     gproc.run();
     
