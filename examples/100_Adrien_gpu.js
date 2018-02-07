@@ -17,7 +17,7 @@ img2.setPixels(new Uint16Array(uint16_boats));
 console.log(img2.getRaster());
 
 let img3 = new T.Image('float32',360,288);
-let float_boats = boats_pixels.map( (px) => px/128 - 1.0);
+let float_boats = boats_pixels.map( (px) => px/256);
 img3.setPixels(new Float32Array(float_boats));
 console.log(img3.getRaster());
 

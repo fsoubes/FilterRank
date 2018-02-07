@@ -67,48 +67,66 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	vec2 clipSpace = a_vertex * u_resolution * 2.0 - 1.0;
 	gl_Position = vec4( clipSpace * vec2(1,-1), 0.0, 1.0);
     }`;
-/*
-    let src_fs = `#version 300 es
-    precision mediump float;
-    
-	in vec2 v_texCoord;
-	in vec2 v_kernelOffset; //Ajout
-    uniform sampler2D u_image;
-    uniform int u_sizeKernel;
-    uniform float u_horizontalOffset[500];
-    uniform float u_verticalOffset[500];
-    uniform float u_height;
-    uniform float u_width;
 
-    out vec4 outColor;
-    
-    void main() {
-	// Actual
-	int median = u_sizeKernel/2;
-	vec3 kernelContent[50];
-	for (int i = 0; i < u_sizeKernel; i=i+1){
-	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	}
-	//bubbleSort
-	int i, j;
-	vec3 temp;	
-	for (i = 0; i < u_sizeKernel; i++){
-            for (j = 0; j < u_sizeKernel - 1; j++){
-		if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
-                    temp = kernelContent[j].rgb;
-                    kernelContent[j].rgb = kernelContent[j + 1].rgb;
-                    kernelContent[j + 1].rgb = temp;
+    // 16bit and float32 implementation
+    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType) => {
+	return `#version 300 es
+        #pragma debug(on)
+
+	precision mediump usampler2D;
+	precision mediump float;
+	
+	    in vec2 v_texCoord;
+	const float maxUint16 = 65535.0;
+	uniform ${samplerType} u_image;
+	uniform int u_sizeKernel;
+	uniform float u_horizontalOffset[${kernelLength}];
+	uniform float u_verticalOffset[${kernelLength}];
+	uniform float u_height;
+	uniform float u_width;
+	out vec4 outColor;
+	
+	void main() {
+	    int median = ${kernelLength}/2;
+	    ${vectorType} kernelContent[${kernelLength}];
+	    for (int i = 0; i < ${kernelLength}; i=i+1){
+		kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    }
+	    int i, j;
+	    ${vectorType} temp;	
+	    for (i = 0; i < ${kernelLength}; i++){
+		for (j = 0; j < ${kernelLength} - 1; j++){
+		    if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
+			temp = kernelContent[j].rgb;
+			kernelContent[j].rgb = kernelContent[j + 1].rgb;
+			kernelContent[j + 1].rgb = temp;
+		    }
 		}
-            }
-	}
-	//
-	outColor = vec4(kernelContent[median].rgb, 1.0);
-	//outColor = vec4(texture(u_image, v_texCoord).rgb, 1.0);
-    }`;*/
+	    }
+	    outColor = vec4(${outVec}, 1.0); 
+	}`;
+    }
+
+    // Step #1: Create - compile + link - shader program
+    // Set up fragment shader source depending of raster type (uint8, uint16, float32,rgba)
+    let samplerType = (raster.type === 'uint16') ? 'usampler2D' : 'sampler2D';
+    let vectorType = (raster.type === 'uint16') ? `uvec3` : `vec3`;
+    let outColor;
+    switch (raster.type) {
+    case 'uint8':  
+    case 'rgba' : outColor = `kernelContent[median].rgb`; break; 
+    case 'uint16': outColor = `vec3(float(kernelContent[median].r) / maxUint16 )`; break; 
+    case 'float32': outColor = `vec3(kernelContent[median].r)`; break; 
+    }
+
+    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType));
+
+    console.log('programs done...');
+    //
 
 
     //Essai 2
-    function parse() {
+    /*function parse() {
 	let args=kernel.length;
 	// Build the code
 	let arg_horizontalOffset= `uniform float u_horizontalOffset[${args}];`;
@@ -162,14 +180,12 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
     // Step #1: Create - compile + link - shader program
     let the_shader = gpu.createProgram(graphContext,src_vs,src_fs);
 
-    console.log('programs done...');
+    console.log('programs done...');*/
     
     // Step #2: Create a gpu.Processor, and define geometry, attributes, texture, VAO, .., and run
     let gproc = gpu.createGPU(graphContext)
-	.size(raster.width,raster.height);
-
-    let ext = gproc.context.getExtension('EXT_color_buffer_float');
-    gproc.geometry(gpu.rectangle(raster.width,raster.height))
+	.size(raster.width,raster.height)
+	.geometry(gpu.rectangle(raster.width,raster.height))
 	.attribute('a_vertex', 2, 'float', 16, 0)      // X, Y
 	.attribute('a_texCoord', 2, 'float', 16, 8)  // S, T
 	.texture(raster, 0)
@@ -178,14 +194,12 @@ const Adrien = (raster, graphContext, kernel, copy_mode = true) => {
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
-	.uniform('u_sizeKernel', kernelSize) //Ajout
+	//.uniform('u_sizeKernel', kernel.length) //Ajout
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
-    
-    
-    gproc.run();
+	.run();
     
     return raster;
 }
