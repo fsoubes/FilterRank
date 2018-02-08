@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+<title>MinFilter-MaxFilter-GPU</title>
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+<link rel="stylesheet" type="text/css" href="../css/times.css">
+<script type="text/javascript" src="../javascripts/TIMES.bundle.js"></script>
+<script type="text/javascript" src="../samples/boats_360x288.js"></script>
+<script type="text/javascript" src="../benchmark/boats_720x576.js"></script>
+<script type="text/javascript" src="../benchmark/boats_1080x864.js"></script>
+<script type="text/javascript" src="../samples/blobs_256x254.js"></script>
+<script type="text/javascript" src="../samples/clown_rgba8888_320x200.js"></script>
+
+</head>
+<body>
+<div id="workspace">
+<article class="gpu_window">
+<header class="theader">
+<label>Minimum and Maximum filter</label>
+</header>
+
+<content>
+  <canvas id="preview" width="256" height="256"></canvas>
+  <canvas id="preview" width="256" height="256"></canvas>
+  <canvas id="preview" width="256" height="256"></canvas>
+  
+
+</content>
+<footer class="tfooter">
+<p class="tstatus" id="boats_status"></p>
+</footer>
+</article>
+<div id="performance"></div>
+
+</div>
+<script type="text/javascript" src="../src/gpu/minfiltergpu.js"></script>
+<script type="text/javascript" src="../src/gpu/maxfiltergpu.js"></script>
+<script type="text/javascript" src="./100_minmaxfilter_gpu.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
