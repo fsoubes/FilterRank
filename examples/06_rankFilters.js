@@ -39,9 +39,11 @@
 
   // Define kernel
   let size = 3 ;
-  let radius = size / 2.0 - 0.5;
+    //let radius = size / 2.0 - 0.5;
+    let radius = size;
   let kernel = cpu.convolutionKernel(
-    cpu.KERNEL_CIRCLE,                    // Circular or square kernel
+      //cpu.KERNEL_CIRCLE,
+      cpu.KERNEL_SQUARE ,                   // Circular or square kernel
     size,                          // kernel width - Square size kernel 5 x 5
     radius,                        // kernel height or radius depending of the kernel type
     new Array(size * size)         // Weights. Unused for rank filters but mandatory for creating kernel.
