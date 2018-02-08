@@ -28,7 +28,8 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 In image processing, variance filter is often used for highlighting edges in the image by replacing each pixel with the neighbourhood variance. 
 
 ![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/computational.png)
-##### Equation_1: Variance filter is the square of the standard deviation, where u(x) is image intensity at the location x(x1, x2), σ represent the standard deviation, W is size of a filtering window, u(x-q) is the set of all pixels within the filtering window and q is an element of the set W.
+##### Equation_1: Variance filter is computed here by substracting the sum of the pixel square with two times the sum divided by the number of pixels in the kernel and overall divided by the number of pixels - 1.
+
 
 This filter is implemented in imageJ through the class rankfilters in java. For variance algorithm, according to the input image and the size of the kernel, it will not react in the same way. If the kernel’s radius size is less than 2 (5x5), it will compute the sum over all the pixels, whereas for a kernel’s radius size greater than 2, the sum won’t be calculated. In that case this sum is calculated for the first pixel of every line only. For the following pixels, it’ll add the new values and subtract those that are not in the sum any more. This way, the computational time is then reduced. Once, the kernel reaches the end of the thread, it start over at the next line until the end of the input image. It’s notable that the variance algorithm is closely related to the mean algorithm. 
 &nbsp;In application, this algorithm works by using one “window” defined here by a circular kernel, which slides, entry by entry until the end of the signal. It can process through rows or columns.
@@ -42,4 +43,13 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 ![alg_3](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_3.png)  
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
+
+### Choice of algorithm for webgl implementation
+
+The naiv algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[!cite  Grzegorz Sarwas
+and Sławomir Skoneczny, Object Localization and Detection Using Variance Filter] these algorithms are running only with the CPU. However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
+
+### Webgl implementation
+
+
 
