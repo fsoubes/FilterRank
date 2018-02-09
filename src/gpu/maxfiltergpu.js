@@ -30,16 +30,18 @@
    http://www.falloutsoftware.com/tutorials/gl/webgl-1.htm
    https://www.john-smith.me/hassles-with-array-access-in-webgl-and-a-couple-of-workarounds.html
    https://stackoverflow.com/questions/9046643/webgl-create-texture
+   https://github.com/Sophia-Gold/WebGL-Convolution-Shaders/blob/master/index.html
 // implementation du bubblesort
    https://en.wikibooks.org/wiki/Algorithm_Implementation/Sorting/Bubble_sort#Why_is_it_called_a_bubble_sort?
 */
 /**
- * Invert colors
+ * MinimunFilter
  *
  * @author Jean-Christophe Taveau
+ * @author Guillamaury Debras
  */
 
-const Guillamaury = (raster, graphContext, kernel, copy_mode = true) => {
+const maximumFilter = (raster, graphContext, kernel, copy_mode = true) => {
 
     //Create GPU kernel
     const kernelSize = kernel.length;
@@ -49,11 +51,8 @@ const Guillamaury = (raster, graphContext, kernel, copy_mode = true) => {
 	horizontalOffset[i]=kernel[i].offsetX;
 	verticalOffset[i]=kernel[i].offsetY;
     }
-    console.log("horizontalOffset : ",horizontalOffset);
-    console.log("verticalOffset : ",verticalOffset);
-    //
 
-    let id='Guillamaury';
+    let id='maximumFilter';
     
     let src_vs = `#version 300 es
 	in vec2 a_vertex;
@@ -69,48 +68,70 @@ const Guillamaury = (raster, graphContext, kernel, copy_mode = true) => {
 	gl_Position = vec4( clipSpace * vec2(1,-1), 0.0, 1.0);
     }`;
 
-    let src_fs = `#version 300 es
-    precision mediump float;
-    
-	in vec2 v_texCoord;
-	in vec2 v_kernelOffset; //Ajout
-    uniform sampler2D u_image;
-    uniform int u_sizeKernel;
-    uniform float u_horizontalOffset[500];
-    uniform float u_verticalOffset[500];
-    uniform float u_height;
-    uniform float u_width;    
-    out vec4 outColor;
-    
-    void main() {
-	// Second essai
-	int min = u_sizeKernel/2;
-	float testArray[50];
-	vec3 kernelContent[50];
-	for (int i = 0; i < u_sizeKernel; i=i+1){
-	    kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	}
-	//min
-	int i=0;
-	vec3 min;
+    // 16bit and float32 implementation
+    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType) => {
+	return `#version 300 es
+        #pragma debug(on)
+	precision mediump usampler2D;
+	precision mediump float;
+	
+	    in vec2 v_texCoord;
+	const float maxUint16 = 65535.0;
+	uniform ${samplerType} u_image;
+	uniform int u_sizeKernel;
+	uniform float u_horizontalOffset[${kernelLength}];
+	uniform float u_verticalOffset[${kernelLength}];
+	uniform float u_height;
+	uniform float u_width;
+	out vec4 outColor;
+	
+	void main() {
+	    int median = ${kernelLength}/2;
+	    ${vectorType} kernelContent[${kernelLength}];
+	    for (int i = 0; i < ${kernelLength}; i=i+1){
+		kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
+	    }
+	    int i, j;
+	    ${vectorType} temp;	
+	    for (i = 0; i < ${kernelLength}; i++){
+		for (j = 0; j < ${kernelLength} - 1; j++){
+		    if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b > kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
+			temp = kernelContent[j].rgb;
+			kernelContent[j].rgb = kernelContent[j + 1].rgb;
+			kernelContent[j + 1].rgb = temp;
+		    }
+		}
+	    }
 
-	min = Math.min(kernelContent[i:u_sizeKernel].rgb);
-	for (int i =0 ; i< u_sizeKernel; i+=1){
-	    kernelContent[i].rgb = min;
-	}
-	
-	
-	
-	//
-	outColor = vec4(kernelContent[min].rgb, 1.0);
-	
-    }`;
-    
+	    int p=0;
+	    
+	    ${vectorType} max = kernelContent[0].rgb;
+	    for (p = 0; p < ${kernelLength}; p++){
+		kernelContent[p].rgb = max;
+	    }
+	    outColor = vec4(${outVec}, 1.0); 
+	}`;
+    }
 
     // Step #1: Create - compile + link - shader program
-    let the_shader = gpu.createProgram(graphContext,src_vs,src_fs);
+    // Set up fragment shader source depending of raster type (uint8, uint16, float32,rgba)
+    let samplerType = (raster.type === 'uint16') ? 'usampler2D' : 'sampler2D';
+    let vectorType = (raster.type === 'uint16') ? `uvec3` : `vec3`;
+    let outColor;
+    switch (raster.type) {
+    case 'uint8':  
+    case 'rgba' : outColor = `kernelContent[median].rgb`; break; 
+    case 'uint16': outColor = `vec3(float(kernelContent[median].r) / maxUint16 )`; break; 
+    case 'float32': outColor = `vec3(kernelContent[median].r)`; break; 
+    }
+
+    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType));
 
     console.log('programs done...');
+    //
+
+
+
     
     // Step #2: Create a gpu.Processor, and define geometry, attributes, texture, VAO, .., and run
     let gproc = gpu.createGPU(graphContext)
@@ -124,7 +145,7 @@ const Guillamaury = (raster, graphContext, kernel, copy_mode = true) => {
 	.preprocess()
 	.uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
 	.uniform('u_image',0)
-	.uniform('u_sizeKernel', kernelSize) //Ajout
+	//.uniform('u_sizeKernel', kernel.length) //Ajout
 	.uniform('u_horizontalOffset', horizontalOffset) //Ajout
 	.uniform('u_verticalOffset', verticalOffset) //Ajout
 	.uniform('u_height', raster.height) //Ajout
@@ -133,5 +154,4 @@ const Guillamaury = (raster, graphContext, kernel, copy_mode = true) => {
     
     return raster;
 }
-
-export {Guillamaury};
+//export {minimumFilter};
