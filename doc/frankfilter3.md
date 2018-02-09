@@ -46,7 +46,7 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 
 ### Choice of algorithm for webgl implementation
 
-The naiv algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[!cite  Grzegorz Sarwas
+The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[!cite  Grzegorz Sarwas
 and Sławomir Skoneczny, Object Localization and Detection Using Variance Filter] these algorithms are running only with the CPU. However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
 
 ### Webgl implementation
