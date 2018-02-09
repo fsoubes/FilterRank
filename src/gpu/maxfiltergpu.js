@@ -131,56 +131,7 @@ const maximumFilter = (raster, graphContext, kernel, copy_mode = true) => {
     //
 
 
-    //Essai 2
-    /*function parse() {
-	let args=kernel.length;
-	// Build the code
-	let arg_horizontalOffset= `uniform float u_horizontalOffset[${args}];`;
-	let arg_verticalOffset= `uniform float u_verticalOffset[${args}];`;
-	let func_code = `vec4 funcMedian() {
-	    int median = u_sizeKernel/2;
-	    vec3 kernelContent[${args}];
-	    for (int i = 0; i < u_sizeKernel; i=i+1){
-		kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	    }
-	    int i, j;
-	    vec3 temp;	
-	    for (i = 0; i < u_sizeKernel; i++){
-		for (j = 0; j < u_sizeKernel - 1; j++){
-		    if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r + kernelContent[j].g + kernelContent[j].b){
-			temp = kernelContent[j].rgb;
-			kernelContent[j].rgb = kernelContent[j + 1].rgb;
-			kernelContent[j + 1].rgb = temp;
-		    }
-		}
-	    }
-	    return vec4(kernelContent[median].rgb, 1.0);	    
-	}`;
-	let template = `#version 300 es
-	precision mediump float;
-	
-	    in vec2 v_texCoord;
-	    in vec2 v_kernelOffset;
-	uniform sampler2D u_image;
-	uniform int u_sizeKernel;
-	${arg_horizontalOffset}
-	${arg_verticalOffset}
-	uniform float u_height;
-	uniform float u_width;
-	out vec4 outColor;
-	${func_code}
-	
-	void main() {
-            outColor = vec4(funcMedian()); 
-	}`;
-	return template;
-    }
-    let src_fs = parse();
-    //
-    
-    // Step #1: Create - compile + link - shader program
-    let the_shader = gpu.createProgram(graphContext,src_vs,src_fs);
-    console.log('programs done...');*/
+
     
     // Step #2: Create a gpu.Processor, and define geometry, attributes, texture, VAO, .., and run
     let gproc = gpu.createGPU(graphContext)
