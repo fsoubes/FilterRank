@@ -28,9 +28,10 @@
 https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
 */
 /**
- * Invert colors
+ * Variance filter
  *
  * @author Jean-Christophe Taveau
+ * @author Franck Soubès
  */
 
 const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
@@ -39,9 +40,10 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     let sizeKernel = kernel.length;
     let horizontalOffset = kernel.map((i) => i.offsetX);
     let verticalOffset = kernel.map((i) => i.offsetY);
+    
 
 
-    let id= 'Franck';
+    let id= 'Variance Filter';
 
     let src_vs = `#version 300 es
     in vec2 a_vertex;
@@ -55,9 +57,8 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
   	gl_Position = vec4( clipSpace * vec2(1,-1), 0.0, 1.0);
     }`;
 
-
-
-    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType) => {
+    
+    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType,uintType) => {
 	return `#version 300 es
         #pragma debug(on)
 
@@ -71,60 +72,70 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	uniform float u_verticalOffset[${kernelLength}];
 	uniform float u_height;
 	uniform float u_width;
-	uniform float u_kernelsize;
+	uniform ${uintType} u_kernelsize;
 	out vec4 outColor;
+	
 
+	void main() {
 
-    void main() {
+	
  
-	// Second essai
+	${vectorType} sum = ${vectorType}(0.0) ; 
+	${vectorType} sum2 = ${vectorType}(0.0) ; 
+	${vectorType} variance = ${vectorType}(0.0);
+	    
+	${uintType} one = ${uintType}(1.0);
+	${uintType} zero_one = ${uintType}(0.0);
+	${uintType} maxed = ${uintType}(65536.0);
+	${uintType} mined = ${uintType}(15550.0);//65536.0
 	
-	vec3 sum  = vec3(0.0);
-	vec3 sum2 = vec3(0.0);
-	vec3 mean = vec3(0.0);
-	vec3 variance = vec3(0.0);;
-	vec3 normal ;
-	//27
-	//28
-	for (int i = 0; i < ${kernelLength}; i += 1){
-	    //normal=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	    sum +=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb;
-	    //mean = sum/u_kernelsize ;
-	    sum2 +=  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb ;
-	    variance = (sum2 - (sum * sum)/ u_kernelsize)/(u_kernelsize-1.0);
-	}
 	
-	//outColor = vec4(normal,1.0);
-	//outColor = vec4(mean, 1.0);
-	//outColor = vec4(variance/(u_kernelsize - 1.0)*255.0,1.0);
-	//outColor = vec4(${outVec}, 1.0);
+	${uintType} gamma = ${uintType}(15.0);
+	${uintType} contrast = ${uintType}(1.0);
+	${uintType} brightness = ${uintType}(0.0);
+	${uintType} light = ${uintType}(0.5);
+	
+		
+	 for (int i = 0; i < ${kernelLength}; i += 1){
+	     sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
+	     sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
+	     variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
+	     /*
+	      if (variance.r <= 0.2 ) // case float 32 for boats when 0.01 only black pixels for 0.01*10 =>  pixel to 0.1
 
+	    {
+		variance.r = variance.r *50.00;
+	    }
+	     else
+	     {
+		 variance.r = 0.0 ;
+	     }
+	     */
+	 }
+	 
+	    
+	    outColor = vec4(${outVec},1.0 );
+ 	
     }`;
     }
+
     let samplerType = (raster.type === 'uint16') ? 'usampler2D' : 'sampler2D';
     let vectorType = (raster.type === 'uint16') ? `uvec3` : `vec3`;
+    let uintType = (raster.type === 'uint16') ? `uint` : `float`;
     let outColor;
-    switch (raster.type) {
-    case 'uint8': outColor = `variance*255.0`; break; 
-    case 'rgba' : outColor = `1.0 - texture(u_image, v_texCoord).rgb`; break; 
-    case 'uint16': outColor = `vec3(float(variance.r) / maxUint16 )`; break;
-    case 'float32': outColor = `vec3(variance.r)*100.0`; break; 
- 
-}
-	/*
-    function equilibrate(vec3 outVec, vectorType){
-	if( vectorType === "uint8" && outVec > 255.0){
-	    outVec == 255.0;
-	}
 
-    }*/
-	    
-	
-	
-	
-    
-    // Step #1: Create - compile + link - shader program
-    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType));
+    switch (raster.type) {
+    case 'uint8': outColor = `(variance.rgb)*255.0`; break;
+    case 'rgba' : outColor = `variance.rgb`; break; 
+    case 'uint16': outColor = `vec3(variance.r)/maxUint16`; break; // dsnt work dont know why T.T
+    case 'float32': outColor = `vec3(variance.r)*55.0`; break; 
+ 
+    }
+
+	    	
+    // Step #1: Create - compile + link - shader progra
+
+    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType,uintType));
 
     console.log('programs done...');
 
@@ -150,3 +161,54 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     
     return raster;
 }
+
+	/*
+	    if (variance.r <= 0.1 ) // case float 32
+
+	    {
+		variance.r = variance.r *10.0;
+	    }
+	    else
+	    {
+		variance.r = variance.r;
+	    }
+
+	    if (variance.r < 1.0 && variance.b <1.0 && variance.g < 1.0 ) // case 8-bit
+
+	    {
+		variance.r = variance.r *255.0;
+		variance.g = variance.g *255.0;
+		variance.b = variance.b *255.0;
+	    }
+	    else
+	    {
+		variance.r = variance.r ;
+		variance.g = variance.g ;
+		variance.b = variance.b ;
+	    }
+		outColor = vec4(${outVec},1.0 );
+	    }
+	 	
+		for (int i = 0; i < ${kernelLength}; i += 1){
+	    
+	    sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).r)/(maxed);
+	    sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb)/maxed;
+	    variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
+		}
+	
+		if (variance.r < mined ) // case 16-bit
+
+	    {
+		variance.r = variance.r ;
+	    }
+	    else
+	    {
+		variance.r = zero_one;
+	    }
+
+		outColor = vec4(${outVec},1.0 );
+	    
+	    }
+	    //variance.rgb = ((variance.rgb*gamma) - light)*contrast + brightness + light;
+	    */
+	    
