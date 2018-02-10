@@ -42,7 +42,9 @@ For this project the benchmark was performed with the operating system Linux (4.
 # 3.Results
 
 ## Image results
-
+![](https://github.com/fsoubes/FilterRank/blob/master/images/min_max_fusion.png)
+#### Fig 8. (A) Original image, (B) image obtained using ImageJ maximum filter (kernel radius equal 1), (C) image obtained using our implementation (3x3 kernel) and (D) difference between B and C.
+This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ with a radius of 1, C the result of our own function with a kernel size of 3, D the difference between the imageJ and our own filter. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own which is represented in the figure D.
 
 ## Benchmark comparison between ImageJ and our implementation
 
