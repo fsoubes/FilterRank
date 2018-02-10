@@ -10,12 +10,16 @@ For an identical window the pixel value will differ in function of the filters u
 The filter that chooses the maximum or minimum values is called the maximum filter or the minimum filter. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. Lastly the variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011]. As demonstrated here our three main filters have their own field of expertise. 
 
 
-&nbsp;&nbsp;  In this report, we shall begin by describing the implementation of ouralgorithm in GPU mode of our 2 different filters. 
+&nbsp;&nbsp In this project we hhave to use a Web Graphics Library also called as WebGL which is a Javascript API for rendering interactive 2D and 3D grphics. Without using any plug-ins this can be used within any web browser. WebGL is an implementation of OpenGL ES 2.0. WebGL Library is based on allowing GPU-accelerated usage of both physics and image processing but also effects which'll become part of the web page canvas. The maintainer and designer of the WebGL Library is the non-profit Khronos Group. The program is a mix of code writen in Javascript plus shader code written in a language called OpenGL Shading Language or (GLSL), this language is extremely similar to C++ code. The principle of this Library is that the code is executed on a GPU (graphics processing unit) and not CPU for ( Central processing unit).
+
+
+
+&nbsp;&nbsp;  In this report, we shall begin by describing the implementation of our algorithm in GPU mode of our 2 different filters. 
 
 * Min/Max filter
 
 
-Next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM). The ImageJ plugins compared are the default ImageJ RankFilters plugin which has implementation for maximum and minimum  filters and the FastFilters plugin, which contains implementation for the maximum and minimum filters.  
+Next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time  for the Java Virtual Machine (JVM). The ImageJ plugins compared are the default ImageJ RankFilters plugin which has implementation for maximum and minimum  filters and the FastFilters plugin, which contains implementation for the maximum and minimum filters.  
 
 
 
@@ -61,7 +65,7 @@ The following figure shows the result of our _variance_ function for a boat of 7
 
 
 ### Min-Max filter
-A comparative benchmark of 50 iterations for our own  Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+A comparative benchmark of 50 iterations for our own GPU Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
 #### Fig 13. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
