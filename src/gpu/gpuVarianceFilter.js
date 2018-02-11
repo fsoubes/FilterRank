@@ -100,20 +100,8 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	     sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
 	     sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
 	     variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
-	     /*
-	      if (variance.r <= 0.2 ) // case float 32 for boats when 0.01 only black pixels for 0.01*10 =>  pixel to 0.1
-
-	    {
-		variance.r = variance.r *50.00;
-	    }
-	     else
-	     {
-		 variance.r = 0.0 ;
-	     }
-	     */
 	 }
-	 
-	    
+	 	    
 	    outColor = vec4(${outVec},1.0 );
  	
     }`;
