@@ -20,7 +20,9 @@
 
   // Create an Image containing boats (from ImageJ))
   let img = new T.Image('uint8',360,288);
-    img.setPixels(new Uint8Array(boats_pixels));
+  img.setPixels(new Uint8Array(boats_pixels));
+    //let img = new T.Image('uint8',256,254);
+    //img.setPixels(new Uint8Array(blobs_pixels));
 
     let img2 = new T.Image('uint16',360,288);
     let uint16_boats = boats_pixels.map ( (px) => px * 256);
@@ -39,11 +41,11 @@
 
   // Define kernel
   let size = 3 ;
-    //let radius = size / 2.0 - 0.5;
-    let radius = size;
+    let radius = size / 2.0 - 0.5;
+    //let radius = size;
   let kernel = cpu.convolutionKernel(
-      //cpu.KERNEL_CIRCLE,
-      cpu.KERNEL_SQUARE ,                   // Circular or square kernel
+      cpu.KERNEL_CIRCLE,
+      //cpu.KERNEL_SQUARE ,                   // Circular or square kernel
     size,                          // kernel width - Square size kernel 5 x 5
     radius,                        // kernel height or radius depending of the kernel type
     new Array(size * size)         // Weights. Unused for rank filters but mandatory for creating kernel.
