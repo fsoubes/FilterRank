@@ -59,6 +59,12 @@ The operation process is run 1000 times for ImageJ measurements to provide robus
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
 # 3.Results
 
+## Image result comparison between ImageJ, CPU and GPU
+
+### Variance filter 
+
+## Benchmark comparison between ImageJ, CPU and GPU
+
 ### Variance filter
 
 A comparative benchmark for our own  Variance filter against the Variance filter from imageJ has been done with a set of 24 images bewteen seven different resolution  360x288, 720x576, 900x720, 1080x864, 1440x1152, 1880x1440 and 2880x2304. Each set of 3 images have the same resolution but with a different type, either 8bit, 16bit or float32. The benchmark representation is represented down below :
