@@ -43,6 +43,123 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
 
+### implementation and pseudo-code for the integral image
+
+The Integral Image is used as a quick and effective way of calculating the sum of values (pixel values) in a given image – or a rectangular subset of a grid[^SHI2017].
+The method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Vio2001][^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included [Fig. 2].
+
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_integ1.png)
+#### Fig 2. An example of the area pixels between I(0,0) and I(x,y) included. 
+
+Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included. Here is an example[Fig. 3] of what the function should do for both input images.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_1.png)  
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
+#### Fig 3. An exemple of a image I and the new computed image I' and I''. 
+
+The implementation of this algorithm was first describe by [^BRA2007] with the following pseudo code.
+
+	for i=0 to w do
+   	sum←0
+   	  for j=0 to h do
+   	    sum ← sum + in[i, j]	  
+            if i = 0 then
+              intImg[i, j] ← sum	   
+            else	 
+              intImg[i, j] ← intImg[i − 1, j] + sum
+            end if
+   	  end for 
+	end for
+	    
+Integral image was first implemented by using nested for loops, it was then transformed in functional programming by following the ECMAScript6 syntax with first the uses of two forEach after having transform the width and the height in index with the use of map represented below this method is simply based on the previous pseudo code.
+
+
+  	  let firstintegral = width.forEach(x =>{
+	  sum = 0;
+	  height.forEach(y =>{
+	    sum += pixels[x + y*w];
+	    (x==0) ? output.pixelData[x+y*w] = sum:output.pixelData[x+y*w] = output.pixelData[(x-1)+y*w] + sum;
+	    
+Afterwards a better functional method was proposed by J.C Taveau using a reduce with the use of an accumulator in order to compute the summed-area table, this method is used in the implementation of the variance filter. This method act like the Smith-Waterman algorithm[Fig. 4] using the accumulator for a size equal to the width and the previous computed integral to compute the integral. 
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/Smith-Waterman-Algorithm-Scoring-2.png)
+#### Fig 4. Simplified Smith–Waterman algorithm when linear gap penalty function is used
+
+The main advantages of this method is that it is 100% functional whereas the previous method even if faster was not totally functional because of the two forEach moreover it uses less characters than the other method (207 characters against 336 characters). However this method has also some disadvantages caused by the accumulator that cost as an extra row and forEach is way more faster than reduce (depending on the web-browser). All of these methods are still provided in the variance filter script.
+
+### Implementation of the padding and currying computational.
+
+The image is firstly transformed from a 1d array to a 2d array. In the aim of treating the borders, we defined a constant ker obtained by the following formula:
+
+	With k = kernel
+	ker = ((k-1)/2) *2
+
+The resulting number will give to the _padding_ function the number of rows and columns that has to be added. For a kernel ("Window") of diameter 2 and 3 it will respectively padd the image of 1 black pixel or 2 black pixels. This constant is specified to our main algorithm when convolving. Indeed the first computed pixel is not the central pixel here but the first pixel in the kernel. The _padding_ function is mainly using function concat with one map to realize the padding. This method act as a curried function because it's not returning the padding with a matrix pixels of different size compare to the original input. It takes a function _padding_ whose return value is another function _getCoord_. The final result is automatically transform in 1D without the uses of any particular method. 
+
+This method act as following:
+
+	img_returned = liste	
+	for x= k-1 to h+(k-2) do
+	  for y= k-1 to w+(k-2) do     		  
+	    if img[x-1][y-1] = 0 and img[x+k-1][y-1] = 0 or
+	    img[x+k-1][y+k-1] = 0 and img[x+k-1][y-1] = 0 and img[x+k-1][y+k-1] = 0 or
+	    img[x-1][y-1] = 0 and img[x-1][y+k-1] = 0 or
+	    img[x+k-1][y+k-1] = 0 && img[x-1][y+k-1] = 0 then 
+	      img_returned = 0	   
+	    else	
+	      A = img[x-1][y-1]
+	      B = img[x+k-1][y-1]
+	      C = img[x-1][y+k-1]
+	      D = img[x+k-1][y+k-1]
+	      I = A-B-C+D
+	      img_returned = I
+	    end if
+	  end for 
+	end for
+
+In this method the borders are treated with 4 ternary condition. The first if condition treat all the left values, while the second,third and last condition are treating respetively down, up and right borders. 
+
+For a better understanding of this pseudo code here an example of how it is working[Fig. 5.]
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_coord1.png)  
+#### Fig 5. The four shaded coordinates are used in order to compute the sum of the delineated rectangular (kernel) region whith A,B,C and D respectively represented by the top left, down left, top right and down right shaded locations, M represented by the diameter of the kernel, W and H by the width and the height of the array and finally yc and xc is the treated pixel by A,B,C and D. 
+
+### Implementation of the Variancefilter() function.
+
+The last function _getvar_ takes the return of the previous function and compute the formula[Fig. 6] and repeat it for each window. _getvar_ method requires two images as parameter in order to compute this equation with the square kernel. Moreover our function considers each type of image (8bit, 16bit and float32) and convert the aberant values to the adaptated type. The threshold value for aberrant values is purely arbitrary. We consider that for a threshold of 10000000 the values beneath the threshold are set to 0 whereas the upper values are set to the maximum (256*256). For the type Float 32 the values remains between 0 and 1. This funcion is 100% functionnal using two map for iterate through the image and compute the variance value for each pixels.
+
+![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)
+#### Fig 6. Where n is the kernel diameter, I" corresponds to the sum of value of pixels in the rectangular region for the squared image and I' sum of value of pixels in the rectangular region.
+
+This formula allows us to compute  the variance of rectangular patch of image. The associated pseudo code is represented down below :
+
+	for x=0 to w do
+	  for y=0 to h do 
+	    result = (I"[x +y*w]/(kernel*kernel)) - (I'[x+y*w]/(kernel)* I'[x+y*w]/(kernel))
+	    if result > 255 and type = 8bit then
+	      var = 255	 
+	    else
+	      var = 0
+	    else if result < 10000000 and type = 16bit then 
+	      var = 0
+	    else  
+	      var = 65535
+	    else if result > 1 and type = float32 then
+	      var = 1
+	    else
+	      var = result
+	    end if
+	  end for 
+	end for
+	
+
+Finally _getvar_ function is called in the main function _variance_ with one _padding_ taking as first argument the sum of all pixels values in the original image and a second argument _padding_ taking as first argument the sum of all squared pixels values in the original image. The return raster is then cropped according to the size of the kernel in the aim of avoiding black bars in the output image.
+
 ### Choice of algorithm for webgl implementation
 
 The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[!cite  Grzegorz Sarwas
