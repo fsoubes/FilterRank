@@ -86,16 +86,21 @@ A comparative benchmark for our own  Variance filter based on integral image aga
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/montagecpucpu964x339.jpg)
 #### Fig 15. Execution time benchmark analysis with two different methods to compute the variance, one based on integral image (left) against single pass method (right) for a kernel radius = 1. 
 
-On the figure 15, the execution time for either 8bit, 16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together between the two methods except for the 8 bit filter that is way more faster than for the two other types because of the low complexity values [0...256]. However, the two methods differ by a factor of 1000 ms, that can be explain by the fact that for the integral image's method it iterates many times through the image to compute the variance whereas the one pass only iterate once.  
+On the figure 15, the execution time for either 8bit, 16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together between the two methods except for the 8 bit filter that is way more faster than for the two other types because of the low complexity values [0...256]. However, the two methods differ by a factor of 1000 ms, that can be explain by the fact that for the integral image's method it iterates many times through the image to compute the variance whereas the one pass only iterate once. Hence, the single pass method 
+fit more to a GPU implementation  mainly because of his execution time, way more faster  than the integral image method and easier to implemant.  
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
 #### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
 On the figure 16, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function. Moreover 8bit filter is way more faster than for the two other typesbecause of the low complexity values [0...256].
 
-### Benchmark CPU vs GPU vs ImageJ for two different kernel 
+### Benchmark CPU vs GPU and ImageJ for two different kernel size.
+
+This part is mainly focused on demonstrate the gape between the CPU implementation of the single pass against the GPU and ImageJ implementation of the variance filter. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montageall964x339.jpg) 
-#### Fig 16. Execution time of the variance filter for three different implementation of the one passe algorithm with ImageJ, CPU and GPU with the same algorithm . 
+#### Fig 16. Execution time of the variance filter for three different implementation of the one passe algorithm with ImageJ, CPU and GPU with the same algorithm. The left image represent the execution time of the variance filter for a kernel radius = 1 when the right image represent the execution time of the variance filter for a kernel radius = 3. 
+
+On the figure 16, the execution time ...
 
 ### Benchmark GPU vs ImageJ
 
@@ -103,6 +108,7 @@ On the figure 16, the execution time from the first resolution to the sixth does
 #### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
 
 # 4.Discussion
+
 ## Overall quality comparison between imageJ, CPU and GPU for the variance filter.
 
 ## Overall performance comparison between imageJ, CPU and GPU for the variance filter.
