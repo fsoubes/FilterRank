@@ -78,9 +78,9 @@ The following figure shows the result of our gpu implementation of variance (One
 #### Fig 9. Result of a variance processing for the  One-pass algorithm (GPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C).
 
 
-## Benchmark comparison between ImageJ, CPU and GPU
+## Benchmark comparison between ImageJ, CPU and GPU for the variance filter
 
-### Benchmark CPU vs CPU for a kernel radius = 1
+### Benchmark integral image vs one pass algorithm for a kernel radius = 1
 A comparative benchmark for our own  Variance filter based on integral image against the Variance filter based on a single has been done with a set of 7 images for seven different resolution  360x288, 720x576, 900x720, 1080x864, 1440x1152, 1880x1440 and 2880x2304. Each set of 3 images have the same resolution but with a different type, either 8bit, 16bit or float32. The benchmark representation is represented down below :
 	
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/montagecpucpu964x339.jpg)
