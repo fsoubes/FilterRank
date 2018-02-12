@@ -43,7 +43,7 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
 
-### implementation and pseudo-code for the integral image
+### Integral image algorithm
 
 The Integral Image is used as a quick and effective way of calculating the sum of values (pixel values) in a given image – or a rectangular subset of a grid[^SHI2017].
 The method for variance filtering make use of a faster algorithm to compute the variance of the pixels in a window[^Vio2001][^Sar2015]. From a starting image I, compute an image I' for which the pixel I'(x,y) take as value the sum of all pixels values in the original image between I(0,0) and I(x,y) included [Fig. 2].
