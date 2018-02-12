@@ -108,7 +108,7 @@ This figure represents in A resulting image (blobs 256x254-8bit) respectively us
 
 
 ### Min-Max filter
-A comparative benchmark of 100 iterations for our own CPU, GPU Min/Max filters against the Min/Max filters from imageJ and  has been done with a set of 18 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+A comparative benchmark of 100 iterations for our own CPU, GPU Min/Max filters against the Min/Max filters from imageJ and  has been done with a set of 18 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152 and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
 #### Fig 3. Execution time benchmark analysis against the implemented CPU min_max algorithm for a kernel size = 3, filter = max. 
@@ -121,10 +121,10 @@ On the figure 4, the execution time from the first resolution to the sixth doesn
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius5guigui.png) 
 #### Fig 5. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 5, filter = max. 
 On the figure 5, the execution time starts from 9 ms for the each type or image (8bit, 16bit,float 32) and grows slowly until a reaching point of almost 14ms for float32 image and 11ms for 8 bit and 16 bit. Those first two types share the same pattern and seems to stabilize from images with 1080 and higher. This benchmark of GPU implementation seems to be faster than ImageJ filter, indeed for any type of image the speed execution of GPU is twice faster than 
-ImageJ even though the kernel radius used in our GPU implementation was 5 unlike imageJ filter which had a radius of 3.
+ImageJ even though the kernel radius used in our GPU implementation was 5 unlike imageJ filter which had a radius of 3. From images of 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius15guigui.png) 
 #### Fig 6. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 15, filter = max. 
-
+On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an execution time around 10ms for each and every size of images. The 16 bit execution time grows exponentially from 64ms to 4267ms for the highest image size. The float 32 execution time grows as well exponentially from 50ms to 2901ms, in a strange way the float 32 curve takes less time than the 16 bit curve. We do not have any theory on why or what causes this difference.
 
 
 # 4.Discussion
