@@ -80,7 +80,7 @@ Once the array is finally sorted from the minimum to the maximum, it is simple t
 	         }
 
 
-Finally the fourth and last part of our algorithm is the creation of the fragment shader source which depends of the raster type.
+Finally the fourth and last part of our algorithm is the creation of the fragment shader source which depends of the raster type. We took the liberty of using the same example of the one that Mr Jezn-Christophe Taveau gave us accessible at @https://github.com/crazybiocomputing/times/tree/master/src/gpu.
 
 
 
