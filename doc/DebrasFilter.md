@@ -137,14 +137,13 @@ For the _minimumFilter_ and the _maximumfilter_ we almost obtain the same result
 ## Overall performance comparison between imageJ and our algorithms
 
  
- For the min_max filter the execution time of our GPU algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. Also imageJ algorithm only iterate once through the image pixels unlike our CPU algorithm which has four big steps. The GPU algorithm however is dire cqui spaasse entre imagej 15 et kernel 15
+ For the min_max filter the execution time of our GPU algorithm is better for any resolution, altought many variables have to be taken into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. Also imageJ algorithm only iterate once through the image pixels unlike our CPU algorithm which has four big steps. The GPU implementation may be the fastest with low kernel radius but with high kernel radius like 15, the executime time grows exponentially with times around 4000ms which is way over the  execution time of ImageJ which stays aroud 40ms with the same parameters.
  
  
  
 # 5.Conclusion
-In general, the execution time of every algorithm implemented are slower than the ImageJ  especially for high resolution images. The min_max and median algorithm have higher exexution time than the variance algorithm, however we do obtain close results for the similarity of the output images for each algorithm.
-For each algorithm we did try to functionalize as much as we could, and curried our functions delivering  fonctional algorithms which work with 8 bit,16bit and float32 images
-Finally the different algorithms respect what was developped in the first markdown for instance the min_max algorithm respects the process of 1D filter after 1D filter described in the first markdown, and the variance algorithm respects the algorithm proposed to calculate the variance of an image. On the other hand, the median filter has been implemented using a naive algorithm because the attempted implementation of the Huang algorithm ended more time consuming.
+In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images.
+Finally the minimum and maximum algorithms respect what was developped in class with the WEBGL conditions and respect the wEBGl API. We would like to thank Mr Jean-Christophe Taveau for the knowledge he gave us along the year on Structural Bioinformatics.
 
 
 
