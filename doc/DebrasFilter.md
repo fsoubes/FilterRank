@@ -94,8 +94,14 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 ## Image results
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/finamerge.png)
-#### Fig 8. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
+#### Fig 1. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
 This figure represents in A and D the default image (blobs 256x254-8bit) respectively using maximun and minimum filter, B and E the result of the max and minimum filters with our last CPU implementation. Last, C and F the result of the maximum and minimum filters with our GPU implementation. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own CPU implementation. The GPU implementation seems to be the same than our CPU implementation rather than the imagJ results.
+
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/finamerge.png)
+#### Fig 2. Comparativ results of the blob image between imageJ and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with the function ImageCalculator Substract with ImageJ maximum filter and our GPU implmeentation, (B) image obtained with the function ImageCalculator Substract with ImageJ minimum filter and our GPU implmementation.
+This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter.
+
 
 ## Benchmark comparison between ImageJ and our CPU and GPU implementation
 
