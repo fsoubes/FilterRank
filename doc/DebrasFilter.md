@@ -57,8 +57,8 @@ In order to get each value for a random kernel we use the _texture_ method accor
 ### Sort of the values inside the kernel
 In order to obtain the minimum and maximum values we decide to go through a basic sorting process with two loops with the pseudo code down below :
 
-	       for (i = 0; i < ${kernelLength}; i++){
-		          for (j = 0; j < ${kernelLength} - 1; j++){
+	       (for i in kernel.length){
+		          (for j in kernel.length){
 		              if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r +  
                    kernelContent[j].g + kernelContent[j].b){
 			                    temp = kernelContent[j].rgb;
@@ -82,12 +82,12 @@ Once the array is finally sorted from the minimum to the maximum, it is simple t
 
 Finally the fourth and last part of our algorithm is the creation of the fragment shader source which depends of the raster type.
 
-### sous partie
+
 
 
 ## Benchmarking analysis
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, one script was implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. 
-The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did only 50 iterations because of the amount of time that each algorithm takes.
+The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did  100 iterations .
 
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is the blob for various pixels size.
 # 3.Results
@@ -102,7 +102,7 @@ This figure represents in A and D the default image (blobs 256x254-8bit) respect
 
 
 ### Min-Max filter
-A comparative benchmark of 50 iterations for our own CPU and GPU Min/Max filters against the Min/Max filters from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+A comparative benchmark of 100 iterations for our own CPU and GPU Min/Max filters against the Min/Max filters from imageJ and our last CPU implmeentation has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
 #### Fig 13. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
