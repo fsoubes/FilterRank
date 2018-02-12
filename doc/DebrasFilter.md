@@ -98,7 +98,7 @@ For this project the benchmark was performed with the operating system Linux (4.
 This figure represents in A and D the default image (blobs 256x254-8bit) respectively using maximun and minimum filter, B and E the result of the max and minimum filters with our last CPU implementation. Last, C and F the result of the maximum and minimum filters with our GPU implementation. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own CPU implementation. The GPU implementation seems to be the same than our CPU implementation rather than the imagJ results.
 
 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/substractGPU.jpg)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/substractGPU.png)
 #### Fig 2. Comparativ results of the blob image between imageJ and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with the function ImageCalculator Substract with ImageJ maximum filter and our GPU implmeentation, (B) image obtained with the function ImageCalculator Substract with ImageJ minimum filter and our GPU implmementation.
 This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter.
 
@@ -123,15 +123,13 @@ On the figure 14, the execution time from the first resolution to the sixth does
 # 4.Discussion
 ## Overall quality comparison between imageJ and our algorithms
 
-For the median filter, slight difference on all the internal border are visible. These differences might be explained by the use of a square kernel in our implementation of the algorithm while the kernel used in ImageJ as a circular shape. The differences would most likely increase with the size of the kernel, because more pixels included in our kernel would not be included in ImageJ kernel.
+ . The differences would most likely increase with the size of the kernel, because more pixels included in our kernel would not be included in ImageJ kernel.
 
- For the min_max filter we almost obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains almost the same for any type of kernel or type of images.
- 
-For the variance filter we obtained the same results as presented in the previous part. Developing this script in ECMAScript 6 tends to gain in term of visibility comparing to the java plugin with nested loops and conditional statements. However it's not totally functional the _Getcoord_ function was not written in functional mainly because the iteration is starting and ending for various size depending on the padding. Moreover _padding_ function add extra rows for the upper and left part of the pixel-matrix. In order to avoid black pixel in the output we're using the available crop method in the times API that process is not included in the main function _variance_.
+ For the min_max filter we almost obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains almost the same for any type of kernel or type of images. These differences might be explained by the use of a square kernel in our implementation of the algorithm while the kernel used in ImageJ as a circular shape. For the GPU implementation we obtain more similarities for the CPU implementation than imageJ output.
+
 
 ## Overall performance comparison between imageJ and our algorithms
 
-It should be noted that the implementation of the Huang algorithm ended even more time consuming on the images tested. For the smallest image there is a difference of more than one order of magnitude between our 2 tested implementation for 8 b-it images (152ms to 1865ms) while the difference for the biggest image is less than one order of magnitude (70092ms to 138534ms). While our implementation of the Huang algorithm is much slower for normal sized image, it might be faster then our naive implementation for very big image. The padding also has a high cost in time. If the function did not implement the padding the output image would be smaller which might not be very inconveniant for a single use of the filter, but if the function is part of a pipeline of multiple function each not extending the border the image would end noticeably smaller than the input image which is not desirable.
  
  For the min_max filter the execution time of imageJ compared to our algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. Also imageJ algorithm only iterate once through the image pixels unlike our algorithm which has four big steps.
  
