@@ -92,8 +92,8 @@ On the figure 15, the execution time for either 8bit,16bit or float32 for an ima
 On the figure 16, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function. Moreover 8bit filter is way more faster than for the two other types mainly because of the low complexity values [0...256].
 ### Benchmark CPU vs GPU vs ImageJ for two different kernel 
 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
-#### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/montagecpugpu.jpg) 
+#### Fig 16. Execution time of the variance filter for three different implementation of the one passe algorithm with ImageJ, CPU and GPU with the same algorithm . 
 
 ### Benchmark GPU vs ImageJ
 
