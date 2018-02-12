@@ -28,7 +28,8 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 
 
-## Implementation of the min/max filter
+## Implementation of the GPU min/max filter
+
 
 
 ### sous partie
@@ -46,12 +47,12 @@ For this project the benchmark was performed with the operating system Linux (4.
 #### Fig 8. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
 This figure represents in A and D the default image (blobs 256x254-8bit) respectively using maximun and minimum filter, B and E the result of the max and minimum filters with our last CPU implementation. Last, C and F the result of the maximum and minimum filters with our GPU implementation. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own CPU implementation.
 
-## Benchmark comparison between ImageJ and our implementation
+## Benchmark comparison between ImageJ and our CPU and GPU implementation
 
 
 
 ### Min-Max filter
-A comparative benchmark of 50 iterations for our own GPU Min/Max filter against the Min/Max filter from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
+A comparative benchmark of 50 iterations for our own CPU and GPU Min/Max filters against the Min/Max filters from imageJ has been done with a set of 24 images bewteen eight different resolution 180x144, 360x288, 540x432, 720x576, 900x720, 1080x864, 1440x1152, and 1880x1440. Each set of 3 images have the same resolution but with a different type, either 8bit,16bit or float32. The benchmark representation is represented down below :
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/myRplot3.png)
 #### Fig 13. Execution time benchmark analysis against the implemented min_max algorithm for a kernel size = 3, filter = max. 
