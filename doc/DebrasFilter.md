@@ -130,15 +130,15 @@ On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an
 # 4.Discussion
 ## Overall quality comparison between imageJ and our algorithms
 
- . The differences would most likely increase with the size of the kernel, because more pixels included in our kernel would not be included in ImageJ kernel.
 
- For the min_max filter we almost obtain the same results than the imageJ functions, with a same kernel size even if the processing is different the output remains almost the same for any type of kernel or type of images. These differences might be explained by the use of a square kernel in our implementation of the algorithm while the kernel used in ImageJ as a circular shape. For the GPU implementation we obtain more similarities for the CPU implementation than imageJ output.
+
+For the _minimumFilter_ and the _maximumfilter_ we almost obtain the same results than the imageJ functions for low kernel radius. These differences that we have with the cpu implementation might be explained by the use of a square kernel in our implementation of the algorithm while the kernel used in ImageJ and GPU that we used have a circular shape.  The differences would most likely increase with the size of the kernel, because more pixels included in our kernel would not be included in ImageJ kernel.
 
 
 ## Overall performance comparison between imageJ and our algorithms
 
  
- For the min_max filter the execution time of imageJ compared to our algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. Also imageJ algorithm only iterate once through the image pixels unlike our algorithm which has four big steps.
+ For the min_max filter the execution time of our GPU algorithm is better for any resolution, altought many variables have to be take into account, first the algorithms were running on mozilla Firefox web-browser which may lead to slowness for long computations. As well, with more optimization our algorithm could be easily faster because of the presence of many loops that may be reduced. Also imageJ algorithm only iterate once through the image pixels unlike our algorithm which has four big steps.
  
  
  
