@@ -1,4 +1,4 @@
-# Filters 2D (rank filters)
+# Filters 2D (rank filters = Variance)
 # AUTHORS : *Franck Soubès
 # Link to <img src="https://github.com/fsoubes/FilterRank " alt="our project GitHub" />
 # 1.Introduction
@@ -80,8 +80,7 @@ The following figure shows the result of our gpu implementation of variance (One
 
 ## Benchmark comparison between ImageJ, CPU and GPU
 
-### Variance filter
-
+### Benchmark CPU vs CPU for a kernel radius = 1
 A comparative benchmark for our own  Variance filter against the Variance filter from imageJ has been done with a set of 24 images bewteen seven different resolution  360x288, 720x576, 900x720, 1080x864, 1440x1152, 1880x1440 and 2880x2304. Each set of 3 images have the same resolution but with a different type, either 8bit, 16bit or float32. The benchmark representation is represented down below :
 	
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotplot.png)
@@ -91,6 +90,15 @@ On the figure 15, the execution time for either 8bit,16bit or float32 for an ima
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
 #### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
 On the figure 16, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 360x288 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 1.398ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 80ms for either 16bit or 32bit when on the contrary our own algorithm goes until 20000ms for the 2880x2304 resolution. We also see that the variance imageJ algorithm execution time change between images types. Indeed it takes around 80ms for 16 bit and 32bit against 45ms for 8bit, it's two times faster for filtering an 8bit image compared to 16bit and 32bit whereas there's no particular changes for our function. Moreover 8bit filter is way more faster than for the two other types mainly because of the low complexity values [0...256].
+### Benchmark CPU vs GPU vs ImageJ for two different kernel 
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
+#### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
+
+### Benchmark GPU vs ImageJ
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/plotij.png) 
+#### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
 
 # 4.Discussion
 ## Overall quality comparison between imageJ, CPU and GPU for the variance filter.
