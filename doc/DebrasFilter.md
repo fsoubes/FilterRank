@@ -115,12 +115,15 @@ A comparative benchmark of 100 iterations for our own CPU, GPU Min/Max filters a
 On the figure 3, the execution time for either 8bit,16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together. For the first 5 resolutions we can see an increase of the execution time from 80ms in general up to 8000 ms. At a resolution of 1440x1140 and higher the line follows an exponential pattern, this is where we find our algorithm limit. Finally our algorithm has the same performance for either 8bit,16bit or float32.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot3.png) 
-#### Fig 4. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
+#### Fig 4. Execution time benchmark analysis against the CPU min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
 On the figure 4, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/imageJplot3.png) 
-#### Fig 5. Execution time benchmark analysis against the min_max algorithm of ImageJ for a kernel size = 3, filter = max. 
-On the figure 5, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
+![](https://github.com/fsoubes/FilterRank/blob/master/images/radius5gpuminfilter.png) 
+#### Fig 5. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 5, filter = max. 
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/radiusgpu15minfilter.png) 
+#### Fig 6. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 15, filter = max. 
+
 
 
 # 4.Discussion
