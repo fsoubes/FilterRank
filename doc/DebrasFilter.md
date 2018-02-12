@@ -30,7 +30,57 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 ## Implementation of the GPU min/max filter
 
+In the priveous reports, we discussed about a min_max filter function whichs operate with consecutiv 1D filters, first in row then in colomns[^Gil1993] and his CPU implementation. In this report we describe the implementation of the same king of filter but in a GPU environment.
 
+The first part of our algorithm is the creation of the GPU kernel. In order to do so we set up 2 offset, horizontal and vertical described as the pseudo code down below :
+
+           (for  i in kernel.length){
+	                 horizontalOffset[i]=kernel[i].offsetX;
+	                 verticalOffset[i]=kernel[i].offsetY;
+                   }
+                    
+The second step of our implementation is the construction of the vertex shader by initializing vertices and texture coordinates.
+
+The third step of our GPU implementation is the minimum or maximum filter itself based on the _getFragmentSource_ function, which takes as parameters the type of sample, the type of image and the kernel length.
+
+
+### Texture output
+In order to get each value for a random kernel we use the _texture_ method according to the followed pseudo code :
+
+
+        (for i in kernel){
+		           kernelContent[i] = texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y +            
+             u_verticalOffset[i] / u_height)).rgb;
+	            }
+ 
+
+### Sort of the values inside the kernel
+In order to obtain the minimum and maximum values we decide to go through a basic sorting process with two loops with the pseudo code down below :
+
+	       for (i = 0; i < ${kernelLength}; i++){
+		          for (j = 0; j < ${kernelLength} - 1; j++){
+		              if (kernelContent[j + 1].r + kernelContent[j + 1].g + kernelContent[j + 1].b < kernelContent[j].r +  
+                   kernelContent[j].g + kernelContent[j].b){
+			                    temp = kernelContent[j].rgb;
+			                    kernelContent[j].rgb = kernelContent[j + 1].rgb;
+			                    kernelContent[j + 1].rgb = temp;
+		               }
+		          }
+	       }
+We calculate for each index+1 values of blue,red and green if they are lower to the actual respectiv values if that's the case then we start to sort the array containing the values.
+
+
+### Defining minimum or maximum values inside the kernel values
+
+Once the array is finally sorted from the minimum to the maximum, it is simple to convert all the values into either the min or max values. The following code is down below :
+
+	      ${vectorType} max = kernelContent[0].rgb;
+	      for (p = 0; p < ${kernelLength}; p++){
+		         kernelContent[p].rgb = max;
+	         }
+
+
+Finally the fourth and last part of our algorithm is the creation of the fragment shader source which depends of the raster type.
 
 ### sous partie
 
