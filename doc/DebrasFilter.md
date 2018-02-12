@@ -38,13 +38,13 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, one script was implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. 
 The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did only 50 iterations because of the amount of time that each algorithm takes.
 
-For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
+For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is the blob for various pixels size.
 # 3.Results
 
 ## Image results
-![](https://github.com/fsoubes/FilterRank/blob/master/images/min_max_fusion.png)
-#### Fig 8. (A) Original image, (B) image obtained using ImageJ maximum filter (kernel radius equal 1), (C) image obtained using our implementation (3x3 kernel) and (D) difference between B and C.
-This figure represents in A the default image (boats 720x576-8bit), B the result of the max filter in imageJ with a radius of 1, C the result of our own function with a kernel size of 3, D the difference between the imageJ and our own filter. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own which is represented in the figure D.
+![](https://github.com/fsoubes/FilterRank/blob/master/images/finamerge.png)
+#### Fig 8. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
+This figure represents in A and D the default image (blobs 256x254-8bit) respectively using maximun and minimum filter, B and E the result of the max and minimum filters with our last CPU implementation. Last, C and F the result of the maximum and minimum filters with our GPU implementation. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own CPU implementation.
 
 ## Benchmark comparison between ImageJ and our implementation
 
