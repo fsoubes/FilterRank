@@ -58,10 +58,9 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     }`;
 
     
-    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType,uintType) => {
+    const getFragmentSource = (samplerType,outVec,kernelLength,vectorType,uintType,is8,is16,isfloat) => {
 	return `#version 300 es
         #pragma debug(on)
-
 	precision mediump usampler2D;
 	precision mediump float;
 	
@@ -75,9 +74,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	uniform ${uintType} u_kernelsize;
 	out vec4 outColor;
 	
-
 	void main() {
-
 	
  
 	${vectorType} sum = ${vectorType}(0.0) ; 
@@ -85,24 +82,52 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	${vectorType} variance = ${vectorType}(0.0);
 	    
 	${uintType} one = ${uintType}(1.0);
+	${uintType} formax8 = ${uintType}(255.0);
 	${uintType} zero_one = ${uintType}(0.0);
-	${uintType} maxed = ${uintType}(65536.0);
-	${uintType} mined = ${uintType}(15550.0);//65536.0
-	
-	
-	${uintType} gamma = ${uintType}(15.0);
-	${uintType} contrast = ${uintType}(1.0);
-	${uintType} brightness = ${uintType}(0.0);
-	${uintType} light = ${uintType}(0.5);
-	
-		
+	${uintType} forfloat32 = ${uintType}(50.0);
+
+	    	
 	 for (int i = 0; i < ${kernelLength}; i += 1){
 	     sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
 	     sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
 	     variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
 	 }
 	 	    
-	    outColor = vec4(${outVec},1.0 );
+	    
+	    if(${is8} == true){
+		
+		 if (variance.r*formax8 > formax8 && variance.b*formax8 > formax8 && variance.g*formax8 > formax8 ) // case 8-bit
+
+	    {
+		variance.r = formax8;
+		variance.g = formax8;
+		variance.b = formax8;
+	    }
+	    else
+	    {
+		variance.r = variance.r*formax8 ;
+		variance.g = variance.g *formax8;
+		variance.b = variance.b *formax8 ;
+
+	    }
+		outColor = vec4(${outVec},one );
+	    }
+	    if (${is16} == true){
+		outColor = vec4(${outVec},1.0 );}
+
+	    
+	    if(${isfloat} == true){
+
+		if (variance.r*forfloat32 >= one ) // case float 32
+
+		{
+		variance.r = one;
+		}
+		else
+		{
+		 variance.r = variance.r*forfloat32;
+		}		
+		outColor = vec4(${outVec},1.0 );}
  	
     }`;
     }
@@ -111,19 +136,22 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     let vectorType = (raster.type === 'uint16') ? `uvec3` : `vec3`;
     let uintType = (raster.type === 'uint16') ? `uint` : `float`;
     let outColor;
+    let is8 = (raster.type === 'uint8') ? true : false ;
+    let is16 = (raster.type === 'uint16') ? true : false ;
+    let isfloat = (raster.type === 'float32') ? true : false ;
 
     switch (raster.type) {
-    case 'uint8': outColor = `(variance.rgb)*255.0`; break;
+    case 'uint8': outColor = `(variance.rgb)`; break;
     case 'rgba' : outColor = `variance.rgb`; break; 
     case 'uint16': outColor = `vec3(variance.r)/maxUint16`; break; // dsnt work dont know why T.T
-    case 'float32': outColor = `vec3(variance.r)*55.0`; break; 
+    case 'float32': outColor = `vec3(variance.r)`; break; 
  
     }
 
 	    	
     // Step #1: Create - compile + link - shader progra
 
-    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType,uintType));
+    let the_shader = gpu.createProgram(graphContext,src_vs,getFragmentSource(samplerType,outColor, kernel.length, vectorType,uintType,is8,is16,isfloat));
 
     console.log('programs done...');
 
@@ -150,53 +178,4 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     return raster;
 }
 
-	/*
-	    if (variance.r <= 0.1 ) // case float 32
 
-	    {
-		variance.r = variance.r *10.0;
-	    }
-	    else
-	    {
-		variance.r = variance.r;
-	    }
-
-	    if (variance.r < 1.0 && variance.b <1.0 && variance.g < 1.0 ) // case 8-bit
-
-	    {
-		variance.r = variance.r *255.0;
-		variance.g = variance.g *255.0;
-		variance.b = variance.b *255.0;
-	    }
-	    else
-	    {
-		variance.r = variance.r ;
-		variance.g = variance.g ;
-		variance.b = variance.b ;
-	    }
-		outColor = vec4(${outVec},1.0 );
-	    }
-	 	
-		for (int i = 0; i < ${kernelLength}; i += 1){
-	    
-	    sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).r)/(maxed);
-	    sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb)/maxed;
-	    variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
-		}
-	
-		if (variance.r < mined ) // case 16-bit
-
-	    {
-		variance.r = variance.r ;
-	    }
-	    else
-	    {
-		variance.r = zero_one;
-	    }
-
-		outColor = vec4(${outVec},1.0 );
-	    
-	    }
-	    //variance.rgb = ((variance.rgb*gamma) - light)*contrast + brightness + light;
-	    */
-	    
