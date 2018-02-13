@@ -1,5 +1,6 @@
 # Filters 2D (rank filters = Variance)
 # AUTHORS : *Franck Soubès
+
 # Link to <img src="https://github.com/fsoubes/FilterRank " alt="our project GitHub" />
 # 1.Introduction
 
@@ -27,6 +28,7 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 In image processing, variance filter is often used for highlighting edges in the image by replacing each pixel with the neighbourhood variance. 
 
 ![GitHub Logo](https://github.com/fsoubes/FilterRank/blob/master/images/computational.png)
+
 ##### Equation_1: Variance filter is computed here by substracting the sum of the pixel square with two times the sum divided by the number of pixels in the kernel and overall divided by the number of pixels - 1 this method correspond to the naive algorithm.
 
 
@@ -40,9 +42,13 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 The basic method describe here, use a kernel that can be of different types (circular, square, diamond ...) and slide over the pixels by modifying them one by one. By definition the modifying pixel is always the central pixel. Hence, a kernel is generally always represented by odd values (3x3,5x5). In the field of the imagerie this process is referred to the convolution[^KRU1994] and it's widely use for image processing. The example below explain how a convolution mask operate over an image.    
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
+
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
+
 ![alg_3](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_3.png)  
+
 ![alg_4](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_4.png)  
+
 ![alg 5](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_5.png)
 
 ### Integral image algorithm
@@ -52,6 +58,7 @@ The method for variance filtering make use of a faster algorithm to compute the 
 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_integ1.png)
+
 #### Fig 2. An example of the area pixels between I(0,0) and I(x,y) included. 
 
 Afterwards compute an image I'' for which the pixel I''(x,y) take as value the sum of all squared pixels values in the original image between I(0,0) and I(x,y) included. Here is an example[Fig. 3] of what the function should do for both input images.
@@ -61,7 +68,9 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
-![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png)  
+
+![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png) 
+
 #### Fig 3. An exemple of a image I and the new computed image I' and I''. 
 
 To compute the variance for a window B on the original image bounded by the coordinates(x,y,w,h), where x<=w and y<=h, compute :  
@@ -70,6 +79,7 @@ To compute the variance for a window B on the original image bounded by the coor
 and  
 
 ![EqVar2_23](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_2.gif),  
+
 where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusive and I''(x,y) is the sum of all squared pixels values between I(0,0) and I(x,y) inclusive. The variance of the pixels value in the window B is :  
 
 ![EqVar2_3](https://github.com/fsoubes/FilterRank/blob/master/images/EqVar2_3.gif)  
@@ -102,10 +112,12 @@ However for the 16 bit, we werent able to find a solution to find a treshold tha
 
 
 ## Benchmarking analysis
+
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, one script was implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. 
 The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did only 50 iterations because of the amount of time that each algorithm takes.
 
 For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
+
 # 3.Results
 
 ## Image result comparison between ImageJ, CPU and GPU
@@ -115,16 +127,19 @@ For this project the benchmark was performed with the operating system Linux (4.
 The following figure shows the result of our _variance_ function for a boat of 720x576 pixels taking as parameter a kernel of diameter = 3 compared to the variance filter of ImageJ with a kernel radius = 1. The results are different for mainly two reasons one is that the luminosity between B and C are different and the fact that the kernel on ImageJ is circular whereas our kernel is square.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/merge_from_ofoct.jpg)
+
 #### Fig 9. Result of a variance processing for the method based on integral image  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C).
 
 The following figure shows the result of J.C Taveau variance (One-pass algorithm ) for a boat of 720x576 pixels taking as parameter a kernel of diameter = 3 compared to the variance filter of ImageJ with a kernel radius =1. The results are different for mainly two reasons one is that the luminosity between B and C are different and the fact that ImageJ adjust the brightness and contrast of the image after the process
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagecpuvariance.jpg)
+
 #### Fig 9. Result of a variance processing for the  One-pass algorithm (CPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C) for a circular kernel of radius = 1.
 
 The following figure shows the result of our gpu implementation of variance (One-pass algorithm ) for a boat of 720x576 pixels taking as parameter a kernel of diameter = 3 compared to the variance filter of ImageJ with a kernel radius = 1.The results are different for mainly two reasons one is that the luminosity between B and C are different and the fact that ImageJ adjust the brightness and contrast of the image after the process. Moreover, we obtain the same result between the GPU and CPU based on the substraction that's logic because the variance is computed with the same algorithm.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagegpuvariance.jpg)
+
 #### Fig 9. Result of a variance processing for the  One-pass algorithm (GPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C) for a circular radius = 1.
 
 
@@ -134,6 +149,7 @@ The following figure shows the result of our gpu implementation of variance (One
 A comparative benchmark for our own  Variance filter based on integral image against the Variance filter based on a single has been done with a set of 7 images for seven different resolution  360x288, 720x576, 900x720, 1080x864, 1440x1152, 1880x1440 and 2880x2304. Each set of 3 images have the same resolution but with a different type, either 8bit, 16bit or float32. The benchmark representation is represented down below :
 	
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/montagecpucpu964x339.jpg)
+
 #### Fig 15. Execution time benchmark analysis with two different methods to compute the variance, one based on integral image (left) against single pass method (right) for a circular kernel of radius = 1 and for 3 different types of image (8bit,16bit and float32). 
 
 On the figure 15, the execution time for either 8bit, 16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together between the two methods except for the 8 bit filter that is way more faster than for the two other types because of the low complexity values [0...256]. However, the two methods differ by a factor of 1000, that can be explain by the fact that for the integral image's method it iterates many times through the image to compute the variance whereas the one pass only iterate once. Hence, the single pass method 
@@ -145,6 +161,7 @@ fit more to a GPU implementation  mainly because of his execution time, way more
 This part is mainly focused on demonstrate the gap between the CPU implementation of the single pass against the GPU and ImageJ implementation of the variance filter . 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montageall964x339.jpg) 
+
 #### Fig 16. Execution time of the variance filter for three different implementation of the one passe algorithm with ImageJ, CPU and GPU with the same algorithm. The left image represent the execution time of the variance filter for a kernel radius = 1 when the right image represent the execution time of the variance filter for a kernel radius = 3  and for 3 different types of image (8bit,16bit and float32). 
 
 On the figure 16,  the increase of the execution time for both ImageJ and GPU stays globally the same for the different resolutions while the CPU highly increased. Indeed for a kernel radius the difference between the two differ by a factor of nearly 500/600 for a resolution of  1880x1440 pixels when it's triple for a resolution of  2880x2304  pixels with a factor close to 1500. The same pattern can be seen for a radius equal to 3 except that's the execution time for the cpu is 2000 better for a resolution of 1880x1440 pixels and three times more for the next resolution.
@@ -154,6 +171,7 @@ On the figure 16,  the increase of the execution time for both ImageJ and GPU st
 As we previously described that the GPU and ImageJ implementation are more faster than the CPU in term of execution time, what about the performance between the GPU and ImageJ for two different kernel. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagegpuvsij964x339.jpg) 
+
 #### Fig 16. Execution time benchmark analysis of our GPU against the variance algorithm of ImageJ for a kernel radius of 1 for the left part and a kernel radius of 3 for the right part and for 3 different types of image (8bit,16bit and float32). 
 
 On the figure 16, the execution time from the first resolution to the fifth doesnt really change, also the scale of the benchmark isnt the same, even if the imageJ algorithm is  more efficient by nearly 10ms than the GPU for the four first resolutions. However, the GPU filter is more stable than the ImageJ filter except for the float 32 who highly increased for a resolution of 1880x1440 pixels. We can note that at the fourth resolution (1080x864) the GPU become more performant than ImageJ for the 16 and 32 bit. Despite the fact that the 8 bit filter is more performant for ImageJ in the early stage, that difference decrease with higher resolutions. Indeed, if they were 20 ms of difference between ImageJ and GPU for the 8 bit filtering at the start, for a resolution of 2880x2304 pixels, ImageJ and the GPU are on equal footing.
