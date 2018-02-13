@@ -82,7 +82,7 @@ The naive algorithm is used for computing the variance with the convolve and als
 
 Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is mainly used to display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending of the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
 
-Based on this information, we map over those coordinates in order to store those coordinates (horizontalOffset and verticalOffset) to use them in the fragment shader. The fragment shader use parralelism to iterates through  the textures in the aim of set color values for the textures depending on the process. However, the pixel values within the fragment shader have to be in a range of [0...1]. The coordinates are divided by the width for horizontal offset and by the height for the vertical offset.  
+Based on this information, we map over those coordinates in order to store (horizontalOffset and verticalOffset) and use in the fragment shader. The fragment shader use parralelism to iterates through  the textures in the aim of set color values for the textures depending on the process. Hence, the performance is only depending on the hardware and the implementation. The more the gpu has core the more pixels will be treated in parallel by multi-threading. The pixel values within the fragment shader have to be in a range of [0...1]. The coordinates are divided by the width for horizontal offset and by the height for the vertical offset.  
 The main strength of the naive algorithm, is that the variance can be computed in a single pass within a single loop. The algorithm of such method is described down below with the pseudo code.
 
 
@@ -94,7 +94,7 @@ The main strength of the naive algorithm, is that the variance can be computed i
 	Var = (SumSq − (Sum × Sum) / n) / (n − 1)
 	n <- number of pixels for a given kernel
 	
-The same process is realized in the fragment shader with the computation of the sum, the square sum, then substracting those two and put the result in the output color. 
+The same process is realized in the fragment shader with the computation of the sum, the square sum, then the substraction of those two and put the result in the output color. 
 The main issue here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier and not  between [0 ... 2N - 1]. For an raster type of 8 bit we multiply the pixels containing in the output color by 255. 
 	
 
