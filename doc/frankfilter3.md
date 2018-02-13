@@ -95,7 +95,7 @@ The main strength of the naive algorithm, is that the variance can be computed i
 	n <- number of pixels for a given kernel
 	
 The same process is realized in the fragment shader with the computation of the sum, the square sum, then the substraction of those two and put the result in the output color. 
-The main issue here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier and not  between [0 ... 2N - 1]. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. 
+The main issue here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. As a result, we're making sure that there's no value over 255. 
 	
 
 
