@@ -209,7 +209,7 @@ fit more to a GPU implementation  mainly because of his execution time, way more
 
 ### Benchmark CPU vs GPU and ImageJ for two different kernel size.
 
-This part is mainly focused on demonstrate the gap between the CPU implementation of the single pass against the GPU and ImageJ implementation of the variance filter. 
+This part is mainly focused on demonstrate the gap between the CPU implementation of the single pass against the GPU and ImageJ implementation of the variance filter . 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montageall964x339.jpg) 
 #### Fig 16. Execution time of the variance filter for three different implementation of the one passe algorithm with ImageJ, CPU and GPU with the same algorithm. The left image represent the execution time of the variance filter for a kernel radius = 1 when the right image represent the execution time of the variance filter for a kernel radius = 3. 
@@ -218,7 +218,7 @@ On the figure 16,  the increase of the execution time for both ImageJ and GPU st
 
 ### Benchmark GPU vs ImageJ
 
-As we previously described that the GPU and ImageJ implementation are more faster than the CPU in term of execution time, what about the performance between the GPU and ImageJ. 
+As we previously described that the GPU and ImageJ implementation are more faster than the CPU in term of execution time, what about the performance between the GPU and ImageJ for two different kernel. 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagegpuvsij964x339.jpg) 
 #### Fig 16. Execution time benchmark analysis against the variance algorithm of ImageJ for a kernel size = 3, filter = Variance. 
