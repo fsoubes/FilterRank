@@ -76,7 +76,7 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 
 ### Choice of algorithm for webgl implementation
 
-The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
+The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[^Bra2007][^Sar2015] both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
 
 ### Webgl implementation
 
@@ -171,16 +171,11 @@ Finally the different algorithms respect what was developped in the first markdo
 
 ## References
 
-[^Hua1979]: Huang T, Yang G, Tang G. A fast two-dimensional median filtering algorithm. IEEE Transactions on Acoustics, Speech, and Signal Processing. 1979;27(1):13–18.  
-
-[^Hua1981]: Huang TS. Two-dimensional digital signal processing II: transforms and median filters. Springer-Verlag New York, Inc.; 1981.
 
 [^Wei2006]: Weiss B. Fast median and bilateral filtering. 2006;25(3):519–526.
 Acm Transactions on Graphics (TOG).  
  
-
-[^Gil1993]: Gil J, Werman M. Computing 2-D min, median, and max filters. IEEE Transactions on Pattern Analysis and Machine Intelligence. 1993;15(5):504–507.  
-
+ 
 [^Fab2011]: Fabijańska A. Variance filter for edge detection and edge-based image segmentation. In: Perspective Technologies and Methods in MEMS Design (MEMSTECH), 2011 Proceedings of VIIth International Conference on. IEEE; 2011. p. 151–154.  
 
 [^Sar2015]: Sarwas G, Skoneczny S. Object localization and detection using variance filter. In: Image Processing & Communications Challenges 6. Springer; 2015. p. 195–202.  
@@ -190,9 +185,6 @@ Acm Transactions on Graphics (TOG).
 
 [^Soi2002]: Soille P. On morphological operators based on rank filters. 2002;35(2):527–535. Pattern recognition.  
 
-[^Tuk1974]: Tukey J. Nonlinear (nonsuperposable) methods for smoothing data. Congr Rec 1974 EASCON. 1974;673.  
-
-[^Wer1985]: Werman M, Peleg S. Min-max operators in texture analysis. IEEE transactions on pattern analysis and machine intelligence. 1985;(6):730–733.  
 
 [^Can1986]: Canny J. A computational approach to edge detection. IEEE Transactions on pattern analysis and machine intelligence. 1986;(6):679–698.  
 
