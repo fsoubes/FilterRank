@@ -1,5 +1,5 @@
 # Filters 2D (rank filters)
-# AUTHORS : *Adrien Rohan, Franck Soubès, Guillamaury Debras
+# AUTHORS : *Adrien Rohan
 
 # Link : https://github.com/fsoubes/FilterRank
 # 1.Introduction
