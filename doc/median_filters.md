@@ -51,7 +51,7 @@ The Fig. XX show the results obtained using our median filter implementation com
 
 The Fig 7. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images 7. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image.
 
-![](images/MontageMedianBoats.png)
+![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/MontageBoats.png)
 
 #### Fig 7. (A) Original image, (B) image obtained using ImageJ median filter (kernel radius equal 2), (C) image obtained using our implementation (5x5 kernel) and (D) difference between B and C.
 
@@ -59,12 +59,16 @@ The Fig 7. show the results obtained using our median filter implementation comp
 
 ## Benchmark comparison between ImageJ and our implementation
 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/GPUBenchmark.png)
 
 For the GPU implementation with the 3x3 kernel, the execution time for the two smallest image is longer than the 3 bigger images, but the times are very close for all the image resolution.  Times for 8-bit, 16-bit and float-32 appear similar, as the fastest execution between these 3 image type vary between the different resolution.
 For the 7x7 kernel, only a slight increase in time is visible from the smallest image to the fourth biggest one, but there is a sharp rise in execution time for the 900x720 image. There is no noticeable difference between the different image types. The times are overall slightly longer than for the 3x3 kernel. For both kernel size 
 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/CPUBenchmark.png)
+
 For the TIMES module implementation the graph has an identical profile for the 3x3 and 7x7 kernel, only with an overall much worse time for the 7x7 kernel for all image resolution. The execution time increase exponentially with the size of the image, and float-32 is slightly slower than the other image types. The execution times are also much longer than for the GPU implementation.
 
+![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/IJBenchmark.png)
 
 For the ImageJ implmentation, the execution time increase linearly with the image size for both the 3x3 and 7x7 kernels. The execution time is noticeably slower for the 32-bit with a 7x7 kernel compared to the other image types, but not with a 3x3 kernel. 
 
