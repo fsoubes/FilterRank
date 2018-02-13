@@ -93,14 +93,8 @@ The main strength of the naive algorithm, is that the variance can be computed i
 	  SumSq ← SumSq + x × x
 	Var = (SumSq − (Sum × Sum) / n) / (n − 1)
 	
-Here is how we transpose this algorithm in the fragment shader.
+The same process is realized in the fragment shader with the computation of the sum, the square sum, then substracting those two and put the result in the output color. 
 
-	for (int i = 0; i < ${kernelLength}; i += 1){
-	     sum +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
-	     sum2 +=  (texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb *  texture(u_image, vec2(v_texCoord.x + u_horizontalOffset[i] / u_width, v_texCoord.y + u_verticalOffset[i] / u_height)).rgb);
-	     variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
-	 }
-	 variance = (sum2 - (sum * sum)/ u_kernelsize)/ (u_kernelsize - one);
 	
 
 	
