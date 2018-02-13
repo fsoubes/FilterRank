@@ -49,7 +49,6 @@ Benchmarking analysis is  widely used to assess the relative performance of a fu
 
 The Fig. XX show the results obtained using our median filter implementation compared to the ImageJ implementation for a 360x288 8-bit image and a 5x5 circular kernel. It can be noticed that the ImageJ result are slightly more blurred, and the slight difference between the ImageJ result and our implementation is shown on the XX. D image. The differences are located on the internal border of the image.
 
-The Fig 7. show the results obtained using our median filter implementation compared to the ImageJ implementation. While the images 7. B and C aren't easily distinguishable to the naked eye, the image D shows that there ise some difference in pixel value at the border inside the image.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/MontageBoats.png)
 
