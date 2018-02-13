@@ -37,7 +37,7 @@ However it’s not devoid of weakness because of its low resistance to noise. In
 
 ### Naive algorithm
 
-The basic method describe here, use a kernel that can be of different types (circular, square, diamond ...) and slide over the pixels by modifying them one by one. By definition the modifying pixel is always the central pixel, so a kernel is generally always odd. In the field of the imagerie this processes is referred to the convolution and it's widely use for image processing. The example below explain how a convolution mask operate over an image.    
+The basic method describe here, use a kernel that can be of different types (circular, square, diamond ...) and slide over the pixels by modifying them one by one. By definition the modifying pixel is always the central pixel. Hence, a kernel is generally always represented by odd values (3x3,5x5). In the field of the imagerie this process is referred to the convolution and it's widely use for image processing. The example below explain how a convolution mask operate over an image.    
 
 ![alg_1](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_1.png)  
 ![alg_2](https://github.com/fsoubes/FilterRank/blob/master/images/alg_var_2.png)  
