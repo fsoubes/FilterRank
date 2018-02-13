@@ -80,6 +80,12 @@ The naive algorithm is used for computing the variance with the convolve and als
 
 ### Webgl implementation
 
+Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is used for display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending of the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
+
+Based on this information, we map over those coordinates to store them in array to use them in the fragment shader.
+
+
+
 
 
 ## Benchmarking analysis
@@ -118,7 +124,7 @@ A comparative benchmark for our own  Variance filter based on integral image aga
 #### Fig 15. Execution time benchmark analysis with two different methods to compute the variance, one based on integral image (left) against single pass method (right) for a circular kernel of radius = 1 and for 3 different types of image (8bit,16bit and float32). 
 
 On the figure 15, the execution time for either 8bit, 16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together between the two methods except for the 8 bit filter that is way more faster than for the two other types because of the low complexity values [0...256]. However, the two methods differ by a factor of 1000, that can be explain by the fact that for the integral image's method it iterates many times through the image to compute the variance whereas the one pass only iterate once. Hence, the single pass method 
-fit more to a GPU implementation  mainly because of his execution time, way more faster  than the integral image method and easier to implemant.  
+fit more to a GPU implementation  mainly because of his execution time, way more faster  than the integral image method and easier to implement.  
 
 
 ### Benchmark CPU vs GPU and ImageJ for two different kernel size.
