@@ -11,7 +11,7 @@ For an identical window the pixel value will differ in function of the filters u
 The median filter is so called because it's an operation which selects the median value.The median filter has been suggested by Tukey[^Tuk1974]. This filter is widely used for reducing certain type of noise and periodic interference patterns in signal and images without severly degrading the signal[^Hua1981].The naive algorithm was then improved based on the moving histogram technique[^Hua1979]. The median filter is used for removing noise, but he main issues of that filter algorithm is his slowness. To overcome these problems the use of small windows and/or low resolution images is required[^Wei2006].
 
 
-&nbsp;&nbsp;  In this report, we begin by describing the naive and improved algorithms of our median filters. The next step will be to perform a benchmark on different imageJ plugins, with the objective of comparing their performances such as execution time and the memory load for the Java Virtual Machine (JVM). 
+&nbsp;&nbsp;  In this report an implementation of the median filter using WebGL and the TIMES module of J.-C. Taveau (https://github.com/crazybiocomputing/times) will be discussed. This report begin by a description of the algorithm that we have implemented in WebGL. Then benchmark analysis will be performed on our implementation and compared with results from the ImageJ and the CPU implementation by  J.-C. Taveau of the median filter to compare their performance.
 
 
 
