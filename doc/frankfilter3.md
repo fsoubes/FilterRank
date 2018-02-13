@@ -7,7 +7,7 @@
 
 &nbsp;&nbsp;  By definition rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[^Soi2002] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lies within the window which are sorted, from the smallest to the highest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the window is also influencing the output pixel. 
-The variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011] or simply with a simple formula. The three filters have their own field of expertise. They can be used for removing noise (median filter), detecting edge (variance filter) and mathematical morphology(min/max filters). The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. The last part of this project include an implementation of our algorithm with Webgl[!cite] in order to highly increase the performance of the agorithm while using gpu.
+The variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011] or simply with a simple formula. The three filters have their own field of expertise. They can be used for removing noise (median filter), detecting edge (variance filter) and mathematical morphology(min/max filters). The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. The last part of this project include an implementation of our algorithm with Webgl[^Vas2012] in order to highly increase the performance of the agorithm while using the gpu.
 
 
 &nbsp;&nbsp;  In this report, we shall begin by describing the main algorithm with the cpu and then explain how to implement it in webgl . 
@@ -202,8 +202,10 @@ Acm Transactions on Graphics (TOG).
 
 [^Fle1896]: Philip J. Fleming and John J. Wallace. 1986. How not to lie with statistics: the correct way to summarize benchmark results. Commun. ACM 29, 3 (March 1986), 218-221.
 
-[^BRA2007]: Bradley D, Roth G. Adaptive thresholding using integral image. Journal of Graphics Tools. Volume 12, Issue 2. pp. 13-21. 2007. NRC 48816.
+[^Bra2007]: Bradley D, Roth G. Adaptive thresholding using integral image. Journal of Graphics Tools. Volume 12, Issue 2. pp. 13-21. 2007. NRC 48816.
 
 [^SHI2017]: Shivani Km, A Fast Integral Image Computing Methods: A Review Design Engineer, Associated Electronics Research Foundation, C-53, Phase-II, Noida (India)
 
-[^KRU1994]: Kruger DG, A regional convolution kernel algorithm for scatter correction in dual-energy images: comparison to single-kernel algorithms. Medical Physics 
+[^Kru1994]: Kruger DG, A regional convolution kernel algorithm for scatter correction in dual-energy images: comparison to single-kernel algorithms. Medical Physics 
+
+[^Vas2012]: Vasan SN1, Ionita CN, Titus AH, Cartwright AN, Bednarek DR, Rudin S; Graphics Processing Unit (GPU) implementation of image processing algorithms to improve system performance of the Control, Acquisition, Processing, and Image Display System (CAPIDS) of the Micro-Angiographic Fluoroscope (MAF), Proc SPIE Int Soc Opt Eng. 
