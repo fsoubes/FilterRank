@@ -225,6 +225,7 @@ As we previously described that the GPU and ImageJ implementation are more faste
 
 
 
+
 # 4.Discussion
 
 ## Overall quality comparison between imageJ, CPU and GPU for the variance filter.
