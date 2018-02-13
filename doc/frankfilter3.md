@@ -87,11 +87,12 @@ The main strength of the naive algorithm, is that the variance can be computed i
 
 
 	Let n ← 0, Sum ← 0, SumSq ← 0
-	For each datum x:
+	For each pixels x:
 	  n ← n + 1
 	  Sum ← Sum + x
 	  SumSq ← SumSq + x × x
 	Var = (SumSq − (Sum × Sum) / n) / (n − 1)
+	n <- number of pixels for a given kernel
 	
 The same process is realized in the fragment shader with the computation of the sum, the square sum, then substracting those two and put the result in the output color. 
 
