@@ -163,11 +163,15 @@ For bigger kernels we can see the same pattern except that overall it seems that
 
 ## Overall quality comparison between imageJ, CPU and GPU for the variance filter.
 
+The implementation of the naive algorithm in Webgl tends to gain in term of efectivness comparing to the CPU integral image, whereas the ouput image is the same for the CPU and GPU based on the one pass algorithm. By comparing the result of the image with ImageJ against our GPU, even if the substracting of those two shows many black pixels compared to the integral image with ImageJ it's not quite still similar.
+Indeed, ImageJ adjust the brightness and contrast after having computed the variance, while it's not the case for our algorithm.
+
+
 ## Overall performance comparison between imageJ, CPU and GPU for the variance filter.
 
 # 5.Conclusion
 
-Results obtained with our filter are quite similar in term of execution time with those observed in ImageJ for 8,16 and float32. However there is some slighly difference between the both output image, mainly because ImageJ  adjust the brightness and contrast . The execution time of our GPU implementation is much faster than the CPU implementation because of the parallelization of the treatment of each pixel, which mean our implementation has been successful. Further improvement can be added for the variance filter webgl implementation, first will be to use a texture that fit more for the 16 bit. Moreover, it's very hard to find the perfect treshold value for the variance filter as so, it will be interesting to add some widgets in webgl to manually change the treshold in function of the image resolution or the kernel size. Finally, an implementation of the integral image may be useful to not have to find an arbitrary threshold for the variance filter. As conclusion, this project has been very instructive mainly for the different knowledge assimilate (benchmark, js, webgl, bibliography research, team work, adaptation to the library TIMES)
+Results obtained with our filter are quite similar in term of execution time with those observed in ImageJ for 8,16 and float32. However there is some slighly difference between the both output image, mainly because ImageJ  adjust the brightness and contrast . The execution time of our GPU implementation is much faster than the CPU implementation because of the parallelization of the treatment of each pixel, which mean our implementation has been successful. Further improvement can be added for the variance filter webgl implementation, first will be to use a texture that fit more for the 16 bit. Moreover, it's very hard to find the perfect treshold value for the variance filter as so, it will be interesting to add some widgets in webgl to manually change the treshold in function of the image resolution or the kernel size. The result may have been similar if our implementation add a feature that adjust the brightness and contrast. Finally, an implementation of the integral image may be useful to not have to find an arbitrary threshold for the variance filter. As conclusion, this project has been very instructive mainly for the different knowledge assimilate (benchmark, js, webgl, bibliography research, team work, adaptation to the library TIMES)
 
 
 ## References
