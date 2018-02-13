@@ -1,4 +1,4 @@
-# Filters 2D (rank filters)
+# Rank filters : median filter
 # AUTHORS : *Adrien Rohan
 
 # Link : https://github.com/fsoubes/FilterRank
