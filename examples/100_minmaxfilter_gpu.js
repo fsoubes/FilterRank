@@ -40,7 +40,7 @@ win02.addToDOM('workspace');
 
 
 // Run CPU mean 5x5 
-let size = 15;
+let size = 5;
 let radius = size / 2.0 - 0.5;
 let kernel = cpu.convolutionKernel(
     //cpu.CPU_HARDWARE,                            // For cpu.convolve
