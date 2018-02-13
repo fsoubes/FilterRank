@@ -68,7 +68,6 @@ Afterwards compute an image I'' for which the pixel I''(x,y) take as value the s
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_2.png) 
-
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/var_matrix_3.png) 
 
 #### Fig 3. An exemple of a image I and the new computed image I' and I''. 
