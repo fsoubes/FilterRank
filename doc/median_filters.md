@@ -62,20 +62,20 @@ The Fig. 1 show the results obtained using our median filter implementation comp
 
 #### Fig 2. Execution time of our WebGL GPU implementation of the median filter depending on the size of the image, for 8-bit, 16bit and float32 images, with a 3x3 kernel (left) and a 7x7 kernel (right).
 
-For the GPU implementation with the 3x3 kernel, the execution time for the two smallest image is longer than the 3 bigger images, but the times are very close for all the image resolution.  Times for 8-bit, 16-bit and float-32 appear similar, as the fastest execution between these 3 image type vary between the different resolution.
-For the 7x7 kernel, only a slight increase in time is visible from the smallest image to the fourth biggest one, but there is a sharp rise in execution time for the 900x720 image. There is no noticeable difference between the different image types. The times are overall slightly longer than for the 3x3 kernel. For both kernel size 
+As shown on the Fig. 2, for the GPU implementation with the 3x3 kernel, the execution time for the two smallest image is longer than the 3 bigger images, but the times are very close for all the image resolution.  Times for 8-bit, 16-bit and float-32 appear similar, as the fastest execution between these 3 image type vary between the different resolution.
+For the 7x7 kernel, only a slight increase in time is visible from the smallest image to the fourth biggest one, but there is a sharp rise in execution time for the 900x720 image. There is no noticeable difference between the different image types. The times are overall slightly longer than for the 3x3 kernel.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/CPUBenchmark.png)
 
 #### Fig 3. Execution time of the TIMES CPU implementation of the median filter depending on the size of the image, for 8-bit, 16bit and float32 images, with a 3x3 kernel (left) and a 7x7 kernel (right).
 
-For the TIMES module implementation the graph has an identical profile for the 3x3 and 7x7 kernel, only with an overall much worse time for the 7x7 kernel for all image resolution. The execution time increase exponentially with the size of the image, and float-32 is slightly slower than the other image types. The execution times are also much longer than for the GPU implementation.
+For the TIMES module implementation the graph has an identical profile for the 3x3 and 7x7 kernel (Fig. 3), only with an overall much worse time for the 7x7 kernel for all image resolution. The execution time increase exponentially with the size of the image, and float-32 is slightly slower than the other image types. The execution times are also much longer than for the GPU implementation.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/ImagesAdrien/IJBenchmark.png)
 
-#### Fig 3. Execution time of the ImageJ implementation of the median filter depending on the size of the image, for 8-bit, 16bit and float32 images, with a 3x3 kernel (left) and a 7x7 kernel (right).
+#### Fig 4. Execution time of the ImageJ implementation of the median filter depending on the size of the image, for 8-bit, 16bit and float32 images, with a 3x3 kernel (left) and a 7x7 kernel (right).
 
-For the ImageJ implmentation, the execution time increase linearly with the image size for both the 3x3 and 7x7 kernels. The execution time is noticeably slower for the 32-bit with a 7x7 kernel compared to the other image types, but not with a 3x3 kernel. 
+For the ImageJ implmentation, the execution time increase linearly with the image size for both the 3x3 and 7x7 kernels (Fig. 4). The execution time is noticeably slower for the 32-bit with a 7x7 kernel compared to the other image types, but not with a 3x3 kernel. 
 
 
 
