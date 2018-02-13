@@ -187,12 +187,12 @@ The following figure shows the result of our _variance_ function for a boat of 7
 The following figure shows the result of J.C Taveau variance (One-pass algorithm ) for a boat of 720x576 pixels taking as parameter a kernel of diameter = 3 compared to the variance filter of ImageJ with a kernel radius =1. The results are different for mainly two reasons one is that the luminosity between B and C are different and the fact that ImageJ adjust the brightness and contrast of the image after the process
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagecpuvariance.jpg)
-#### Fig 9. Result of a variance processing for the  One-pass algorithm (CPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C).
+#### Fig 9. Result of a variance processing for the  One-pass algorithm (CPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C) for a circular kernel of radius = 1.
 
 The following figure shows the result of our gpu implementation of variance (One-pass algorithm ) for a boat of 720x576 pixels taking as parameter a kernel of diameter = 3 compared to the variance filter of ImageJ with a kernel radius = 1.The results are different for mainly two reasons one is that the luminosity between B and C are different and the fact that ImageJ adjust the brightness and contrast of the image after the process. Moreover, we obtain the same result between the GPU and CPU based on the substraction that's logic because the variance is computed with the same algorithm.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/Montagegpuvariance.jpg)
-#### Fig 9. Result of a variance processing for the  One-pass algorithm (GPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C).
+#### Fig 9. Result of a variance processing for the  One-pass algorithm (GPU)  with (A) representing the original image, (B),(C) and (D) are respectively corresponding to the ImageJ _variance_, our _variance_ function and the substraction of those two (B-C) for a circular radius = 1.
 
 
 ## Benchmark comparison between ImageJ, CPU and GPU for the variance filter
