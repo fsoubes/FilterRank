@@ -80,9 +80,20 @@ The naive algorithm is used for computing the variance with the convolve and als
 
 ### Webgl implementation
 
-Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is used for display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending of the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
+Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is mainly used to display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending of the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
 
-Based on this information, we map over those coordinates in order to store those coordinates (horizontalOffset and verticalOffset) to use them in the fragment shader. 
+Based on this information, we map over those coordinates in order to store those coordinates (horizontalOffset and verticalOffset) to use them in the fragment shader. The fragment shader use parralelism to iterates through  the textures in the aim of set color values for the textures depending on the process. However, the pixel values within the fragment shader have to be in a range of [0...1]. The coordinates are divided by the for width for horizontal offset and by the height for the vertical offset.  
+The main strength of the naive algorithm, is that it can be computed in a single pass within a loop. The algorithm of such method is described down below with the pseudo code.
+
+
+	Let n ← 0, Sum ← 0, SumSq ← 0
+	For each datum x:
+	  n ← n + 1
+	  Sum ← Sum + x
+	  SumSq ← SumSq + x × x
+	Var = (SumSq − (Sum × Sum) / n) / (n − 1)
+	
+
 
 
 
