@@ -40,7 +40,7 @@ win02.addToDOM('workspace');
 
 
 // Run CPU mean 5x5 
-let size = 3;
+let size = 5;
 let radius = size / 2.0 - 0.5;
 let kernel = cpu.convolutionKernel(
     //cpu.CPU_HARDWARE,                            // For cpu.convolve
@@ -59,17 +59,46 @@ let gpuEnv01 = gpu.getGraphicsContext();
 minimumFilter(img0.getRaster(),gpuEnv01,kernel);
 */
 
-let t0,t1;
 let gpuEnv02 = gpu.getGraphicsContext();
+
+let gpuEnv03 = gpu.getGraphicsContext();
+
+let gpuEnv04 = gpu.getGraphicsContext();
+let t0,t1,t2,t3,t4,t5;
+let gpuEnv01 = gpu.getGraphicsContext();
+
 t0 = performance.now();
-maximumFilter(img02.getRaster(),gpuEnv02,kernel);
+minimumFilter(img0.getRaster(),gpuEnv01,kernel);
 t1 = performance.now();
 
-document.getElementById('performance').innerHTML += (`${t1 - t0} milliseconds.</p>`);
-/*
-let gpuEnv02 = gpu.getGraphicsContext();
+
+
+
+t2 = performance.now();
 minimumFilter(img01.getRaster(),gpuEnv02,kernel);
-let gpuEnv03 = gpu.getGraphicsContext();
+t3 = performance.now();
+
+t4 = performance.now();
 minimumFilter(img02.getRaster(),gpuEnv03,kernel);
-*/
+t5 = performance.now();
+
+document.getElementById('performance').innerHTML += (`${t1 - t0} milliseconds.</p>`);
+document.getElementById('performance').innerHTML += (`${t3 - t2} milliseconds.</p>`);
+document.getElementById('performance').innerHTML += (`${t5 - t4} milliseconds.</p>`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -10,7 +10,7 @@ For an identical window the pixel value will differ in function of the filters u
 The filter that chooses the maximum or minimum values is called the maximum filter or the minimum filter. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. Lastly the variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011]. As demonstrated here our three main filters have their own field of expertise. 
 
 
-&nbsp;&nbsp; In this project we hhave to use a Web Graphics Library also called as WebGL which is a Javascript API for rendering interactive 2D and 3D grphics. Without using any plug-ins this can be used within any web browser. WebGL is an implementation of OpenGL ES 2.0. WebGL Library is based on allowing GPU-accelerated usage of both physics and image processing but also effects which'll become part of the web page canvas. The maintainer and designer of the WebGL Library is the non-profit Khronos Group. The program is a mix of code writen in Javascript plus shader code written in a language called OpenGL Shading Language or (GLSL), this language is extremely similar to C++ code. The principle of this Library is that the code is executed on a GPU (graphics processing unit) and not CPU for ( Central processing unit).
+&nbsp;&nbsp; In this project we hhave to use a Web Graphics Library also called as WebGL which is a Javascript API for rendering interactive 2D and 3D graphics. Without using any plug-ins this can be used within any web browser. WebGL is an implementation of OpenGL ES 2.0. WebGL Library is based on allowing GPU-accelerated usage of both physics and image processing but also effects which'll become part of the web page canvas. The maintainer and designer of the WebGL Library is the non-profit Khronos Group. The program is a mix of code writen in Javascript plus shader code written in a language called OpenGL Shading Language or (GLSL), this language is extremely similar to C++ code. The principle of this Library is that the code is executed on a GPU (graphics processing unit) and not CPU for ( Central processing unit).
 
 
 
@@ -32,14 +32,14 @@ Next step will be to perform a benchmark on different imageJ plugins, with the o
 
 In the priveous reports, we discussed about a min_max filter function whichs operate with consecutiv 1D filters, first in row then in colomns[^Gil1993] and his CPU implementation. In this report we describe the implementation of the same king of filter but in a GPU environment.
 
-The first part of our algorithm is the creation of the GPU kernel. In order to do so we set up 2 offset, horizontal and vertical described as the pseudo code down below :
+The first part of our algorithm is the storage of offsets obtained with the kernel implementation from Jean-Christophe Taveau. In order to do so we loop over the kernel lenght and get the horizontal and vertical offsets described as the pseudo code down below :
 
            (for  i in kernel.length){
 	                 horizontalOffset[i]=kernel[i].offsetX;
 	                 verticalOffset[i]=kernel[i].offsetY;
                    }
                     
-The second step of our implementation is the construction of the vertex shader by initializing vertices and texture coordinates.
+The second step of our implementation is the construction of the vertex shader by initializing vertices and texture coordinates and the use of the offsets we obtained previously.
 
 The third step of our GPU implementation is the minimum or maximum filter itself based on the _getFragmentSource_ function, which takes as parameters the type of sample, the type of image and the kernel length.
 
@@ -54,7 +54,7 @@ In order to get each value for a random kernel we use the _texture_ method accor
 	            }
  
 
-### Sort of the values inside the kernel
+### Sort values inside the kernel
 In order to obtain the minimum and maximum values we decide to go through a basic sorting process with two loops with the pseudo code down below :
 
 	       (for i in kernel.length){
@@ -94,13 +94,13 @@ For this project the benchmark was performed with the operating system Linux (4.
 
 ## Image results
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/finamerge.png)
-#### Fig 1. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
+#### Fig 1. Comparativ results of the blob image between imageJ, our CPU and GPU implementation using a circular radius of 5 either on maximum or minimum filter. (A) image obtained with ImageJ maximum filter, (B) image obtained using our CPU implementation, (C) image obtained using our GPU implementation, (D) image obtained with ImageJ minimum filter, (E) image obtained using our CPU implementation with minimum filter, (F) image obtained using our GPU implementation with minimum filter.
 This figure represents in A and D the default image (blobs 256x254-8bit) respectively using maximun and minimum filter, B and E the result of the max and minimum filters with our last CPU implementation. Last, C and F the result of the maximum and minimum filters with our GPU implementation. Because of the different kind of kernel shapes, we do obtain a slighty difference between the imageJ output and our own CPU implementation. The GPU implementation seems to be the same than our CPU implementation rather than the imagJ results.
 
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/substractGPU.png)
 #### Fig 2. Comparativ results of the blob image between imageJ and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with the function ImageCalculator Substract with ImageJ maximum filter and our GPU implmeentation, (B) image obtained with the function ImageCalculator Substract with ImageJ minimum filter and our GPU implmementation.
-This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter.
+This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter. This might be explained by the type of kernel that might be different explaining such contrast.
 
 
 ## Benchmark comparison between ImageJ and our CPU and GPU implementation
@@ -119,12 +119,11 @@ On the figure 3, the execution time for either 8bit,16bit or float32 for an imag
 On the figure 4, the execution time from the first resolution to the sixth doesnt change really, also the scale of the benchamrk isnt the same, in fact the imageJ algorithm is way much more efficient than our own implementation. For the first image with a resolution of 180x144 our algorithm takes 50ms to complete the process unlike imageJ algorithm which takes 12ms. When we use the algorithm on all the upsizing images ImageJ algorithm execution time doesn't go higher than 38ms when on the contrary our own algorithm goes until 166067ms for the 1880x1440 resolution. We also see that the imageJ algorithm execution time doesn't change with images of different types, same as our own algorithm.
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius5guigui.png) 
-#### Fig 5. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 5, filter = max. 
-On the figure 5, the execution time starts from 9 ms for the each type or image (8bit, 16bit,float 32) and grows slowly until a reaching point of almost 14ms for float32 image and 11ms for 8 bit and 16 bit. Those first two types share the same pattern and seems to stabilize from images with 1080 and higher. This benchmark of GPU implementation seems to be faster than ImageJ filter, indeed for any type of image the speed execution of GPU is twice faster than 
-ImageJ even though the kernel radius used in our GPU implementation was 5 unlike imageJ filter which had a radius of 3. 
+#### Fig 5. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a circular kernel size = 5, filter = max. 
+On the figure 5, the execution time starts from 9 ms for the each type or image (8bit, 16bit,float 32) and grows slowly until a reaching point of almost 14ms for float32 image and 11ms for 8 bit and 16 bit. Those first two types share the same pattern and seems to stabilize from images with 1080 resolution and higher. This benchmark of GPU implementation seems to be faster than ImageJ filter, indeed for any type of image the speed execution of GPU is twice faster than ImageJ even though the kernel radius used in our GPU implementation had a value of 5 unlike imageJ filter which had a radius of 3. 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius15guigui.png) 
-#### Fig 6. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a kernel size = 15, filter = max. 
-On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an execution time around 10ms for each and every size of images. The 16 bit execution time grows exponentially from 64ms to 4267ms for the highest image size. The float 32 execution time grows as well exponentially from 50ms to 2901ms, in a strange way the float 32 curve takes less time than the 16 bit curve. We do not have any theory on why or what causes this difference.
+#### Fig 6. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for acircular  kernel size = 15, filter = max. 
+On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an execution time around 10ms for each and every size of images. The 16 bit execution time grows exponentially from 64ms to 4267ms for the highest image size. The float 32 execution time grows as well exponentially from 50ms to 2901ms, in a strange way the float 32 curve takes less time than the 16 bit curve. We do not have any theory on why or what causes this difference, it might be due to loops insde our code that slows the speed of the program, in fact it is known that loops might slow exexcution time of the function.
 
 
 # 4.Discussion
@@ -142,7 +141,7 @@ For the _minimumFilter_ and the _maximumfilter_ we almost obtain the same result
  
  
 # 5.Conclusion
-In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images.
+In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images but the results look quite the same
 Finally the minimum and maximum algorithms respect what was developped in class with the WEBGL conditions and respect the wEBGl API. We would like to thank Mr Jean-Christophe Taveau for the knowledge he gave us along the year on Structural Bioinformatics.
 
 

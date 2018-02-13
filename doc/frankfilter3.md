@@ -7,7 +7,7 @@
 
 &nbsp;&nbsp;  By definition rank filters are non-linear filters using the local gray-level ordering to compute the filtered value[^Soi2002] . The output of the filter is the pixel value selected from a specified position in this ranked list. The ranked list is represented by all the grey values that lies within the window which are sorted, from the smallest to the highest value.
 For an identical window the pixel value will differ in function of the filters used (median, min, max and variance). Moreover the size of the window is also influencing the output pixel. 
-The variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011] or simply with a simple formula. The three filters have their own field of expertise. They can be used for removing noise (median filter), detecting edge (variance filter) and mathematical morphology(min/max filters). The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. The last part of this project include an implementation of our algorithm with Webgl[!cite] in order to highly increase the performance of the agorithm while using gpu.
+The variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011] or simply with a simple formula. The three filters have their own field of expertise. They can be used for removing noise (median filter), detecting edge (variance filter) and mathematical morphology(min/max filters). The main issues of these filters algorithm are their slowness, to overcome these problems the use of small windows and/or low resolution images is required[^Wei2006]. The last part of this project include an implementation of our algorithm with Webgl[^Vas2012] in order to highly increase the performance of the agorithm while using the gpu.
 
 
 &nbsp;&nbsp;  In this report, we shall begin by describing the main algorithm with the cpu and then explain how to implement it in webgl . 
@@ -76,9 +76,27 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 
 ### Choice of algorithm for webgl implementation
 
-The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
+The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[^Bra2007][^Sar2015] both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
 
 ### Webgl implementation
+
+Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is mainly used to display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending on the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
+
+Based on this information, we map over those coordinates in order to store (horizontalOffset and verticalOffset) and use them in the fragment shader. The fragment shader use parralelism to iterates through  the textures in the aim of set color values for the textures depending on the process. Hence, the performance is only depending on the hardware and the implementation. The more the gpu has core the more pixels will be treated in parallel by multi-threading. The pixel values within the fragment shader have to be in a range of [0...1]. The coordinates are divided by the width for horizontal offset and by the height for the vertical offset.  
+The main strength of the naive algorithm, is that the variance can be computed in a single pass within a single loop. The algorithm of such method is described down below with the pseudo code.
+
+
+	Let n ← 0, Sum ← 0, SumSq ← 0
+	For each pixels x:
+	  n ← n + 1
+	  Sum ← Sum + x
+	  SumSq ← SumSq + x × x
+	Var = (SumSq − (Sum × Sum) / n) / (n − 1)
+	n <- number of pixels for a given kernel
+	
+The same process is realized in the fragment shader with the computation of the sum, the square sum, then the substraction of those two and put the result in the output color. 
+The main issue here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. As a result, we're making sure that there's no value over 255. 
+	
 
 
 
@@ -118,7 +136,7 @@ A comparative benchmark for our own  Variance filter based on integral image aga
 #### Fig 15. Execution time benchmark analysis with two different methods to compute the variance, one based on integral image (left) against single pass method (right) for a circular kernel of radius = 1 and for 3 different types of image (8bit,16bit and float32). 
 
 On the figure 15, the execution time for either 8bit, 16bit or float32 for an image with the same resolution does not change significantly on either resolution, infact the 3 lines which represent the execution time are close together between the two methods except for the 8 bit filter that is way more faster than for the two other types because of the low complexity values [0...256]. However, the two methods differ by a factor of 1000, that can be explain by the fact that for the integral image's method it iterates many times through the image to compute the variance whereas the one pass only iterate once. Hence, the single pass method 
-fit more to a GPU implementation  mainly because of his execution time, way more faster  than the integral image method and easier to implemant.  
+fit more to a GPU implementation  mainly because of his execution time, way more faster  than the integral image method and easier to implement.  
 
 
 ### Benchmark CPU vs GPU and ImageJ for two different kernel size.
@@ -153,16 +171,11 @@ Finally the different algorithms respect what was developped in the first markdo
 
 ## References
 
-[^Hua1979]: Huang T, Yang G, Tang G. A fast two-dimensional median filtering algorithm. IEEE Transactions on Acoustics, Speech, and Signal Processing. 1979;27(1):13–18.  
-
-[^Hua1981]: Huang TS. Two-dimensional digital signal processing II: transforms and median filters. Springer-Verlag New York, Inc.; 1981.
 
 [^Wei2006]: Weiss B. Fast median and bilateral filtering. 2006;25(3):519–526.
 Acm Transactions on Graphics (TOG).  
  
-
-[^Gil1993]: Gil J, Werman M. Computing 2-D min, median, and max filters. IEEE Transactions on Pattern Analysis and Machine Intelligence. 1993;15(5):504–507.  
-
+ 
 [^Fab2011]: Fabijańska A. Variance filter for edge detection and edge-based image segmentation. In: Perspective Technologies and Methods in MEMS Design (MEMSTECH), 2011 Proceedings of VIIth International Conference on. IEEE; 2011. p. 151–154.  
 
 [^Sar2015]: Sarwas G, Skoneczny S. Object localization and detection using variance filter. In: Image Processing & Communications Challenges 6. Springer; 2015. p. 195–202.  
@@ -172,9 +185,6 @@ Acm Transactions on Graphics (TOG).
 
 [^Soi2002]: Soille P. On morphological operators based on rank filters. 2002;35(2):527–535. Pattern recognition.  
 
-[^Tuk1974]: Tukey J. Nonlinear (nonsuperposable) methods for smoothing data. Congr Rec 1974 EASCON. 1974;673.  
-
-[^Wer1985]: Werman M, Peleg S. Min-max operators in texture analysis. IEEE transactions on pattern analysis and machine intelligence. 1985;(6):730–733.  
 
 [^Can1986]: Canny J. A computational approach to edge detection. IEEE Transactions on pattern analysis and machine intelligence. 1986;(6):679–698.  
 
@@ -184,8 +194,10 @@ Acm Transactions on Graphics (TOG).
 
 [^Fle1896]: Philip J. Fleming and John J. Wallace. 1986. How not to lie with statistics: the correct way to summarize benchmark results. Commun. ACM 29, 3 (March 1986), 218-221.
 
-[^BRA2007]: Bradley D, Roth G. Adaptive thresholding using integral image. Journal of Graphics Tools. Volume 12, Issue 2. pp. 13-21. 2007. NRC 48816.
+[^Bra2007]: Bradley D, Roth G. Adaptive thresholding using integral image. Journal of Graphics Tools. Volume 12, Issue 2. pp. 13-21. 2007. NRC 48816.
 
 [^SHI2017]: Shivani Km, A Fast Integral Image Computing Methods: A Review Design Engineer, Associated Electronics Research Foundation, C-53, Phase-II, Noida (India)
 
-[^KRU1994]: Kruger DG, A regional convolution kernel algorithm for scatter correction in dual-energy images: comparison to single-kernel algorithms. Medical Physics 
+[^Kru1994]: Kruger DG, A regional convolution kernel algorithm for scatter correction in dual-energy images: comparison to single-kernel algorithms. Medical Physics 
+
+[^Vas2012]: Vasan SN1, Ionita CN, Titus AH, Cartwright AN, Bednarek DR, Rudin S; Graphics Processing Unit (GPU) implementation of image processing algorithms to improve system performance of the Control, Acquisition, Processing, and Image Display System (CAPIDS) of the Micro-Angiographic Fluoroscope (MAF), Proc SPIE Int Soc Opt Eng. 
