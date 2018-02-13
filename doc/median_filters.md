@@ -20,95 +20,28 @@ The median filter is so called because it's an operation which selects the media
 
 ## Implementation of the median filter
 
-The basic of a median filter is, for each pixel in an image, to center a WxH kernel on this pixel, and compute the median of the pixels in the kernel range, to create an output image with these computed median values.
 
-![](images/alg_var_1.png)  
-![](images/alg_var_2.png)
-![](images/alg_med_1.png)  
-![](images/alg_med_2.png)
-![](images/alg_med_3.png)
+A median filter is a filter that will compute for each pixel of the starting image the median value of all pixels in the neighborhood of this pixel. This implementation is based on the median filter function of the  TIMES module of J.-C. Taveau (https://github.com/crazybiocomputing/times).
 
-The first step of this median filter implementation is to extend the border of the image, so that that there is no undefined value in the kernel range for each pixel position of the original image. The new pixels created are given the value of the nearest pixel of the original image. To do that, the one dimensional array of pixels is transformed in a 2 dimensional one. The first element of each row is added a number equal to R (the radius of the kernel) to the start of this row, and the same is done at the end of the row using the last element of the list. Then the first row of the image is added R times at the start of the 2D image Array and the same is don with the last row at the end of the image array.
+A kernel is used to access all the pixel in a neighborhood. A kernel is a small matrix that specify which are in the neighborhood or not of the central pixel in the kernel. They can be of varying size and shape, such as square or circular. This implementation of the median filter take as argument a kernel as defined by the TIMES module of J.-C. Taveau. It consist of an object that contain for each pixel in a kernel the offset in x-coordinate and the offset in y-coordinate of that pixel compared to the central pixel of the kernel. Thus from the coordinate of a single pixel it is possible to find the coordinate of all the pixel in his neighborhood.
 
-Considering an image of width X and height Y and a kernel of width W and height H, for each row y of the image, one array is created for each column x. Each of these array the value of the pixel of coordinate (x,y) as well as the next H-1 pixels in the column x. Then for each column x, the corresponding array as well as the next W-1 array are concatenated to obtain all the values that correspond to a certain position of the kernel. These values are sorted, and the median is retrieved for this position of the kernel. The process is then repeated for the column x+1 until all the median have been computed for the row, and this is repeated for the next y+1 row until reaching the end of the image.
+From these coordinate the pixels value can then be accessed, and are then stored in an array. The next step in the median filter is then to sort this array of value. This implementation of the median filter use the OpenGL Shading Language (GLSL) for executing code on the GPU. GLSL doesn’t allow the use of recursivity, which mean a sorting algorithm that doesn’t use it had to be implemented. The sorting algorithm that has been implemented is the bubble sort algorithm. Here is a pseudo-code :
 
+	a: an array of sortable element of length N
 
-### Attempted implementation of the Huang algoritm
-
-The implementation of the median filter used here is a naive algorithm. Another implementation has been attempted that is base on the algorithm described by Huang [^Hua1979][^Hua1981].  This algorithm aim to reduce the number of times a sorting function is called as sorting is time consuming, but our implementation ended being even longer than the naive algorithm. While this algorithm is not in the final function provided, a benchmark analysis of this other  implementation has been done.
-
-Considering an image of width X and height Y and a kernel of width W and height H, for each column of the image a 256 element array is created, with each element equal to 0 at the start, and those arrays are placed into an array Hist. Then for each pixels of coordinate (x,y) and value G of the first H rows of the image, Hist[y][G] increase by 1.
-
-The median values for the pixels of the first row of the new image can then be computed from that array Hist. First, the median value for the first pixel in the row is computed by retrieving all the pixels values from the the first W arrays, and sorting them. The median Mdn is then the central element of the sorted array.
-
-To compute the new median value for the pixel to the right, the following algorithm is used, using Mdn, the already computed median, Ltmdn, equal to the number of element in the sorted array that are strictly lower than Mdn, T equal to ((H*W-1)/2) with H and W the height and Width of the kernel, and Hist. Considering Y0 is the column of pixel that is no longer in the kernel, and Yn the new column that is now in the kernel :
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-	For each 0<=G<256
-	if G < Mdn and Hist[Y0][G] > 0
-	then do Ltmdn=Ltmdn-Hist[Y0][G].
-
-	Then if G < Mdn and Hist[Yn][G] > 0
-	do Ltmdn=Ltmdn+Hist[Yn][G]. 
-
-	If Ltmdn > T
-	do Mdn = Mdn-1 and Ltmdn=Ltmdn-(Hist[Y1][Mdn]+...+Hist[Yn][Mdn])
-	until Ltmdn <= T.
-
-	Else if Ltmdn <= T
-	test Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) <= T
-	If true do Ltmdn = Ltmdn+(Hist[Y1][Mdn]+...+Hist[Yn][Mdn]) and Mdn=Mdn+1 and re-test
-	If false Mdn is the median of the current kernel position.
-
-This process is repeated for each pixels in the row. Then the arrays in Hist are updated for the next row, so that for each pixel of coordinate (X,Y) and of value G that is no more in the kernel Hist[Y][G] decrease by 1, and for each new pixel of coordinate (X,Y) and of value G in the kernel Hist[Y][G]. The the median values for the second row are computed in the same manner as the first, and this is repeated for all the rows of the original image. The process of sliding the kernel is presented in the Fig. A.
-
-
-![alg_1](images/median_algo3.png)  
-
-#### Fig 1. (a) Moving the histogram down one row by removing a pixel and adding another one. (b) Subtracting one histogram and adding another to move the window to the right.
-
+      swapped = true
+      while swapped
+        swapped = false
+        for j from 0 to N - 1
+           if a[j] > a[j + 1]
+              swap( a[j], a[j + 1] )
+              swapped = true
+From the sorted array obtained after running the bubble sort, the median is then defined as N/2 element of the array (assuming the kernel contain always contain an odd number of pixels). This whole process is repeated on all the pixels of the starting image to obtain the filtered image.
 
 
 ## Benchmarking analysis
-Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analysed here. In order to perform this benchmark, one script was implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. 
-The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did only 50 iterations because of the amount of time that each algorithm takes.
 
-For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Benchmarking analysis is  widely used to assess the relative performance of a function[^Fle1896] by comparing the performance of various algorithms and their implementation. In this rapport, only the relative speed of different analysis will be taken into consideration. The ImageJ and the TIMES modules CPU implementation of the median filter will be compared to our WebGL implementation.  The speed of the implementations will be computed for five different sizes of image (180x144, 360x288, 540x432, 720x576 and 900x720) and two different size of kernel (3x3 and 7x7 circular kernel) and three types of images (8-bit, 16-bit and float-32 or (or 32-bit for ImageJ)). For each combination of parameters the function will be run 1000 times (except for the CPU implementation for the 3 larger size of image which are run 100 times).
 
 # 3.Results
 
