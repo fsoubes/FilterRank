@@ -4,8 +4,8 @@
 /**
  * Invert uint8 images
  */
-let img0 = new T.Image('uint8',256,254);
-img0.setPixels(new Uint8Array(blobs_pixels));
+let img0 = new T.Image('uint8',180,144);
+img0.setPixels(new Uint8Array(boats_180));
 // img01.setPixels(new Float32Array(float32_blobs) );
 let win0 = new T.Window('Blobs uint8');
 let view0 = cpu.view(img0.getRaster());
@@ -17,8 +17,8 @@ let view0 = cpu.view(img0.getRaster());
 /**
  * Invert uint16 images
  */
-let img01 = new T.Image('uint16',256,254);
-let uint16_blobs = blobs_pixels.map ( (px) => px * 256);
+let img01 = new T.Image('uint16',180,144);
+let uint16_blobs = boats_180.map ( (px) => px * 256);
 img01.setPixels(new Uint16Array(uint16_blobs) );
 let win01 = new T.Window('Blobs uint16');
 let view01 = cpu.view(img01.getRaster());
@@ -30,8 +30,8 @@ let view01 = cpu.view(img01.getRaster());
 /**
  * Invert float32 images
  */
-let img02 = new T.Image('float32',256,254);
-let float32_blobs = blobs_pixels.map ( (px) => px / 256);
+let img02 = new T.Image('float32',180,144);
+let float32_blobs = boats_180.map ( (px) => px / 256);
 img02.setPixels(new Float32Array(float32_blobs) );
 let win02 = new T.Window('Blobs float32');
 let view02 = cpu.view(img02.getRaster());
@@ -40,7 +40,7 @@ win02.addToDOM('workspace');
 
 
 // Run CPU mean 5x5 
-let size = 3;
+let size = 15;
 let radius = size / 2.0 - 0.5;
 let kernel = cpu.convolutionKernel(
     //cpu.CPU_HARDWARE,                            // For cpu.convolve
@@ -59,17 +59,43 @@ let gpuEnv01 = gpu.getGraphicsContext();
 minimumFilter(img0.getRaster(),gpuEnv01,kernel);
 */
 
-let t0,t1;
 let gpuEnv02 = gpu.getGraphicsContext();
+
+let gpuEnv03 = gpu.getGraphicsContext();
+
+
+let t0,t1,t2,t3,t4,t5;
+let gpuEnv01 = gpu.getGraphicsContext();
+
 t0 = performance.now();
-maximumFilter(img02.getRaster(),gpuEnv02,kernel);
+minimumFilter(img0.getRaster(),gpuEnv01,kernel);
 t1 = performance.now();
 
-document.getElementById('performance').innerHTML += (`${t1 - t0} milliseconds.</p>`);
-/*
-let gpuEnv02 = gpu.getGraphicsContext();
+t2 = performance.now();
 minimumFilter(img01.getRaster(),gpuEnv02,kernel);
-let gpuEnv03 = gpu.getGraphicsContext();
+t3 = performance.now();
+
+t4 = performance.now();
 minimumFilter(img02.getRaster(),gpuEnv03,kernel);
-*/
+t5 = performance.now();
+
+document.getElementById('performance').innerHTML += (`${t1 - t0} milliseconds.</p>`);
+document.getElementById('performance').innerHTML += (`${t3 - t2} milliseconds.</p>`);
+document.getElementById('performance').innerHTML += (`${t5 - t4} milliseconds.</p>`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
