@@ -82,7 +82,7 @@ The naive algorithm is used for computing the variance with the convolve and als
 
 Webgl for Web Graphics Library is based on Javascript language and dispose of an API very detailed (khronos) and it is used for display interactive 2D or 3D graphics. It is compatible with all the common web browser without the use of any-plugins. In order, to implement the variance filter, we're using the kernel build by JC taveau. For a given size, the kernel act as an object containing various coordinates of offset depending of the axis x or y. For a kernel of 3x3 it will then contain 9 coordinates. Thus, from the central pixel it's possible to determinate and access to all the neighbourings pixels. 
 
-Based on this information, we map over those coordinates to store them in array to use them in the fragment shader.
+Based on this information, we map over those coordinates in order to store those coordinates (horizontalOffset and verticalOffset) to use them in the fragment shader. 
 
 
 
