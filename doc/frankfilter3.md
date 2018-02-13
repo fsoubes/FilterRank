@@ -166,9 +166,9 @@ For bigger kernels we can see the same pattern except that overall it seems that
 ## Overall performance comparison between imageJ, CPU and GPU for the variance filter.
 
 # 5.Conclusion
-In general, the execution time of every algorithm implemented are slower than the ImageJ  especially for high resolution images. The min_max and median algorithm have higher exexution time than the variance algorithm, however we do obtain close results for the similarity of the output images for each algorithm.
-For each algorithm we did try to functionalize as much as we could, and curried our functions delivering  fonctional algorithms which work with 8 bit,16bit and float32 images
-Finally the different algorithms respect what was developped in the first markdown for instance the min_max algorithm respects the process of 1D filter after 1D filter described in the first markdown, and the variance algorithm respects the algorithm proposed to calculate the variance of an image. On the other hand, the median filter has been implemented using a naive algorithm because the attempted implementation of the Huang algorithm ended more time consuming.
+
+Results obtained with our filter are quite similar in term of execution time with those observer in ImageJ for 8,16 and float32. However there is some slighly difference between the both output image, mainly because ImageJ  adjust the brightness and contrast . The execution time of our GPU implementation is much faster than the CPU implementation because of the parallelization of the treatment of each pixel, which mean our implementation has been successful. Further improvement can be added for the variance filter webgl implementation, first will be to use a texture that fit more for the 16 bit. Moreover, it's very hard to find the perfect treshold value for the variance filter as so, it will be interesting to add some widgets in webgl to manually change the treshold in function of the image resolution or the kernel size. Finally, an implementation of the integral image may be useful to not have to find an arbitrary threshold for the variance filter. As conclusion, this project has been very instructive mainly for the different knowledge assimilate (benchmark, js, webgl, bibliography research, team work, adaptation to the library TIMES)
+
 
 ## References
 
