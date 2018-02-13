@@ -100,7 +100,7 @@ This figure represents in A and D the default image (blobs 256x254-8bit) respect
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/substractGPU.png)
 #### Fig 2. Comparativ results of the blob image between imageJ and GPU implementation using a radius of 5 either on maximum or minimum filter. (A) image obtained with the function ImageCalculator Substract with ImageJ maximum filter and our GPU implmeentation, (B) image obtained with the function ImageCalculator Substract with ImageJ minimum filter and our GPU implmementation.
-This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter.
+This figure represents in A resulting image (blobs 256x254-8bit) respectively using maximum filter GPU implementation output and maximum filter from ImageJ, we can see the edges of each blob, this may due to a slighty different shape and radius between GPU and ImageJ kernel type. We obtain the same kind of pattern for the substract of the minimum filter. This might be explained by the type of kernel that might be different explaining such contrast.
 
 
 ## Benchmark comparison between ImageJ and our CPU and GPU implementation
@@ -120,11 +120,10 @@ On the figure 4, the execution time from the first resolution to the sixth doesn
 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius5guigui.png) 
 #### Fig 5. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for a circular kernel size = 5, filter = max. 
-On the figure 5, the execution time starts from 9 ms for the each type or image (8bit, 16bit,float 32) and grows slowly until a reaching point of almost 14ms for float32 image and 11ms for 8 bit and 16 bit. Those first two types share the same pattern and seems to stabilize from images with 1080 and higher. This benchmark of GPU implementation seems to be faster than ImageJ filter, indeed for any type of image the speed execution of GPU is twice faster than 
-ImageJ even though the kernel radius used in our GPU implementation was 5 unlike imageJ filter which had a radius of 3. 
+On the figure 5, the execution time starts from 9 ms for the each type or image (8bit, 16bit,float 32) and grows slowly until a reaching point of almost 14ms for float32 image and 11ms for 8 bit and 16 bit. Those first two types share the same pattern and seems to stabilize from images with 1080 resolution and higher. This benchmark of GPU implementation seems to be faster than ImageJ filter, indeed for any type of image the speed execution of GPU is twice faster than ImageJ even though the kernel radius used in our GPU implementation had a value of 5 unlike imageJ filter which had a radius of 3. 
 ![](https://github.com/fsoubes/FilterRank/blob/master/images/gpuradius15guigui.png) 
 #### Fig 6. Execution time benchmark analysis against the GPU min_max algorithm of ImageJ for acircular  kernel size = 15, filter = max. 
-On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an execution time around 10ms for each and every size of images. The 16 bit execution time grows exponentially from 64ms to 4267ms for the highest image size. The float 32 execution time grows as well exponentially from 50ms to 2901ms, in a strange way the float 32 curve takes less time than the 16 bit curve. We do not have any theory on why or what causes this difference.
+On the figure 6, the 8 bit benchmark is as fast as a kernel radius of 5, with an execution time around 10ms for each and every size of images. The 16 bit execution time grows exponentially from 64ms to 4267ms for the highest image size. The float 32 execution time grows as well exponentially from 50ms to 2901ms, in a strange way the float 32 curve takes less time than the 16 bit curve. We do not have any theory on why or what causes this difference, it might be due to loops insde our code that slows the speed of the program, in fact it is known that loops might slow exexcution time of the function.
 
 
 # 4.Discussion
