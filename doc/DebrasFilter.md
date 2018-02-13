@@ -10,7 +10,7 @@ For an identical window the pixel value will differ in function of the filters u
 The filter that chooses the maximum or minimum values is called the maximum filter or the minimum filter. In discrete mathematical morphology, the minimum and maximum ranks play a key role since they correspond to the fundamental erosion and dilation operators[^Soi2002][^Wer1985]. Lastly the variance filter is used to edge detection. Edges can be detected using the 1st (Sobel or Cany approaches[^Can1986][^Kit1983]) or 2nd deriviates(Log approach[^Mar1980]) of the grey level intensity. Nevertheless there's other alternatives using synthetic and real images with the variance filter[^Fab2011]. As demonstrated here our three main filters have their own field of expertise. 
 
 
-&nbsp;&nbsp; In this project we hhave to use a Web Graphics Library also called as WebGL which is a Javascript API for rendering interactive 2D and 3D grphics. Without using any plug-ins this can be used within any web browser. WebGL is an implementation of OpenGL ES 2.0. WebGL Library is based on allowing GPU-accelerated usage of both physics and image processing but also effects which'll become part of the web page canvas. The maintainer and designer of the WebGL Library is the non-profit Khronos Group. The program is a mix of code writen in Javascript plus shader code written in a language called OpenGL Shading Language or (GLSL), this language is extremely similar to C++ code. The principle of this Library is that the code is executed on a GPU (graphics processing unit) and not CPU for ( Central processing unit).
+&nbsp;&nbsp; In this project we hhave to use a Web Graphics Library also called as WebGL which is a Javascript API for rendering interactive 2D and 3D graphics. Without using any plug-ins this can be used within any web browser. WebGL is an implementation of OpenGL ES 2.0. WebGL Library is based on allowing GPU-accelerated usage of both physics and image processing but also effects which'll become part of the web page canvas. The maintainer and designer of the WebGL Library is the non-profit Khronos Group. The program is a mix of code writen in Javascript plus shader code written in a language called OpenGL Shading Language or (GLSL), this language is extremely similar to C++ code. The principle of this Library is that the code is executed on a GPU (graphics processing unit) and not CPU for ( Central processing unit).
 
 
 
@@ -54,7 +54,7 @@ In order to get each value for a random kernel we use the _texture_ method accor
 	            }
  
 
-### Sort of the values inside the kernel
+### Sort values inside the kernel
 In order to obtain the minimum and maximum values we decide to go through a basic sorting process with two loops with the pseudo code down below :
 
 	       (for i in kernel.length){
@@ -142,7 +142,7 @@ For the _minimumFilter_ and the _maximumfilter_ we almost obtain the same result
  
  
 # 5.Conclusion
-In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images.
+In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images but the results look quite the same
 Finally the minimum and maximum algorithms respect what was developped in class with the WEBGL conditions and respect the wEBGl API. We would like to thank Mr Jean-Christophe Taveau for the knowledge he gave us along the year on Structural Bioinformatics.
 
 
