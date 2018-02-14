@@ -141,7 +141,7 @@ For the _minimumFilter_ and the _maximumfilter_ we almost obtain the same result
  
  
 # 5.Conclusion
-In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ for low kernel radius but lower for high kernel radius. Our functions work with 8 bit,16bit and float32 images but the results look quite the same
+In general, the execution time of the CPU algorithm implemented is slower than the ImageJ  especially for high resolution images unlike GPU implementation which is faster than imageJ and CPU for low kernel radius but lower for high kernel radius in the case of imageJ. we conclude that the computation that has been parallelized by distributing the data amongst computing nodes has been sucessfully done. Our functions work with 8 bit,16bit and float32 images but the results look quite the same.
 Finally the minimum and maximum algorithms respect what was developped in class with the WEBGL conditions and respect the wEBGl API. We would like to thank Mr Jean-Christophe Taveau for the knowledge he gave us along the year on Structural Bioinformatics.
 
 
