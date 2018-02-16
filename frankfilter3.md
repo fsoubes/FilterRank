@@ -103,7 +103,7 @@ The same process is realized in the fragment shader with the computation of the 
 The main issues here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. As a result, we're making sure that there's no value over 255 and so for the other types of raster. 
 However for the 16 bit, we weren't able to find a solution to find a threshold that's fit to display the image with variance filter probably due to the the texture gl.REDUI16.
 
-In order to find the perfect threshold, I used the step method proposed by the edge detection group with their agreement, however it was not concluant because it was not as in ImageJ and the execution time was two times slower than without it. This code can be seen in the gpuVariance.js in commentary 
+In order to find the perfect threshold, I used the step method proposed by the edge detection group with their agreement, however it was not concluant. Indeed, this method transform pixels to binary values but when filtering with variance there's a specter of grey pixels, moreover the execution time was two times slower than without the tresholding. This code can be seen in the gpuVariance.js in commentary 
 	
 
 
