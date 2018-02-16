@@ -179,6 +179,7 @@ For bigger kernels we can see the same pattern except that overall it seems that
 
 The implementation of the naive algorithm in Webgl tends to gain in term of efectivness comparing to the CPU integral image, whereas the ouput image is the same for the CPU and GPU based on the one pass algorithm. By comparing the result of the image with ImageJ against our GPU, even if the substracting of those two shows many black pixels compared to the integral image with ImageJ it's not quite still similar.
 Indeed, ImageJ adjust the brightness and contrast after having computed the variance, while it's not the case for our algorithm.
+In term of implementation, I discuss with the group of edge detection to find a solution in order to find a threshold that fit perfectly with the different raster types. The code is present in gpuVariance.js, however it was not successful.
 
 
 ## Overall performance comparison between imageJ, CPU and GPU for the variance filter.
