@@ -24,9 +24,7 @@
 
 'use script';
 
-/* Source
-https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
-*/
+
 /**
  * Variance filter
  *
