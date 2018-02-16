@@ -177,7 +177,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 }
  /*
     //return raster;
-    //NON MAXIMUM SUPPRESSION, DOUBLE THRESHOLD   
+    //NON MAXIMUM SUPPRESSION, DOUBLE THRESHOLD Proposed by Cécilia Ostertag   
   let outColor_nonmax;
   let texCoord;
   let n1;
