@@ -81,7 +81,7 @@ where I'(x,y) is the sum of all pixels values between I(0,0) and I(x,y) inclusiv
 
 ### Choice of algorithm for webgl implementation
 
-The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[^Bra2007][^Sar2015] both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was picked mainly for the performance and it's the same algorithm that in ImageJ.
+The naive algorithm is used for computing the variance with the convolve and also for the webgl implementation. The main reason to use this algorithm is that it can be computed in one pass. The method with the convolve was implemented by JC Taveau, while I implemented an other method based on integral image[^Bra2007][^Sar2015] both of these methods are available in TIMES(CPU). However, the previous method is not that performant as described in the benchmark and it's rather difficult to implement it in webgl. Hence, the one pass algorithm was mainly picked for his performance and it's the same algorithm than ImageJ.
 
 ### Webgl implementation
 
@@ -100,10 +100,11 @@ The main strength of the naive algorithm, is that the variance can be computed i
 	n <- number of pixels for a given kernel
 	
 The same process is realized in the fragment shader with the computation of the sum, the square sum, then the subtraction of those two and put the result in the output color. 
-The main issue here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. As a result, we're making sure that there's no value over 255 and so for the other types of raster. 
-However for the 16 bit, we weren't able to find a solution to find a threshold that's fit to display the image with variance filter probably due to the the texture gl.REDUI16
-	
+The main issues here was to pass those values that are between 0 and 1 because of the fragment shader treat only values in a set of range between [0..1] as said earlier. For a raster type of 8 bit we multiply the pixels containing in the output color by 255. As a result, we're making sure that there's no value over 255 and so for the other types of raster. 
+However for the 16 bit, we weren't able to find a solution to find a threshold that's fit to display the image with variance filter probably due to the the texture gl.REDUI16.
 
+In order to find the perfect threshold, I used the step method proposed by the edge detection group with their agreement, however it was not concluant because it was not as in ImageJ and the execution time was two times slower than without it. This code can be seen in the gpuVariance.js in commentary 
+	
 
 
 ## Benchmarking analysis
@@ -111,7 +112,7 @@ However for the 16 bit, we weren't able to find a solution to find a threshold t
 Benchmarking analysis is a method widely used to assess the relative performance of an object[^Fle1896]. That way, it's possible to compare the performance of various algorithms. Only execution time and memory load will be analyzed here. In order to perform this benchmark, one script was implemented. The first script, named *benchmark2* whose aim is to compute the time speed between the start and the end of an input image coming from ImageJ during the filtering process. This script was implemented using the ImageJ macro language. 
 The operation process is run 1000 times for ImageJ measurements to provide robust data. In order to not recording false values we're not considering the first 100 values. Indeed during the execution, we must take into account the internal allocations of the loading images which may introduce error in our measurement. For our own algorithm we did only 50 iterations because of the amount of time that each algorithm takes.
 
-For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size.
+For this project the benchmark was performed with the operating system Linux (4.9.0-3-amd64)  using the 1.8.0_144 version of Java and running with the 1.51q version of ImageJ. The model image of this benchmark is Lena for various pixels size for the GPU the graphical card is a nvidia 1050 ti.
 
 # 3.Results
 
