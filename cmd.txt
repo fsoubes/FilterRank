@@ -1,0 +1,1 @@
+pandoc frankfilter3.md --latex-engine=xelatex -V margin-left=2.5cm -V margin-right=2.5cm -f markdown-implicit_figures -o variancefilter.pdf

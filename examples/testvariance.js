@@ -33,6 +33,7 @@ let size = 3;// 64
 let radius = size / 2.0 - 0.5;
 //let radius = size ;
 let kernel5x5 = cpu.convolutionKernel(
+ //cpu.CPU_HARDWARE,                            // For cpu.convolve
     //cpu.KERNEL_SQUARE,
     cpu.KERNEL_CIRCLE,                         // Circular kernel
     size,                                        // Circle contained in a square
@@ -47,11 +48,6 @@ console.log(kernel5x5);
 let gpuEnv = gpu.getGraphicsContext();
 
 // Run invert
-var t0 = performance.now();
 
 
-varianceFilter(0.5,0.6)(img.getRaster(), gpuEnv, kernel5x5);
-//varianceFilter(img1.getRaster(), gpuEnv, kernel5x5);
-var t1 = performance.now();
-let res = (((t1 - t0) ).toFixed(4));
-
+varianceFilter(img.getRaster(), gpuEnv, kernel5x5);

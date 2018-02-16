@@ -34,6 +34,7 @@ https://medium.com/david-guan/webgl-and-image-filter-101-5017b290d02f
  * @author Franck Soubès
  */
 
+//const gpuEdgeCanny = (low_thr,high_thr) => (raster, graphContext, kernel, copy_mode = true) => {
 const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 
     //Create GPU kernel
@@ -174,8 +175,87 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 	.uniform('u_height', raster.height) //Ajout
 	.uniform('u_width', raster.width) //Ajout
 	.run();
-    
     return raster;
 }
+ /*
+    //return raster;
+    //NON MAXIMUM SUPPRESSION, DOUBLE THRESHOLD   
+  let outColor_nonmax;
+  let texCoord;
+  let n1;
+  let n2;
+  switch (raster.type) {
+    case 'uint8': 
+    {
+    	texCoord=`texture(u_image, v_texCoord)`;
+    	n1=`texture(u_image, v_texCoord + (neighDir * vec2(stepSizeX,stepSizeY)))`;
+    	n2=`texture(u_image, v_texCoord - (neighDir * vec2(stepSizeX,stepSizeY)))`;
+    	break;
+    }
+    case 'rgba' : outColor_blurV = `texture(u_image, v_texCoord).rgb`; break; 
+    case 'uint16': 
+    {
+    	texCoord=`vec4(float(texture(u_image, v_texCoord)))`;
+    	n1=`vec4(float(texture(u_image, v_texCoord + (neighDir * vec2(stepSizeX,stepSizeY)))))`;
+    	n2=`vec4(float(texture(u_image, v_texCoord - (neighDir * vec2(stepSizeX,stepSizeY)))))`;
+    	break;
+    }
+    case 'float32':
+    {
+    	texCoord=`texture(u_image, v_texCoord)`;
+    	n1=`texture(u_image, v_texCoord + (neighDir * vec2(stepSizeX,stepSizeY)))`;
+    	n2=`texture(u_image, v_texCoord - (neighDir * vec2(stepSizeX,stepSizeY)))`;
+    	break;
+    }
+  }
+  
+  const getFragmentSource_nonmax = (samplerType,outVec,stepSizeX,stepSizeY,texCoord,n1,n2) => {
+    return `#version 300 es
+    #pragma debug(on)
+    precision mediump usampler2D;
+    precision mediump float;
+    
+    in vec2 v_texCoord;
+    const float maxUint16 = 65535.0;
+    uniform ${samplerType} u_image;
+    uniform vec2 threshold;
+    
+    out vec4 outColor;
+    
+    void main() {
+    
+    	float stepSizeX = float(${stepSizeX});
+    	float stepSizeY = float(${stepSizeY});
+		vec4 texCoord = vec4(${texCoord});
+		vec2 neighDir = texCoord.gb * 2.0 - vec2(1.0);
+		vec4 n1 = vec4(${n1}); //grad of neighboring pixel in grad direction
+		vec4 n2 = vec4(${n2}); //grad of opposite neighboring pixel in grad direction
+		
+		float edgeStrength = texCoord.r * step(max(n1.r,n2.r), texCoord.r); // step returns 0 if grad is not a maximum , returns 1 if grad is a maximum, then multiplied by grad of the current pixel
+		outColor = vec4(smoothstep(threshold.s, threshold.t, edgeStrength),0.0,0.0,1.0); //returns a value between 0 and 1 if grad is between low thr and high thr
+		
+    }`;
+  }
 
+let shader_nonmax = gpu.createProgram(graphContext,src_vs,getFragmentSource_nonmax(samplerType,outColor_nonmax,stepSizeX,stepSizeY,texCoord,n1,n2));   
+    
+    let gproc_nonmax = gpu.createGPU(graphContext,raster.width,raster.height)
+    .size(raster.width,raster.height)
+    .geometry(gpu.rectangle(raster.width,raster.height))
+    .attribute('a_vertex',2,'float', 16,0)      // X, Y
+    .attribute('a_texCoord',2, 'float', 16, 8)  // S, T
+    .texture(gproc_sobel.framebuffers['fbo1'])
+    .redirectTo('fbo2','float32',0)
+    .packWith(shader_nonmax) // VAO
+    .clearCanvas([0.0,1.0,1.0,1.0])
+    .preprocess()
+    .uniform('u_resolution',new Float32Array([1.0/raster.width,1.0/raster.height]))
+    .uniform('u_image',0)
+    .uniform('threshold', new Float32Array([low_thr/255.0,high_thr/255.0]))
+    .run(); 
+    
+    console.log('non maximum suppression done...');
+    return raster;
+}
+*/
 
