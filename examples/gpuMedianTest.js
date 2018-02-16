@@ -43,7 +43,7 @@ win02.addView(view02);
 win02.addToDOM('workspace');
 
 // Run CPU mean 5x5 
-let size = 3;
+let size = 5;
 let radius = size / 2.0 - 0.5;
 let kernel = cpu.convolutionKernel(
     cpu.KERNEL_CIRCLE,                           // Circular kernel
@@ -76,7 +76,7 @@ for (let j=0; j<rasterList.length; j++){
 }
 
 // Test Cpu
-let medianFilteredList = [];
+/*let medianFilteredList = [];
 var resultCpu =[];
 for (let j=0; j<rasterList.length; j++){
     var t0 = performance.now();
@@ -97,13 +97,13 @@ let view30 = cpu.view(medianFilteredList[2]);
 win20.addView(view20);
 win30.addView(view30);
 win20.addToDOM('workspace');
-win30.addToDOM('workspace');
+win30.addToDOM('workspace');*/
 
 
 // Print result
-for (let i=0; i<resultGpu.length; i++){
+/*for (let i=0; i<resultGpu.length; i++){
     console.log(resultGpu[i]);
 }
 for (let i=0; i<resultCpu.length; i++){
     console.log(resultCpu[i]);
-}
+}*/
