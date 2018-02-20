@@ -142,7 +142,7 @@ const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
     switch (raster.type) {
     case 'uint8': outColor = `(variance.rgb)`; break;
     case 'rgba' : outColor = `variance.rgb`; break; 
-    case 'uint16': outColor = `vec3(variance.r)/maxUint16`; break; // dsnt work dont know why T.T
+    case 'uint16': outColor = `vec3(variance.r)/maxUint16`; break; 
     case 'float32': outColor = `vec3(variance.r)`; break; 
  
     }
