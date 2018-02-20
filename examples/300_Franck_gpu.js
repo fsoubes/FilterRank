@@ -50,8 +50,8 @@ let gpuEnv = gpu.getGraphicsContext();
 var t0 = performance.now();
 
 
-varianceFilter(0.5,0.6)(img.getRaster(), gpuEnv, kernel5x5);
-//varianceFilter(img1.getRaster(), gpuEnv, kernel5x5);
+//varianceFilter(0.5,0.6)(img.getRaster(), gpuEnv, kernel5x5);
+varianceFilter(img.getRaster(), gpuEnv, kernel5x5);
 var t1 = performance.now();
 let res = (((t1 - t0) ).toFixed(4));
 
