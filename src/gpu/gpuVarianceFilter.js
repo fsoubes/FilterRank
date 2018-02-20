@@ -32,7 +32,6 @@
  * @author Franck Soubès
  */
 
-//const gpuEdgeCanny = (low_thr,high_thr) => (raster, graphContext, kernel, copy_mode = true) => {
 const varianceFilter = (raster, graphContext, kernel, copy_mode = true) => {
 
     //Create GPU kernel
