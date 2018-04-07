@@ -192,6 +192,16 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
 	return acc;
     },[]);
 	
+    const flatten = (array) => {
+	return array.reduce((acc, element) => {
+	    return acc.concat(element);
+	},[]);
+    };
+    
+    img_returned2=flatten(img_returned)
+    
+    return img_returned2;
+	
 }
 
 const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
