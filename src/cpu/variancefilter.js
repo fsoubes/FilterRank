@@ -175,21 +175,23 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
      * @author Franck Soubès
      */
 
-    let img_returned =[];
-    
-    for (let x = k-1  ;  x <= h + (k-2) ; x++){
-	for(  let y = k-1  ; y <= w+(k-2) ; y++){
-	    
-	    // push black pixel for abberant coordinnates that'll falsify the results
-	    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 ||// left
-	    img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0 || // down
-	    img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 ||// up
-	    img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
-	    ? img_returned.push(0): img_returned.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]);
-
+    let img_returned = img.reduce(function(acc,elem,x){
+	if( x >= k-1 && x<= h + (k-2)){
+	    computed = elem.reduce(function(acc2,elem2,y){
+		if(y >= k-1 && y <= w + (k-2)){
+		    img[x-1][y-1] == 0 && img[x+k-1][y-1] == 0 // left
+		    || img[x+k-1][y+k-1] == 0 && img[x+k-1][y-1]== 0 && img[x+k-1][y+k-1] == 0  // down
+		    || img[x-1][y-1] == 0 && img[x-1][y+k-1] == 0 // up
+		    || img[x+k-1][y+k-1] == 0 && img[x-1][y+k-1] == 0 // right
+		    ? acc2.push(0): acc2.push(img[x-1][y-1]-img[x+k-1][y-1]-img[x-1][y+k-1]+img[x+k-1][y+k-1]);
+		}
+		return acc2;
+	    },[]);
+	    acc.push(computed)
 	}
-    }
-    return img_returned; // 1d
+	return acc;
+    },[]);
+	
 }
 
 const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
