@@ -112,9 +112,7 @@ const variance = (kernel) => (img,copy_mode = true) => {
 }
 
 
-const padding = function(img,k,w,h,flag,copy_mode = true){
-
-    /**
+ /**
      * Padding : Fill with 0 an image in function of the kernel radius.
      *
      * @param {TRaster} img - Input image to process.
@@ -128,6 +126,11 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
      * 
      * @author Franck Soubès
      */
+
+
+const padding = function(img,k,w,h,flag,copy_mode = true){
+
+   
     
     let ima ;
     if (flag){
