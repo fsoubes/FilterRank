@@ -29,10 +29,7 @@
  * @module rankFilters
  */
 
-
-const variance = (kernel) => (img,copy_mode = true) => {
-   
-    /**
+/**
      * Variance filter :  It will first compute the summed area table of 
      * all the pixels wihtin the first img and after compute the summed squared area 
      * table of all the pixels within the img2.
@@ -50,7 +47,9 @@ const variance = (kernel) => (img,copy_mode = true) => {
      * @author Franck Soubès - Jean-Christophe Taveau 
      */
 
-    
+
+const variance = (kernel) => (img,copy_mode = true) => {
+   
 
     let output = T.Raster.from(img,copy_mode);
     let w= img.width;
@@ -160,9 +159,8 @@ const padding = function(img,k,w,h,flag,copy_mode = true){
     return img;
 }
 
-const Getcoord = function (img ,w,h,k,copy_mode=false){
-    
-    /**
+
+ /**
      * Getcoord : Compute the four coordinates of the main algorithm and treat the edges.
      *
      * @param {Array} img -  Convolution mask represented by a single value
@@ -174,6 +172,10 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
      *
      * @author Franck Soubès
      */
+
+const Getcoord = function (img ,w,h,k,copy_mode=false){
+    
+   
 
     let img_returned = img.reduce(function(acc,elem,x){
 	if( x >= k-1 && x<= h + (k-2)){
@@ -204,9 +206,8 @@ const Getcoord = function (img ,w,h,k,copy_mode=false){
 	
 }
 
-const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
 
-    /**
+/**
      * Variancefilter : simply apply the variance formula. 
      *
      * @param {TRaster} img1 - Input image to process.
@@ -220,6 +221,10 @@ const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
      *
      * @author Franck Soubès
      */
+
+const getvar = function (img, img2,type, w, h,kernel,copy_mode=true) {
+
+    
     
     let arr= Array.from(Array(w), () => NaN);
     let width = arr.map((i,x) => x);
